@@ -51,7 +51,10 @@ module.exports = {
         SaveAsPlugin: require('../MapStore2/web/client/plugins/SaveAs'),
         CreateNewMapPlugin: require('../MapStore2/web/client/plugins/CreateNewMap'),
         QueryPanelPlugin: require('../MapStore2/web/client/plugins/QueryPanel'),
-        FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid')
+        FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid'),
+        HeaderPlugin: require('./plugins/Header'),
+        FooterPlugin: require('./plugins/Footer'),
+        AttributionPlugin: require('./plugins/Attribution')
     },
     requires: {
         ReactSwipe: require('react-swipeable-views').default,

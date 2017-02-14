@@ -1,10 +1,5 @@
   {
-    "proxyUrl": {
-      "url": "/mapstore/proxy/?url=",
-      "useCORS": ["http://demo.geo-solutions.it/geoserver"]
-    },
     "geoStoreUrl": "/mapstore/rest/geostore/",
-    "printUrl": "http://demo.geo-solutions.it/geoserver/pdf/info.json",
     "bingApiKey": "AhuXBu7ipR1gNbBfXhtUAyCZ6rkC5PkWpxs2MnMRZ1ZupxQfivjLCch22ozKSCAn",
     "translationsPath": "../MapStore2/web/client/translations",
     "mapquestApiKey": "__API_KEY_MAPQUEST__",
@@ -128,15 +123,6 @@
             },
             "wrap": true
           }
-      }, {
-          "name": "About",
-          "hideFrom": "DrawerMenu",
-          "cfg": {
-            "modalConfig": {
-                "useModal": false,
-                "closeGlyph": "1-close"
-          }
-        }
       },
       {
         "name": "MousePosition",
@@ -553,7 +539,7 @@
             "className": "square-button"
           }
         }
-      }],
+      }, "Attribution"],
       "embedded": [
         {
           "name": "Map",
@@ -663,15 +649,6 @@
               },
               "wrap": true
             }
-        }, {
-          "name": "About",
-          "hideFrom": "DrawerMenu",
-          "cfg": {
-            "modalConfig": {
-                "useModal": false,
-                "closeGlyph": "1-close"
-            }
-          }
         },
         {
            "name": "MousePosition",
@@ -762,9 +739,15 @@
              }]
 
           }
-      }, {"name": "Language"}],
+      }, {"name": "Language"}, {
+        "name": "Footer",
+        "cfg": {
+          "bottom": true
+        }
+        }],
 
       "maps": [
+        {"name": "Header", "hide": true},
         {"name": "MapSearch"},
         {"name": "CreateNewMap"},
         {"name": "Maps"}

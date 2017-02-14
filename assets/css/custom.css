@@ -14,7 +14,7 @@
     height: 100%;
 }
 
-#page-maps .container-fluid {
+#page-maps .row .container-fluid {
     min-height: 500px;
 }
 
@@ -31,4 +31,23 @@
 
 #MetadataModal .Select-menu-outer, #MetadataModal .Select-menu {
     max-height: 100px;
+}
+.ms-footer{
+    margin-top: 50px;
+    padding-bottom: 30px;
+    text-align: center;
+    color: #5C9FB4;
+    margin-bottom: 30px;
+    border-top: 1px solid #5C9FB4;
+}
+.mapstore-header {
+
+}
+.mapstore-header .logo {
+    background-image: url('../img/logo.jpg');
+    position: absolute;
+    height: 50px;
+    min-width: 170px;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
