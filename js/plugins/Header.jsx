@@ -26,7 +26,7 @@ module.exports = {
     HeaderPlugin: assign(Header, {
         OmniBar: {
             name: 'header',
-            position: 1,
+            position: 0,
             tool: true,
             priority: 1
         }

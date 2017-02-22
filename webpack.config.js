@@ -99,11 +99,11 @@ module.exports = {
     devServer: {
         proxy: {
             '/mapstore/rest/geostore': {
-                target: "http://mappe.comune.genova.it",
-                pathRewrite: {'^/mapstore/rest/geostore' : '/geostore/rest'}
+                target: "http://dev.mapstore2.geo-solutions.it"//,
+                //pathRewrite: {'^/mapstore/rest/geostore' : '/geostore/rest'}
             },
             '/mapstore/proxy': {
-                target: "http://mappe.comune.genova.it"
+                target: "http://dev.mapstore2.geo-solutions.it"
             }
         }
     },

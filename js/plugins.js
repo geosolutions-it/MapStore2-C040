@@ -52,6 +52,7 @@ module.exports = {
         CreateNewMapPlugin: require('../MapStore2/web/client/plugins/CreateNewMap'),
         QueryPanelPlugin: require('../MapStore2/web/client/plugins/QueryPanel'),
         FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid'),
+        TutorialPlugin: require('../MapStore2/web/client/plugins/Tutorial'),
         HeaderPlugin: require('./plugins/Header'),
         FooterPlugin: require('./plugins/Footer'),
         AttributionPlugin: require('./plugins/Attribution')

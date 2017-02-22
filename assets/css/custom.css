@@ -41,11 +41,10 @@
     border-top: 1px solid #5C9FB4;
 }
 .mapstore-header {
-
+    float: left;
 }
 .mapstore-header .logo {
     background-image: url('../img/logo.jpg');
-    position: absolute;
     height: 50px;
     min-width: 170px;
     background-repeat: no-repeat;
