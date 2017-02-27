@@ -109,7 +109,7 @@
   </repositories>
 
   <build>
-    <finalName>MapStore2-C040</finalName>
+    <finalName>MapStore2</finalName>
     <plugins>
         <plugin>
             <artifactId>maven-resources-plugin</artifactId>
@@ -121,7 +121,7 @@
                         <goal>copy-resources</goal>
                     </goals>
                     <configuration>
-                        <outputDirectory>${basedir}/target/MapStore2-C040</outputDirectory>
+                        <outputDirectory>${basedir}/target/MapStore2</outputDirectory>
                         <encoding>UTF-8</encoding>
                         <resources>
                             <resource>
@@ -146,7 +146,7 @@
                         <goal>copy-resources</goal>
                     </goals>
                     <configuration>
-                        <outputDirectory>${basedir}/target/MapStore2-C040/dist</outputDirectory>
+                        <outputDirectory>${basedir}/target/MapStore2/dist</outputDirectory>
                         <encoding>UTF-8</encoding>
                         <resources>
                             <resource>
@@ -162,7 +162,7 @@
                         <goal>copy-resources</goal>
                     </goals>
                     <configuration>
-                        <outputDirectory>${basedir}/target/MapStore2-C040/assets</outputDirectory>
+                        <outputDirectory>${basedir}/target/MapStore2/assets</outputDirectory>
                         <encoding>UTF-8</encoding>
                         <resources>
                             <resource>
@@ -178,7 +178,7 @@
                         <goal>copy-resources</goal>
                     </goals>
                     <configuration>
-                        <outputDirectory>${basedir}/target/MapStore2-C040/MapStore2/web/client</outputDirectory>
+                        <outputDirectory>${basedir}/target/MapStore2/MapStore2/web/client</outputDirectory>
                         <encoding>UTF-8</encoding>
                         <resources>
                             <resource>
