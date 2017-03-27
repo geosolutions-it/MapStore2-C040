@@ -1,6 +1,7 @@
 {
   "geoStoreUrl": "rest/geostore/",
   "printUrl": "/geoserver-test/pdf/info.json",
+  "wmsURL": "/geoserver-test/wms",
   "proxyUrl": {
     "url": "/MapStore2/proxy/?url=",
     "useCORS": ["http://nominatim.openstreetmap.org", "https://nominatim.openstreetmap.org"]

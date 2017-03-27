@@ -13,6 +13,7 @@ const {connect} = require('react-redux');
 
 const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
+const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
 const {startFeatureLoader} = require('../actions/featureloader');
 const MapViewer = require('../../MapStore2/web/client/containers/FeatureViewer');
 
@@ -31,11 +32,12 @@ const MapViewerPage = React.createClass({
         };
     },
     componentWillMount() {
-        this.props.onMount(this.props.params);
+        this.props.onMount(ConfigUtils.getConfigProp("wmsURL"), this.props.params);
     },
     render() {
         return (<MapViewer
             mode={this.props.mode}
+            params={this.props.params}
             plugins={this.props.plugins}
             />);
     }

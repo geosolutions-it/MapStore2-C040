@@ -10,8 +10,9 @@ module.exports = {
     /**
      * start loading the features
      */
-    startFeatureLoader: (params = {}) => ({
+    startFeatureLoader: (wmsURL, params = {}) => ({
         type: STARTLOADING,
+        wmsURL,
         layer: params.layer,
         cql_filter: params.cql_filter
     }),

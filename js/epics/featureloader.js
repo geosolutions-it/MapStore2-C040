@@ -20,11 +20,11 @@ module.exports = {
                                     }
                                 }))
                         .concat(
-                            Rx.Observable.defer(() => axios.get( `/geoserver-test/wms?service=WMS&version=1.1.1&request=DescribeLayer&layers=${action.layer}&output_format=application/json`))
+                            Rx.Observable.defer(() => axios.get( `${action.wmsURL}?service=WMS&version=1.1.1&request=DescribeLayer&layers=${action.layer}&output_format=application/json`))
                                 .switchMap(({ data }) => // TODO change geoserver url
                                     Rx.Observable.of(addLayer({
                                         type: 'wms',
-                                        url: '/geoserver/wms',
+                                        url: `${action.wmsURL}`,
                                         visibility: true,
                                         name: data.layerDescriptions && data.layerDescriptions[0] && data.layerDescriptions[0].layerName,
                                         title: data.layerDescriptions && data.layerDescriptions.layerName
