@@ -14,7 +14,7 @@ const {connect} = require('react-redux');
 const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
 const {startFeatureLoader} = require('../actions/featureloader');
-const MapViewer = require('../../MapStore2/web/client/containers/MapViewer');
+const MapViewer = require('../../MapStore2/web/client/containers/FeatureViewer');
 
 const MapViewerPage = React.createClass({
     propTypes: {
@@ -35,6 +35,7 @@ const MapViewerPage = React.createClass({
     },
     render() {
         return (<MapViewer
+            mode={this.props.mode}
             plugins={this.props.plugins}
             />);
     }

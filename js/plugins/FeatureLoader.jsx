@@ -9,7 +9,7 @@ const React = require('react');
 
 const FeatureLoader = React.createClass({
     render() {
-        return <div></div>;
+        return <noscript></noscript>;
     }
 });
 

@@ -76,7 +76,49 @@
     {
       "name": "Search",
       "cfg": {
-        "withToggle": ["max-width: 768px", "min-width: 768px"]
+        "withToggle": ["max-width: 768px", "min-width: 768px"],
+        "cfg": {
+          "searchOptions": {
+            "services": [{
+                "type": "wfs",
+                "priority": 2,
+                "displayName": "${properties.NOMEVIA}",
+                "subTitle": " (seleziona per cercare numero civico)",
+                "options": {
+                  "url": "/geoserver-test/wfs",
+                  "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
+                  "queriableAttributes": ["NOMEVIA"],
+                  "sortBy": "ID",
+                  "srsName": "EPSG:4326",
+                  "maxFeatures": 4
+                },
+                "nestedPlaceholder": "Digita numero civico o località",
+                "then": [{
+                      "type": "wfs",
+                      "filterTemplate": " AND COD_STRADA = '${properties.COD_STRADA}'",
+                      "priority": 1,
+                      "displayName": "${properties.DESVIA} ${properties.TESTO}",
+                      "subTitle": " (ricerca numero civico)",
+                      "searchTextTemplate": "${properties.TESTO}",
+                      "options": {
+                        "url": "/geoserver-test/wfs",
+                        "typeName": "SITGEO:CIVICI_COD_TOPON",
+                        "queriableAttributes": ["TESTO"],
+                        "srsName": "EPSG:4326",
+                        "maxFeatures": 10
+                      }
+                  }]
+            }, {
+                "type": "nominatim",
+                "searchTextTemplate": "${properties.display_name}",
+                "options": {
+                  "polygon_geojson": 1,
+                  "limit": 3
+                }
+            }]
+          },
+          "withToggle": ["max-width: 768px", "min-width: 768px"]
+        }
       }
     }, {
       "name": "Toolbar",
@@ -136,7 +178,12 @@
         "cfg": {
           "showResults": false
         }
-    }, "MeasureResults", "Print", "ShapeFile", {
+    }, "MeasureResults", {
+      "name": "Print",
+      "cfg": {
+          "useFixedScales": true
+        }
+      }, "ShapeFile", {
       "name": "Settings",
       "cfg": {
         "wrap": true
@@ -161,7 +208,7 @@
                 "displayName": "${properties.NOMEVIA}",
                 "subTitle": " (seleziona per cercare numero civico)",
                 "options": {
-                  "url": "/geoserver/wfs",
+                  "url": "/geoserver-test/wfs",
                   "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
                   "queriableAttributes": ["NOMEVIA"],
                   "sortBy": "ID",
@@ -177,7 +224,7 @@
                       "subTitle": " (ricerca numero civico)",
                       "searchTextTemplate": "${properties.TESTO}",
                       "options": {
-                        "url": "/geoserver/wfs",
+                        "url": "/geoserver-test/wfs",
                         "typeName": "SITGEO:CIVICI_COD_TOPON",
                         "queriableAttributes": ["TESTO"],
                         "srsName": "EPSG:4326",
@@ -321,7 +368,12 @@
       },
       "OmniBar", "BurgerMenu"
     ],
-    "featureviewer": ["Map", "Help", "Share", "DrawerMenu",
+    "featureviewer": [{
+        "name": "Map",
+        "cfg": {
+          "tools": [ "locate", "draw", "highlight"]
+        }
+      }, "Share",
       {
          "name": "Identify",
          "showIn": ["IdentifyBar", "Settings"],
@@ -344,76 +396,7 @@
               "alwaysVisible": true
             }
           }
-      }, "Home", "FeatureGrid", {
-          "name": "TOC",
-          "cfg": {
-            "activateQueryTool": true
-          }
-      }, "Tutorial", "BackgroundSwitcher", {
-          "name": "Measure",
-          "cfg": {
-            "showResults": false
-          }
-      }, "MeasureResults", "Print", "ShapeFile", {
-        "name": "Settings",
-        "cfg": {
-          "wrap": true
-        }
-      }, {
-          "name": "MetadataExplorer",
-          "cfg": {
-            "wrap": true,
-            "initialCatalogURL": {
-              "csw": "/geonetwork/srv/ita/csw",
-              "wms": "/geoserver-test/wms",
-              "wmts": "/geoserver-test/gwc/service/wmts"
-            }
-          }
-      }, "MousePosition", {
-          "name": "Search",
-          "cfg": {
-            "searchOptions": {
-              "services": [{
-                  "type": "wfs",
-                  "priority": 2,
-                  "displayName": "${properties.NOMEVIA}",
-                  "subTitle": " (seleziona per cercare numero civico)",
-                  "options": {
-                    "url": "/geoserver/wfs",
-                    "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
-                    "queriableAttributes": ["NOMEVIA"],
-                    "sortBy": "ID",
-                    "srsName": "EPSG:4326",
-                    "maxFeatures": 4
-                  },
-                  "nestedPlaceholder": "Digita numero civico o località",
-                  "then": [{
-                        "type": "wfs",
-                        "filterTemplate": " AND COD_STRADA = '${properties.COD_STRADA}'",
-                        "priority": 1,
-                        "displayName": "${properties.DESVIA} ${properties.TESTO}",
-                        "subTitle": " (ricerca numero civico)",
-                        "searchTextTemplate": "${properties.TESTO}",
-                        "options": {
-                          "url": "/geoserver/wfs",
-                          "typeName": "SITGEO:CIVICI_COD_TOPON",
-                          "queriableAttributes": ["TESTO"],
-                          "srsName": "EPSG:4326",
-                          "maxFeatures": 10
-                        }
-                    }]
-              }, {
-                  "type": "nominatim",
-                  "searchTextTemplate": "${properties.display_name}",
-                  "options": {
-                    "polygon_geojson": 1,
-                    "limit": 3
-                  }
-              }]
-            },
-            "withToggle": ["max-width: 768px", "min-width: 768px"]
-          }
-      }, {
+      }, "FeatureGrid", {
         "name": "Toolbar",
         "id": "NavigationBar",
         "cfg": {
@@ -428,7 +411,6 @@
         },
         "isDefault": false
       },
-      "ScaleBox", "ZoomAll",
       {
         "name": "MapLoading",
         "override": {
@@ -437,12 +419,7 @@
           }
         }
       },
-      {
-          "name": "Snapshot",
-          "cfg": {
-            "wrap": true
-          }
-      },
+
       {
         "name":"ZoomIn",
         "override": {
@@ -459,7 +436,7 @@
           }
         }
       },
-      "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FeatureLoader"
+      "OmniBar", "Login", "BurgerMenu", "FeatureLoader"
     ],
     "common": [{
       "name": "OmniBar",

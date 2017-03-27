@@ -1,13 +1,23 @@
-var webpackConfig = require('./webpack.config.js');
-var path = require("path");
-var LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
-var ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
-var DefinePlugin = require("webpack/lib/DefinePlugin");
-var NormalModuleReplacementPlugin = require("webpack/lib/NormalModuleReplacementPlugin");
+const webpackConfig = require('./webpack.config.js');
+const path = require("path");
+const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
+const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+const DefinePlugin = require("webpack/lib/DefinePlugin");
+const NormalModuleReplacementPlugin = require("webpack/lib/NormalModuleReplacementPlugin");
+const NoEmitOnErrorsPlugin = require("webpack/lib/NoEmitOnErrorsPlugin");
+const extractThemesPlugin = require('./MapStore2/themes.js').extractThemesPlugin;
 
 webpackConfig.plugins = [
     new LoaderOptionsPlugin({
-        debug: false
+        debug: false,
+        options: {
+           postcss: {
+               plugins: [
+                   require('postcss-prefix-selector')({prefix: '.ms2', exclude: ['.ms2']})
+               ]
+           },
+           context: __dirname
+       }
     }),
     new DefinePlugin({
         "__DEVTOOLS__": false
@@ -27,7 +37,9 @@ webpackConfig.plugins = [
             compress: {warnings: false},
             mangle: true
         }
-    })
+    }),
+    new NoEmitOnErrorsPlugin(),
+    extractThemesPlugin
 ];
 webpackConfig.devtool = undefined;
 
