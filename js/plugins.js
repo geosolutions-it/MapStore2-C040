@@ -57,7 +57,8 @@ module.exports = {
         HeaderPlugin: require('./plugins/Header'),
         FooterPlugin: require('./plugins/Footer'),
         AttributionPlugin: require('./plugins/Attribution'),
-        FeatureLoader: require('./plugins/FeatureLoader')
+        FeatureLoader: require('./plugins/FeatureLoader'),
+        LavoriPubbliciPlugin: require('./plugins/LavoriPubblici')
     },
     requires: {
         ReactSwipe: require('react-swipeable-views').default,

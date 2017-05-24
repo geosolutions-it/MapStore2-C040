@@ -7,7 +7,7 @@
     "useCORS": ["http://nominatim.openstreetmap.org", "https://nominatim.openstreetmap.org"]
   },
   "bingApiKey": "AhuXBu7ipR1gNbBfXhtUAyCZ6rkC5PkWpxs2MnMRZ1ZupxQfivjLCch22ozKSCAn",
-  "translationsPath": ["MapStore2/web/client/translations"],
+  "translationsPath": ["MapStore2/web/client/translations","translations"],
   "mapquestApiKey": "__API_KEY_MAPQUEST__",
   "initialMapFilter": "",
   "ignoreMobileCss" : true,
@@ -192,6 +192,16 @@
           }
         }
     }, "Home", "FeatureGrid", {
+        "name": "LavoriPubblici",
+        "cfg": {
+          "options": {
+            "geoserverUrl": "http://demo.geo-solutions.it/geoserver/ows",
+            "activeTools": ["pointSelection", "areasGrid"],
+            "inactiveTools": [ "featureGrid", "drawPolygon" ],
+            "activeGrid": "areasGrid"
+          }
+        }
+      }, {
         "name": "TOC",
         "cfg": {
           "activateQueryTool": true

@@ -36,7 +36,7 @@ module.exports = {
      pluginsDef: require('./plugins.js'),
      initialState: {
          defaultState: {
-             mousePosition: {enabled: true, "crs": "EPSG:4326"},
+             mousePosition: {enabled: false, "crs": "EPSG:4326"},
              controls: {
                  styler: {
                      enabled: true

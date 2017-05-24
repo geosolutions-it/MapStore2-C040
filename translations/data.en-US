@@ -1,0 +1,15 @@
+{
+    "locale": "en-US",
+    "messages": {
+        "featuregrid": {
+            "toolbar": {
+                "save": "Save",
+                "reset": "Reset",
+                "polygonSelectionTooltip": "Disegna un poligono sulla mappa.",
+                "pointSelectionTooltip": "Clicca un punto sulla mappa.",
+                "areasGridTooltip": "Visualizza le aree disegnate.",
+                "featureGridTooltip": "Visualizza la griglia."
+            }
+        }
+    }
+}
