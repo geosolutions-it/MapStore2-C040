@@ -126,6 +126,24 @@ const createAndAddLayers = (features, store, checkedElementi) => {
         },
         projection: store.getState().map.present.projection
     };
+    let highlightOptions = {
+        features: [],
+        group: "Cantieri Highlight Layer",
+        title: "cantieri_highlight",
+        id: "cantieri_highlight_layer",
+        name: "cantieri_highlight",
+        style: {
+            type: "MultiPolygon",
+            stroke: {
+                color: 'yellow',
+                width: 2
+            },
+            fill: {
+                color: [0, 0, 0, 0.2]
+            }
+        },
+        projection: store.getState().map.present.projection
+    };
     let elementiOptions = {
         features: [],
         group: "Cantieri Elementi Layer",
@@ -146,6 +164,7 @@ const createAndAddLayers = (features, store, checkedElementi) => {
     };
     actions.push(addLayer(getLayer(elementiOptions)));
     actions.push(addLayer(getLayer(areaOptions)));
+    actions.push(addLayer(getLayer(highlightOptions)));
     actions.push(updateElementiFeatures());
     actions.push(changeDrawingStatus("cleanAndContinueDrawing", "", "LavoriPubblici", [], {}));
     if (checkedElementi) {

@@ -36,7 +36,7 @@ module.exports = {
      pluginsDef: require('./plugins.js'),
      initialState: {
          defaultState: {
-             mousePosition: {enabled: false, "crs": "EPSG:4326"},
+             mousePosition: {enabled: true, "crs": "EPSG:4326"},
              controls: {
                  styler: {
                      enabled: true
@@ -59,8 +59,8 @@ module.exports = {
                      allowedRoles: ["ADMIN"]
                  }
              },
-             "maptype": {
-                "mapType": "openlayers"
+             "maps": {
+                     "mapType": "leaflet"
              },
              catalog: {
                  format: "wms",
@@ -70,8 +70,11 @@ module.exports = {
          mobile: {
              mapInfo: {enabled: true, infoFormat: 'text/html' },
              mousePosition: {enabled: true, crs: "EPSG:4326", showCenter: true},
-             "maptype": {
-                     "mapType": "openlayers"
+             "maps": {
+                     "mapType": "leaflet"
+             },
+             "home": {
+                     "mapType": "leaflet"
              },
              catalog: {
                  format: "wms",

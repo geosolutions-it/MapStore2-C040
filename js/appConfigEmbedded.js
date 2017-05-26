@@ -45,6 +45,9 @@ module.exports = {
                     allowedRoles: ["ADMIN"]
                 }
             },
+            "maptype": {
+               "mapType": "openlayers"
+            },
             mapInfo: {enabled: true, infoFormat: 'text/html' }
         },
         mobile: {
