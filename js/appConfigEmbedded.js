@@ -8,62 +8,57 @@
 
 module.exports = {
     printingEnabled: false,
-     pages: [{
+    pages: [{
         name: "embedviewer",
         path: "/:mapId",
         component: require('./pages/Embedded')
     }, {
-         name: "viewer",
-         path: "/featureviewer/:mapType/:layer/:cql_filter",
-         component: require('./pages/FeatureViewer')
+        name: "viewer",
+        path: "/featureviewer/:mapType/:layer/:cql_filter",
+        component: require('./pages/FeatureViewer')
      }, {
-         name: "mapviewer",
-         path: "/viewer/:mapType/:mapId",
-         component: require('./pages/MapViewer')
-     }],
-     pluginsDef: require('./apiPlugins'),
-     initialState: {
-         defaultState: {
+        name: "mapviewer",
+        path: "/viewer/:mapType/:mapId",
+        component: require('./pages/MapViewer')
+    }],
+    pluginsDef: require('./apiPlugins'),
+    translations: ["MapStore2/web/client/translations", "translations"],
+    initialState: {
+        defaultState: {
             mousePosition: {enabled: false},
-             controls: {
-                 help: {
-                     enabled: false
-                 },
-                 print: {
+            controls: {
+                help: {
                     enabled: false
-                 },
-                 toolbar: {
-                     active: null,
-                     expanded: false
-                 },
-                 drawer: {
-                     enabled: false,
-                     menu: "1"
-                 },
-                 saveAs: {
-                     allowedRoles: ["ADMIN"]
-                 }
-             },
+                },
+                print: {
+                    enabled: false
+                },
+                toolbar: {
+                    active: null,
+                    expanded: false
+                },
+                drawer: {
+                    enabled: false,
+                    menu: "1"
+                },
+                saveAs: {
+                    allowedRoles: ["ADMIN"]
+                }
+            },
             mapInfo: {enabled: true, infoFormat: 'text/html' }
-         },
-         mobile: {
-             mapInfo: {enabled: true, infoFormat: 'text/html' },
-             mousePosition: {enabled: true, crs: "EPSG:4326", showCenter: true},
-             "maps": {
-                     "mapType": "leaflet"
-             },
-             "home": {
-                     "mapType": "leaflet"
-             },
-             catalog: {
-                 format: "wms",
-                 "supportedFormats": [{"name": "wms", "label": "WMS"}, {"name": "csw", "label": "CSW"}]
-             }
-         }
-     },
-     storeOpts: {
-         persist: {
-             whitelist: ['security']
-         }
-     }
- };
+        },
+        mobile: {
+            mapInfo: {enabled: true, infoFormat: 'text/html' },
+            mousePosition: {enabled: true, crs: "EPSG:4326", showCenter: true},
+            catalog: {
+                format: "wms",
+                "supportedFormats": [{"name": "wms", "label": "WMS"}, {"name": "csw", "label": "CSW"}]
+            }
+        }
+    },
+    storeOpts: {
+        persist: {
+            whitelist: ['security']
+        }
+    }
+};

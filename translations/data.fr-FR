@@ -1,14 +1,18 @@
 {
     "locale": "fr-FR",
     "messages": {
-        "featuregrid": {
+        "cantieriGrid": {
             "toolbar": {
                 "save": "Soumettre",
                 "reset": "Réinitialiser",
-                "polygonSelectionTooltip": "Disegna un poligono sulla mappa.",
-                "pointSelectionTooltip": "Clicca un punto sulla mappa.",
-                "areasGridTooltip": "Visualizza le aree disegnate.",
-                "featureGridTooltip": "Visualizza la griglia."
+                "polygonSelectionTooltip": "Dessinez un polygone sur la carte",
+                "pointSelectionTooltip": "Cliquez sur les éléments pour les sélectionner",
+                "areas": "Zones",
+                "elements": "Éléments",
+                "deleteRow": "Supprimez cette zone"
+            },
+            "error":{
+                "maxFeatures": "Il a été atteint le nombre maximum (1000) d'éléments qui peuvent être obtenus"
             }
         }
     }

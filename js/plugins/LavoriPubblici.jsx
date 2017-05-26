@@ -11,33 +11,42 @@ const {query, closeResponse} = require('../../MapStore2/web/client/actions/wfsqu
 const {changeMapView} = require('../../MapStore2/web/client/actions/map');
 const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {dockSizeFeatures} = require('../../MapStore2/web/client/actions/featuregrid');
-const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, deleteCantieriArea, setActiveDrawTool, resetCantieriAreas} = require('../actions/cantieri');
-const {addOrUpdateCantieriAreaLayer, addOrUpdateCantieriAreaLayerByClick,
-       deleteCantieriAreaFeature, resetCantieriAreaFeatures, updateLavoriFeatures} = require('../epics/cantieriEpic');
-const getLayer = (state) => {
+const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, deleteCantieriArea, setActiveDrawTool, resetCantieriAreas,
+saveCantieriData, maxFeaturesExceeded } = require('../actions/cantieri');
+const {addOrUpdateCantieriAreaLayer, addOrUpdateCantieriAreaLayerByClick, loadCantieriAreaFeaturesEpic,
+       deleteCantieriAreaFeature, resetCantieriAreaFeatures, updateElementiFeaturesEpic} = require('../epics/cantieriEpic');
+const getAreaLayer = (state) => {
     return state.layers.flat.filter(l => l.id === "cantieri_area_layer")[0];
 };
-const LavoriGrid = connect((state) => ({
-    minHeight: state.cantieri.featureGrid.minHeight,
-    minWidth: state.cantieri.featureGrid.minWidth,
-    rows: state.cantieri.featureGrid.features,
-    columns: state.cantieri.featureGrid.columns,
+const getElementiLayer = (state) => {
+    return state.layers.flat.filter(l => l.id === "cantieri_elementi_layer")[0];
+};
+const ElementiGrid = connect((state) => ({
+    minHeight: state.cantieri.elementiGrid.minHeight,
+    minWidth: state.cantieri.elementiGrid.minWidth,
+    rows: getElementiLayer(state) ? getElementiLayer(state).features.map((a) => {
+        return {"id": a.properties.ID, "name": a.properties.NOME_LIVELLO};
+    }) : [],
+    columns: state.cantieri.elementiGrid.columns,
+    selectBy: state.cantieri.elementiGrid.selectBy,
     rowSelection: {
-        showCheckbox: true,
-        enableShiftSelect: true,
-        onRowsSelected: rowsSelected,
-        onRowsDeselected: rowsDeselected,
-        selectBy: state.cantieri.featureGrid.selectBy
+        showCheckbox: true
     }
-}), {})(require('../../MapStore2/web/client/components/misc/ResizableGrid'));
+}), {
+    onRowsSelected: rowsSelected,
+    onRowsDeselected: rowsDeselected
+})(require('../../MapStore2/web/client/components/misc/ResizableGrid'));
 
 const AreasGrid = connect((state) => ({
     minHeight: state.cantieri.areasGrid.minHeight,
     minWidth: state.cantieri.areasGrid.minWidth,
-    rows: getLayer(state) ? getLayer(state).features.map((a) => {
-        return {"delete": "X", "name": a.id};
+    rows: getAreaLayer(state) ? getAreaLayer(state).features.map((a) => {
+        return {"delete": "X", "name": a.properties && a.properties.ID || a.id};
     }) : [],
-    columns: state.cantieri.areasGrid.columns
+    columns: state.cantieri.areasGrid.columns,
+    rowSelection: {
+        showCheckbox: false
+    }
 }), {
     onDeleteRow: deleteCantieriArea
 })(require('../components/CantieriAreaGrid'));
@@ -45,17 +54,21 @@ const AreasGrid = connect((state) => ({
 const Dock = connect((state) => ({
     activeGrid: state.cantieri && state.cantieri.activeGrid,
     dockSize: state.highlight && state.highlight.dockSize,
-    selectBy: state.cantieri.activeGrid === "featureGrid" ? state.cantieri.featureGrid.selectBy : null,
+    maxFeaturesExceeded: state.cantieri && state.cantieri.maxFeaturesExceeded,
+    position: "right",
+    selectBy: state.cantieri.activeGrid === "elementiGrid" ? state.cantieri.elementiGrid.selectBy : null,
     toolbar: state.cantieri && state.cantieri.toolbar,
-    wrappedComponent: state.cantieri.activeGrid === "featureGrid" ? LavoriGrid : AreasGrid
+    wrappedComponent: state.cantieri.activeGrid === "elementiGrid" ? ElementiGrid : AreasGrid
 }), {
     changeMapView,
     onQuery: query,
     onInitPlugin: initPlugin,
     onActiveGrid: setActiveGrid,
     onActiveDrawTool: setActiveDrawTool,
+    onSave: saveCantieriData,
     onDrawPolygon: changeDrawingStatus,
     onResetCantieriAreas: resetCantieriAreas,
+    onHideModal: maxFeaturesExceeded,
     onBackToSearch: closeResponse,
     setDockSize: dockSizeFeatures
 })(require('../components/CantieriPanel'));
@@ -63,6 +76,6 @@ const Dock = connect((state) => ({
 module.exports = {
     LavoriPubbliciPlugin: Dock,
     reducers: {cantieri: require('../reducers/cantieri')},
-    epics: {addOrUpdateCantieriAreaLayer, addOrUpdateCantieriAreaLayerByClick,
-            deleteCantieriAreaFeature, resetCantieriAreaFeatures, updateLavoriFeatures}
+    epics: {addOrUpdateCantieriAreaLayer, addOrUpdateCantieriAreaLayerByClick, loadCantieriAreaFeaturesEpic,
+            deleteCantieriAreaFeature, resetCantieriAreaFeatures, updateElementiFeaturesEpic}
 };

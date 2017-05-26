@@ -1,14 +1,18 @@
 {
     "locale": "en-US",
     "messages": {
-        "featuregrid": {
+        "cantieriGrid": {
             "toolbar": {
                 "save": "Save",
                 "reset": "Reset",
-                "polygonSelectionTooltip": "Disegna un poligono sulla mappa.",
-                "pointSelectionTooltip": "Clicca un punto sulla mappa.",
-                "areasGridTooltip": "Visualizza le aree disegnate.",
-                "featureGridTooltip": "Visualizza la griglia."
+                "polygonSelectionTooltip": "Draw a polygon on the map",
+                "pointSelectionTooltip": "Click on the elements to select them",
+                "areas": "Areas",
+                "elements": "Elements",
+                "deleteRow": "Delete this area"
+            },
+            "error":{
+                "maxFeatures": "The limit of maximum number (1000) of elements that can be obtained is reached"
             }
         }
     }

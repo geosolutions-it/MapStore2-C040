@@ -12,9 +12,9 @@
       "type": "osm",
       "title": "Open Street Map",
       "name": "mapnik",
-            "source": "osm",
+      "source": "osm",
       "group": "background",
-            "visibility": true
-        }]
+      "visibility": true
+    }]
   }
 }

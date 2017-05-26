@@ -8,13 +8,16 @@
 
 const ROWS_SELECTED = "ROWS_SELECTED";
 const ROWS_DESELECTED = "ROWS_DESELECTED";
-const INIT_LAVORI_PUBBLICI_PLUGIN = "INIT_LAVORI_PUBBLICI_PLUGIN";
-const UPDATE_AREAS = "UPDATE_AREAS";
+const INIT_ELEMENTI_PUBBLICI_PLUGIN = "INIT_ELEMENTI_PUBBLICI_PLUGIN";
 const SET_ACTIVE_GRID = "SET_ACTIVE_GRID";
 const DELETE_CANTIERI_AREA = "DELETE_CANTIERI_AREA";
 const SET_ACTIVE_DRAW_TOOL = "SET_ACTIVE_DRAW_TOOL";
 const RESET_CANTIERI_AREAS = "RESET_CANTIERI_AREAS";
-const UPDATE_LAVORI_FEATURES = "UPDATE_LAVORI_FEATURES";
+const UPDATE_ELEMENTI_FEATURES = "UPDATE_ELEMENTI_FEATURES";
+const LOAD_CANTIERI_AREA_FEATURES = "LOAD_CANTIERI_AREA_FEATURES";
+const LOAD_CHECKED_ELEMENTI = "LOAD_CHECKED_ELEMENTI";
+const SAVE_CANTIERI_DATA = "SAVE_CANTIERI_DATA";
+const MAX_FEATURES_EXCEEDED = "MAX_FEATURES_EXCEEDED";
 
 /**
  * updates in the state the selected rows
@@ -41,23 +44,12 @@ function rowsDeselected(rows) {
 /**
  * initialize the plugin (should be called on componentDidMount)
  * @memberof actions.cantieri
- * @return {action} of type `INIT_LAVORI_PUBBLICI_PLUGIN`
+ * @return {action} of type `INIT_ELEMENTI_PUBBLICI_PLUGIN`
  */
 function initPlugin(options) {
     return {
-        type: INIT_LAVORI_PUBBLICI_PLUGIN,
+        type: INIT_ELEMENTI_PUBBLICI_PLUGIN,
         options
-    };
-}
-/**
- * udpates the features collected from drawing a polygon or clicking on the map
- * @memberof actions.cantieri
- * @return {action} of type `UPDATE_AREAS`
- */
-function updateAreas(features) {
-    return {
-        type: UPDATE_AREAS,
-        features
     };
 }
 /**
@@ -93,13 +85,13 @@ function resetCantieriAreas() {
     };
 }
 /**
- * update lavori features
+ * update elementi features
  * @memberof actions.cantieri
- * @return {action} of type `UPDATE_LAVORI_FEATURES`
+ * @return {action} of type `UPDATE_ELEMENTI_FEATURES`
  */
-function updateLavoriFeatures() {
+function updateElementiFeatures() {
     return {
-        type: UPDATE_LAVORI_FEATURES
+        type: UPDATE_ELEMENTI_FEATURES
     };
 }
 /**
@@ -113,15 +105,66 @@ function setActiveDrawTool(activeDrawTool) {
         activeDrawTool
     };
 }
+/**
+ * load checked elementi
+ * @memberof actions.cantieri
+ * @return {action} of type `LOAD_CHECKED_ELEMENTI`
+ */
+function loadCheckedElementi(checkedElementi) {
+    return {
+        type: LOAD_CHECKED_ELEMENTI,
+        checkedElementi
+    };
+}
+/**
+ * save data
+ * @memberof actions.cantieri
+ * @return {action} of type `SAVE_CANTIERI_DATA`
+ */
+function saveCantieriData(checkedElementi, areaFeatures) {
+    return {
+        type: SAVE_CANTIERI_DATA,
+        checkedElementi,
+        areaFeatures
+    };
+}
+/**
+ * set up an error for the max features exceeded
+ * @memberof actions.cantieri
+ * @return {action} of type `MAX_FEATURES_EXCEEDED`
+ */
+function maxFeaturesExceeded(status) {
+    return {
+        type: MAX_FEATURES_EXCEEDED,
+        status
+    };
+}
+/**
+ * load area features
+ * @memberof actions.cantieri
+ * @return {action} of type `LOAD_CANTIERI_AREA_FEATURES`
+ */
+function loadCantieriAreaFeatures() {
+    const checkedElementi = ["14141"];
+    let myFeatures = [{"type": "Feature", "id": "area_0", "geometry": {"type": "MultiPolygon", "coordinates": [[[[-104.053108, 41.698246], [-104.054993, 41.564247], [-104.053505, 41.388107], [-104.051201, 41.003227], [-104.933968, 40.994305], [-105.278259, 40.996365], [-106.202896, 41.000111], [-106.328545, 41.001316], [-106.864838, 40.998489], [-107.303436, 41.000168], [-107.918037, 41.00341], [-109.047638, 40.998474], [-110.001457, 40.997646], [-110.062477, 40.99794], [-111.050285, 40.996635], [-111.050911, 41.25848], [-111.050323, 41.578648], [-111.047951, 41.996265], [-111.046028, 42.503323], [-111.048447, 43.019962], [-111.04673, 43.284813], [-111.045998, 43.515606], [-111.049629, 43.982632], [-111.050789, 44.473396], [-111.050842, 44.664562], [-111.05265, 44.995766], [-110.428894, 44.992348], [-110.392006, 44.998688], [-109.994789, 45.002853], [-109.798653, 44.99958], [-108.624573, 44.997643], [-108.258568, 45.00016], [-107.893715, 44.999813], [-106.258644, 44.996174], [-106.020576, 44.997227], [-105.084465, 44.999832], [-105.04126, 45.001091], [-104.059349, 44.997349], [-104.058975, 44.574368], [-104.060547, 44.181843], [-104.059242, 44.145844], [-104.05899, 43.852928], [-104.057426, 43.503738], [-104.05867, 43.47916], [-104.05571, 43.003094], [-104.055725, 42.614704], [-104.053009, 41.999851], [-104.053108, 41.698246]]]]}, "geometry_name": "the_geom", "properties": {}}];
+    return {
+        type: LOAD_CANTIERI_AREA_FEATURES,
+        myFeatures,
+        checkedElementi
+    };
+}
 
 module.exports = {
     ROWS_SELECTED, rowsSelected,
     ROWS_DESELECTED, rowsDeselected,
-    INIT_LAVORI_PUBBLICI_PLUGIN, initPlugin,
-    UPDATE_AREAS, updateAreas,
+    INIT_ELEMENTI_PUBBLICI_PLUGIN, initPlugin,
     SET_ACTIVE_GRID, setActiveGrid,
     DELETE_CANTIERI_AREA, deleteCantieriArea,
     SET_ACTIVE_DRAW_TOOL, setActiveDrawTool,
     RESET_CANTIERI_AREAS, resetCantieriAreas,
-    UPDATE_LAVORI_FEATURES, updateLavoriFeatures
+    UPDATE_ELEMENTI_FEATURES, updateElementiFeatures,
+    LOAD_CHECKED_ELEMENTI, loadCheckedElementi,
+    LOAD_CANTIERI_AREA_FEATURES, loadCantieriAreaFeatures,
+    MAX_FEATURES_EXCEEDED, maxFeaturesExceeded,
+    SAVE_CANTIERI_DATA, saveCantieriData
 };

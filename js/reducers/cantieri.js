@@ -6,13 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { ROWS_SELECTED, ROWS_DESELECTED, INIT_LAVORI_PUBBLICI_PLUGIN, UPDATE_AREAS, SET_ACTIVE_GRID,
-DELETE_AREA, SET_ACTIVE_DRAW_TOOL } = require('../actions/cantieri');
+const { ROWS_SELECTED, ROWS_DESELECTED, INIT_ELEMENTI_PUBBLICI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED,
+SET_ACTIVE_DRAW_TOOL, LOAD_CHECKED_ELEMENTI } = require('../actions/cantieri');
 const assign = require('object-assign');
-const {indexOf} = require('lodash');
+const {difference, indexOf} = require('lodash');
 
 function cantieri(state = {
-    featureGrid: {
+    elementiGrid: {
         rowKey: "id",
         areas: [],
         features: [],
@@ -45,68 +45,72 @@ function cantieri(state = {
         name: 'nome area',
         resizable: true
     }]},
-    activeGrid: "featureGrid",
+    activeGrid: "elementiGrid",
     open: true
 }, action) {
     switch (action.type) {
-        case INIT_LAVORI_PUBBLICI_PLUGIN: {
+        case INIT_ELEMENTI_PUBBLICI_PLUGIN: {
             return assign({}, state, {toolbar: {
                     activeTools: action.options.activeTools,
                     inactiveTools: action.options.inactiveTools
                 },
                 geoserverUrl: action.options.geoserverUrl,
-                activeGrid: action.options.activeGrid
+                activeGrid: action.options.activeGrid,
+                maxFeatures: action.options.maxFeatures
             });
+        }
+        case LOAD_CHECKED_ELEMENTI: {
+            let newValues = {
+                keys: {rowKey: 'id', values: action.checkedElementi}
+            };
+            return assign({}, state, {elementiGrid: {...state.elementiGrid, selectBy: newValues}} );
         }
         case ROWS_SELECTED: {
             let newValues = {
-                keys: {rowKey: 'id', values: action.rows.map(r => r.row.id.toString()).concat(state && state.featureGrid && state.featureGrid.selectBy && state.featureGrid.selectBy.keys && state.featureGrid.selectBy.keys.values || [])}
+                keys: {rowKey: 'id', values: action.rows.map(r => r.row.id).concat(state && state.elementiGrid && state.elementiGrid.selectBy && state.elementiGrid.selectBy.keys && state.elementiGrid.selectBy.keys.values || [])}
             };
-            return assign({}, state, assign({}, {featureGrid: {...state.featureGrid, selectBy: newValues}}) );
+            return assign({}, state, {elementiGrid: {...state.elementiGrid, selectBy: newValues}} );
         }
         case ROWS_DESELECTED: {
+            let rowNames = action.rows.map(r => r.row.id);
+
             let newValues = {
-                keys: {rowKey: 'id', values: state && state.featureGrid && state.featureGrid.selectBy && state.featureGrid.selectBy.keys && state.featureGrid.selectBy.keys.values.filter(v => v !== action.rows[0].row.id) || []}
+                keys: {rowKey: 'id', values: state && state.elementiGrid && state.elementiGrid.selectBy && state.elementiGrid.selectBy.keys && difference(state.elementiGrid.selectBy.keys.values, rowNames) || []}
             };
-            return assign({}, state, assign({}, {featureGrid: {...state.featureGrid, selectBy: newValues}}) );
-        }
-        case UPDATE_AREAS: {
-            // add only new areas
-            let newFeatures = action.features.filter(f => indexOf(state.areasGrid.areas.map(a => a.id), f.id) === -1);
-            const areas = state.areasGrid.areas.concat(newFeatures);
-            newFeatures = areas.map((a) => {
-                return {"delete": "X", "name": a.id};
-            });
-            return assign({}, state, {areasGrid: {...state.areasGrid, areas, features: newFeatures}} );
+            return assign({}, state, {elementiGrid: {...state.elementiGrid, selectBy: newValues}} );
         }
         case SET_ACTIVE_GRID: {
             const activeGrid = action.activeGrid;
-            const otherGrid = activeGrid === "featureGrid" ? "areasGrid" : "featureGrid";
+            const otherGrid = activeGrid === "elementiGrid" ? "areasGrid" : "elementiGrid";
             const newActiveTools = state.toolbar.activeTools.concat(activeGrid).filter(i => i !== otherGrid);
-            const newInActiveTools = state.toolbar.inactiveTools.concat(otherGrid).filter(i => i !== activeGrid);
+            const newInactiveTools = state.toolbar.inactiveTools.concat(otherGrid).filter(i => i !== activeGrid);
             return assign({}, state, { activeGrid: action.activeGrid }, {
                 toolbar: {
                         activeTools: newActiveTools,
-                        inactiveTools: newInActiveTools
+                        inactiveTools: newInactiveTools
                     }});
         }
         case SET_ACTIVE_DRAW_TOOL: {
             const activeDrawTool = action.activeDrawTool;
             const otherDrawTool = activeDrawTool === "pointSelection" ? "polygonSelection" : "pointSelection";
-            const newActiveTools = state.toolbar.activeTools.concat(activeDrawTool).filter(i => i !== otherDrawTool);
-            const newInActiveTools = state.toolbar.inactiveTools.concat(otherDrawTool).filter(i => i !== activeDrawTool);
+            // if a tool is already active disable it
+            let newActiveTools;
+            let newInactiveTools;
+            if (indexOf(state.toolbar.activeTools, activeDrawTool) !== -1) {
+                newActiveTools = state.toolbar.activeTools.filter(i => i !== activeDrawTool);
+                newInactiveTools = state.toolbar.inactiveTools.concat(activeDrawTool);
+            } else {
+                newActiveTools = state.toolbar.activeTools.concat(activeDrawTool).filter(i => i !== otherDrawTool);
+                newInactiveTools = state.toolbar.inactiveTools.concat(otherDrawTool).filter(i => i !== activeDrawTool);
+            }
             return assign({}, state, {
                 toolbar: {
                         activeTools: newActiveTools,
-                        inactiveTools: newInActiveTools
+                        inactiveTools: newInactiveTools
                     }});
         }
-        case DELETE_AREA: {
-            const areas = state.areasGrid.areas.filter(a => a.id !== action.area);
-            const newFeatures = areas.map((a) => {
-                return {"delete": "X", "name": a.id};
-            });
-            return assign({}, state, {areasGrid: {...state.areasGrid, areas, features: newFeatures}} );
+        case MAX_FEATURES_EXCEEDED: {
+            return assign({}, state, {maxFeaturesExceeded: action.status});
         }
         default:
             return state;

@@ -59,8 +59,8 @@ module.exports = {
                      allowedRoles: ["ADMIN"]
                  }
              },
-             "maps": {
-                     "mapType": "leaflet"
+             "maptype": {
+                "mapType": "openlayers"
              },
              catalog: {
                  format: "wms",
@@ -70,11 +70,8 @@ module.exports = {
          mobile: {
              mapInfo: {enabled: true, infoFormat: 'text/html' },
              mousePosition: {enabled: true, crs: "EPSG:4326", showCenter: true},
-             "maps": {
-                     "mapType": "leaflet"
-             },
-             "home": {
-                     "mapType": "leaflet"
+             "maptype": {
+                     "mapType": "openlayers"
              },
              catalog: {
                  format: "wms",

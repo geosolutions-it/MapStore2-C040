@@ -169,7 +169,12 @@
       }, "Login",
     "OmniBar", "BurgerMenu", "Expander"
   ],
-        "desktop": ["Map", "Help", "Share", "DrawerMenu", {
+        "desktop": [{
+                        "name": "Map",
+                        "cfg" :{
+                            "mapType": "openlayers"
+                        }
+                    }, "Help", "Share", "DrawerMenu", {
        "name": "Identify",
        "showIn": ["IdentifyBar", "Settings"],
        "cfg": {
@@ -195,10 +200,11 @@
         "name": "LavoriPubblici",
         "cfg": {
           "options": {
-            "geoserverUrl": "http://demo.geo-solutions.it/geoserver/ows",
-            "activeTools": ["pointSelection", "areasGrid"],
-            "inactiveTools": [ "featureGrid", "drawPolygon" ],
-            "activeGrid": "areasGrid"
+            "geoserverUrl": "http://vm-linuxgeofetest.comune.genova.it/geoserver-test/ows",
+            "activeTools": ["elementiGrid", "pointSelection"],
+            "inactiveTools": ["areasGrid", "polygonSelection"],
+            "activeGrid": "elementiGrid",
+            "maxFeatures": 1000
           }
         }
       }, {

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Page with MapStore 2 API</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+        <link rel="stylesheet" href="https://cdn.jslibs.mapstore2.geo-solutions.it/leaflet/0.2.4/leaflet.draw.css" />
+        <link rel="shortcut icon" type="image/png" href="https://cdn.jslibs.mapstore2.geo-solutions.it/leaflet/favicon.ico" />
+        <script src="https://maps.google.com/maps/api/js?v=3"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.10/proj4.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+        <script src="https://cdn.jslibs.mapstore2.geo-solutions.it/leaflet/0.2.4/leaflet.draw.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.0.1/ol.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.0.1/ol.js"></script>
+        <style>
+        #container {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+        }
+        #mapstore2-embedded, #map, .fill {
+            width: 100%;
+            height: 100%;
+        }
+        </style>
+    </head>
+    <body onload="init()">
+        <div id="container" class="ms2"></div>
+        <script id="ms2-api" src="http://localhost:8081/dist/ms2-api.js"></script>
+        <script type="text/javascript">
+        function init() {
+            MapStore2.create('container',{
+                plugins: {
+                    desktop: [
+                        "Attribution",
+                        {
+                            "name": "Map",
+                            "cfg" :{
+                                "mapType": 'openlayers'
+                            }
+                        },{
+                            "name": "LavoriPubblici",
+                            "cfg": {
+                                "options": {
+                                    "geoserverUrl": "http://vm-linuxgeofetest.comune.genova.it/geoserver-test/ows",
+                                    "activeTools": ["elementiGrid", "pointSelection"],
+                                    "inactiveTools": ["areasGrid", "polygonSelection"],
+                                    "activeGrid": "elementiGrid",
+                                    "maxFeatures": 1000
+                                }
+                            }
+                        }
+                    ]
+                },
+                config: {
+                    "map": {
+                		"projection": "EPSG:900913",
+                		"units": "m",
+                		"center": {"x": 1000000.000000, "y": 5528000.000000, "crs": "EPSG:900913"},
+                        "zoom": 15,
+                		"maxExtent": [
+                			-20037508.34, -20037508.34,
+                			20037508.34, 20037508.34
+                		],
+                		"layers": [{
+            				"type": "osm",
+            				"title": "Open Street Map",
+            				"name": "mapnik",
+                            "source": "osm",
+            				"group": "background",
+                            "visibility": true
+                        }, {
+                            "url": "http://vm-linuxgeofetest.comune.genova.it/geoserver-test/ows",
+            				"type": "wms",
+                            "format": "image/png8",
+                            "name": "CORSO_1:V_TEST_CANTIERI",
+            				"title": "V_TEST_CANTIERI",
+            				"group": "Cantieri",
+                            "visibility": true
+                        }]
+                    }
+                }
+            });
+
+            /**
+              * @prop {object[]} areaFeatures: list of features representing the drawn areas (with blu border)
+                    for the moment it accept only MultiPolygon
+              * @prop {string[]} checkedElementi: an array containing the checked row elements in the element grid
+              * @prop {object} options. the object which intialize the component
+            */
+            var areaFeatures = [{"type": "Feature", "id": "1212", "geometry": {"type": "MultiPolygon", "coordinates": [[[
+                [8,43], [9,42], [8,42]
+            ]]]}, "geometry_name": "GEOMETRY", "properties": {
+                "ID": 1212,
+                "NOME_LIVELLO": "EDIFICI"
+            }}];
+
+            var checkedElementi = ["1212"];
+            var options = {
+                "geoserverUrl": "http://vm-linuxgeofetest.comune.genova.it/geoserver-test/ows",
+                "activeTools": ["elementiGrid", "pointSelection"],
+                "inactiveTools": ["areasGrid", "polygonSelection"],
+                "activeGrid": "elementiGrid",
+                "maxFeatures": 1000
+            };
+            MapStore2.triggerAction({
+                type: "INIT_ELEMENTI_PUBBLICI_PLUGIN",
+                options: options
+            });
+            MapStore2.triggerAction({
+                type: "LOAD_CANTIERI_AREA_FEATURES",
+                areaFeatures: areaFeatures,
+                checkedElementi : checkedElementi
+            });
+        }
+        </script>
+    </body>
+</html>
