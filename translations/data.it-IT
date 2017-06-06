@@ -12,7 +12,7 @@
                 "deleteRow": "Elimina quest'area"
             },
             "error":{
-                "maxFeatures": "E' stato raggiunto il numero massimo (1000) di elementi che si possono ottenere con un'area."
+                "maxFeatures": "L'area disegnata è troppo grande e verrà rimossa. Per favore, disegna un'area più piccola"
             }
         }
     }

@@ -12,7 +12,7 @@
                 "deleteRow": "Löschen Sie diesen Bereich"
             },
             "error":{
-                "maxFeatures": "Die Grenze der maximalen Anzahl (1000) von Elementen, die aus einer Fläche erhalten werden können, wird erreicht"
+                "maxFeatures": "Der gestaltete Bereich ist zu groß und werden entfernt. Bitte zeichnen Sie einen kleineren Bereich"
             }
         }
     }

@@ -27,7 +27,7 @@ const {
 } = require('../actions/cantieri');
 
 const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
-const {indexOf, startsWith, max} = require('lodash');
+const {indexOf, startsWith, max, slice} = require('lodash');
 
 const getWFSFeature = (searchUrl, filterObj) => {
     const data = getWFSFilterData(filterObj);
@@ -70,7 +70,7 @@ const getNewIndex = (features) => {
     }
     return 0;
 };
-const updateAreaFeatures = (features, layer, operation, store) => {
+const updateAreaFeatures = (features, layer, operation, store, totalFeatures) => {
     let newLayerProps = {};
     let actions = [];
     switch (operation) {
@@ -103,10 +103,14 @@ const updateAreaFeatures = (features, layer, operation, store) => {
         }
         default: return Rx.Observable.empty();
     }
-    if (features.length === store.getState().cantieri.maxFeatures ) {
+    if (totalFeatures > store.getState().cantieri.maxFeatures ) {
         actions.push(maxFeaturesExceeded(true));
-    } else {
-        actions.push(maxFeaturesExceeded(false));
+        let areaLayer = getAreasLayer(store);
+        if (areaLayer !== undefined) {
+            // removing last drawn areas if it too big, restoring previous layer features in elementLayer
+            newLayerProps.features = layer.features;
+            actions.push(changeLayerProperties(areaLayer.id, {features: slice(areaLayer.features, 0, areaLayer.features.length - 1)}));
+        }
     }
     actions.push(changeLayerProperties(layer.id, newLayerProps));
     return Rx.Observable.from(actions);
@@ -206,7 +210,7 @@ module.exports = {
                                 let layerFeatures = elementsLayer.features.filter(f => f.id !== featureByClick.id);
                                 return updateAreaFeatures(layerFeatures.concat(
                                     [featureByClick].map(checkFeature)
-                                ), elementsLayer, "replace", store);
+                                ), elementsLayer, "replace", store, response.data.totalFeatures);
                             }
                         }
                         return Rx.Observable.empty();
@@ -234,7 +238,7 @@ module.exports = {
             const f4326 = reprojectGeoJson(feature, store.getState().map.present.projection, "EPSG:4326");
             const filter = getSpatialFilter(f4326.geometry, options, "WITHIN");
             if (layer !== undefined) {
-                return updateAreaFeatures([feature], layer, "addAndModify", store).concat(Rx.Observable.of(queryElements(filter)));
+                return updateAreaFeatures([feature], layer, "addAndModify", store, 0).concat(Rx.Observable.of(queryElements(filter)));
             }
 
             return createAndAddLayers([feature], store);
@@ -249,7 +253,7 @@ module.exports = {
                 id: action.area
             };
             if (layer !== undefined) {
-                return updateAreaFeatures([feature], layer, "delete", store);
+                return updateAreaFeatures([feature], layer, "delete", store, 0);
             }
             return Rx.Observable.empty();
         }),
@@ -258,7 +262,7 @@ module.exports = {
         .switchMap( () => {
             let layer = getAreasLayer(store);
             if (layer !== undefined) {
-                return updateAreaFeatures([], layer, "reset", store);
+                return updateAreaFeatures([], layer, "reset", store, 0);
             }
             return Rx.Observable.empty();
         }),
@@ -273,7 +277,7 @@ module.exports = {
                             let newFeatures = response.data.features.map(f => {
                                 return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
                             }).filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
-                            return updateAreaFeatures(newFeatures.map(checkFeature), elementsLayer, "add", store);
+                            return updateAreaFeatures(newFeatures.map(checkFeature), elementsLayer, "add", store, response.data.totalFeatures);
                         }
                         return Rx.Observable.empty();
                     });
