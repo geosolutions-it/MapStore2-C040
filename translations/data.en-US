@@ -12,7 +12,7 @@
                 "deleteRow": "Delete this area"
             },
             "error":{
-                "maxFeatures": "The limit of maximum number (1000) of elements that can be obtained is reached"
+                "maxFeatures": "The limit of maximum number (1000) of elements that can be obtained from an area is reached"
             }
         }
     }

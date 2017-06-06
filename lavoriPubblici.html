@@ -18,11 +18,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.0.1/ol.js"></script>
         <style>
         #container {
+            width: 800px;
+            height: 600px;
             position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
         }
         #mapstore2-embedded, #map, .fill {
             width: 100%;
@@ -48,7 +46,8 @@
                         {
                             "name": "Map",
                             "cfg" :{
-                                "mapType": 'openlayers'
+                                "mapType": 'openlayers',
+                                "tools": ["measurement", "locate", "draw", "highlight"]
                             }
                         }, "TOC", "DrawerMenu",
                         {
@@ -111,14 +110,14 @@
                 options: options
             });
 
-            /** Action that will create the areaVectorLayer and the elementiVectorLayer. It will load the area features and then it
-                will update the list of the features in the elementiVectorLayer.
+            /** Action that will create the areaVectorLayer and the elementVectorLayer. It will load the area features and then it
+                will update the list of the features in the elementVectorLayer.
               * @prop {object[]} areaFeatures: list of features representing the drawn areas (with blu border)
                     for the moment it accept only MultiPolygon
               * @prop {any[]} checkedElementi: it contains the ids of the checked elements
             */
             var areaFeatures = [{"type": "Feature", "id": "1212", "geometry": {"type": "MultiPolygon", "coordinates": [[[
-                [8,43], [9,42], [8,42]
+                [8.984225724801172, 44.40639332278217], [8.983152841195215, 44.405749490942], [8.984955285653221, 44.40559619660227]
             ]]]}, "geometry_name": "GEOMETRY", "properties": {
                 "ID": 1212,
                 "NOME_LIVELLO": "EDIFICI"

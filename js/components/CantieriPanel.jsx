@@ -1,5 +1,6 @@
 
 const Dock = require('../../MapStore2/web/client/components/misc/DockablePanel');
+const StyledDiv = require('./StyledDiv');
 const ToggleButton = require('../../MapStore2/web/client/components/buttons/ToggleButton');
 const LocaleUtils = require('../../MapStore2/web/client/utils/LocaleUtils');
 const Modal = require('../../MapStore2/web/client/components/misc/Modal');
@@ -32,6 +33,8 @@ const CantieriPanel = React.createClass({
         onDrawPolygon: React.PropTypes.func,
         onSave: React.PropTypes.func,
         onResetCantieriAreas: React.PropTypes.func,
+        elementsSelected: React.PropTypes.number,
+        useDock: React.PropTypes.bool,
         wrappedComponent: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
     },
     contextTypes: {
@@ -54,10 +57,12 @@ const CantieriPanel = React.createClass({
             options: {},
             toolbarHeight: 40,
             tooltipPlace: "top",
+            elementsSelected: 0,
             toolbar: {
                 activeTools: [ "elementiGrid", pointSelection ],
                 inactiveTools: [ "areasGrid", polygonSelection ]
-            }
+            },
+            useDock: false
         };
     },
     componentDidMount() {
@@ -66,9 +71,9 @@ const CantieriPanel = React.createClass({
     render() {
         let rowsSelectedComp = null;
         if (this.props.activeGrid === "elementiGrid") {
-            const rowText = this.props.selectBy.keys.values.length === 1 ? "row" : "rows";
-            const rowsSelected = this.props.selectBy.keys.values.length || 0;
-            rowsSelectedComp = (<span style={{marginLeft: "15px"}}> <Message msgId={"dock." + rowText} msgParams={{rowsSelected: rowsSelected.toString()}}/></span>);
+            const rowText = this.props.elementsSelected === 1 ? "row" : "rows";
+
+            rowsSelectedComp = (<span style={{marginLeft: "15px"}}> <Message msgId={"dock." + rowText} msgParams={{rowsSelected: this.props.elementsSelected.toString()}}/></span>);
         }
         let pointSelectionTooltip = (<Tooltip key="pointSelectionTooltip" id="pointSelectionTooltip">
             <Message msgId={"cantieriGrid.toolbar.pointSelectionTooltip"}/></Tooltip>);
@@ -115,10 +120,20 @@ const CantieriPanel = React.createClass({
                     <Modal.Body><Alert bsStyle="danger"><Message msgId="cantieriGrid.error.maxFeatures"/></Alert></Modal.Body>
                 </Modal>) : null}
         </div>);
-        return (<Dock
-                {...this.props}
-                toolbar={toolbar}
-            />);
+        const Container = this.props.useDock ? Dock : StyledDiv;
+        return (<Container
+                    {...this.props}
+                    toolbar={toolbar}
+                    id="CantieriDockablePanel"
+                    style={ this.props.useDock ? null : {
+                        width: "100%",
+                        height: "300px",
+                        position: "absolute",
+                        background: "white",
+                        bottom: 0
+                    }}
+                />
+        );
     },
     isToolActive(tool) {
         return indexOf(this.props.toolbar.activeTools, tool) !== -1;

@@ -12,7 +12,7 @@
                 "deleteRow": "Supprimez cette zone"
             },
             "error":{
-                "maxFeatures": "Il a été atteint le nombre maximum (1000) d'éléments qui peuvent être obtenus"
+                "maxFeatures": "La limite du nombre maximal (1000) d'éléments pouvant être obtenus à partir d'une zone est atteinte"
             }
         }
     }

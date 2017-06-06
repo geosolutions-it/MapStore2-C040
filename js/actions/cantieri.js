@@ -113,7 +113,7 @@ function resetCantieriAreas() {
     };
 }
 /**
- * update elementi features
+ * queryElements query elements features
  * @memberof actions.cantieri
  * @param {object} filter the filter to use to query the layer
  * @return {action} of type `QUERY_ELEMENTS_FEATURES`

@@ -6,10 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { ROWS_SELECTED, ROWS_DESELECTED, INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED,
-SET_ACTIVE_DRAW_TOOL, LOAD_CHECKED_ELEMENTS } = require('../actions/cantieri');
+const { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED,
+SET_ACTIVE_DRAW_TOOL} = require('../actions/cantieri');
 const assign = require('object-assign');
-const {difference, indexOf} = require('lodash');
+const {indexOf} = require('lodash');
 
 function cantieri(state = {
     elementiGrid: {
@@ -23,12 +23,7 @@ function cantieri(state = {
             name: 'Nome Livello',
             resizable: true
         }],
-        selectBy: {
-            keys: {
-                rowKey: 'key',
-                values: []
-            }
-        }
+        selectBy: {isSelectedKey: 'checked'}
     },
     areasGrid: {
         rowKey: "name",
@@ -54,35 +49,6 @@ function cantieri(state = {
                 activeGrid: action.options.activeGrid,
                 maxFeatures: action.options.maxFeatures
             });
-        }
-        case LOAD_CHECKED_ELEMENTS: {
-            let newValues = {
-                keys: {rowKey: 'id', values: action.checkedElementi}
-            };
-            return assign({}, state, {elementiGrid: {...state.elementiGrid, selectBy: newValues}} );
-        }
-        case ROWS_SELECTED: {
-            let newValues = {
-                keys: {
-                    rowKey: 'key',
-                    values: action.rows
-                        .map(r => r.row.key)
-                        .concat(state && state.elementiGrid
-                            && state.elementiGrid.selectBy && state.elementiGrid.selectBy.keys && state.elementiGrid.selectBy.keys.values || [])}
-            };
-            return assign({}, state, {elementiGrid: {...state.elementiGrid, selectBy: newValues}} );
-        }
-        case ROWS_DESELECTED: {
-            let rowNames = action.rows.map(r => r.row.key);
-
-            let newValues = {
-                keys: {
-                    rowKey: 'key', values: state
-                        && state.elementiGrid
-                        && state.elementiGrid.selectBy
-                        && state.elementiGrid.selectBy.keys && difference(state.elementiGrid.selectBy.keys.values, rowNames) || []}
-            };
-            return assign({}, state, {elementiGrid: {...state.elementiGrid, selectBy: newValues}} );
         }
         case SET_ACTIVE_GRID: {
             const activeGrid = action.activeGrid;
