@@ -13,6 +13,13 @@
             },
             "error":{
                 "maxFeatures": "La zone conçue est trop grande et sera supprimée. S'il vous plaît, dessiner une zone plus petite"
+            },
+            "notification":{
+                "confirm": "Ok",
+                "removeFeatureError": "Il n'a pas été possible de supprimer ce domaine.",
+                "resetCantieriFeaturesError": "Une erreur s'est produite lors de l'effacement des grilles.",
+                "errorQueryElements": "",
+                "errorLoadCantieriAreas": ""
             }
         }
     }

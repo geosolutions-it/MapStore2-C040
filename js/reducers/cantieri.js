@@ -6,13 +6,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED,
-SET_ACTIVE_DRAW_TOOL} = require('../actions/cantieri');
+const { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED, SET_ACTIVE_DRAW_TOOL} = require('../actions/cantieri');
 const assign = require('object-assign');
 const {indexOf} = require('lodash');
 
 function cantieri(state = {
-    elementiGrid: {
+    elementsGrid: {
         rowKey: "id",
         columns: [{
             key: 'id',
@@ -36,23 +35,16 @@ function cantieri(state = {
         name: 'nome area',
         resizable: true
     }]},
-    activeGrid: "elementiGrid",
+    activeGrid: "elementsGrid",
     open: true
 }, action) {
     switch (action.type) {
         case INIT_CANTIERI_PLUGIN: {
-            return assign({}, state, {toolbar: {
-                    activeTools: action.options.activeTools,
-                    inactiveTools: action.options.inactiveTools
-                },
-                geoserverUrl: action.options.geoserverUrl,
-                activeGrid: action.options.activeGrid,
-                maxFeatures: action.options.maxFeatures
-            });
+            return assign({}, state, action.options );
         }
         case SET_ACTIVE_GRID: {
             const activeGrid = action.activeGrid;
-            const otherGrid = activeGrid === "elementiGrid" ? "areasGrid" : "elementiGrid";
+            const otherGrid = activeGrid === "elementsGrid" ? "areasGrid" : "elementsGrid";
             const newActiveTools = state.toolbar.activeTools.concat(activeGrid).filter(i => i !== otherGrid);
             const newInactiveTools = state.toolbar.inactiveTools.concat(otherGrid).filter(i => i !== activeGrid);
             return assign({}, state, { activeGrid: action.activeGrid }, {

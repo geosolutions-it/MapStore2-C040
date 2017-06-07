@@ -13,6 +13,13 @@
             },
             "error":{
                 "maxFeatures": "Der gestaltete Bereich ist zu groß und werden entfernt. Bitte zeichnen Sie einen kleineren Bereich"
+            },
+            "notification":{
+                "confirm": "Ok",
+                "removeFeatureError": "Es war nicht möglich, diesen Bereich zu entfernen",
+                "resetCantieriFeaturesError": "Beim Löschen der Raster ist ein Fehler aufgetreten.",
+                "errorQueryElements": "",
+                "errorLoadCantieriAreas": ""
             }
         }
     }

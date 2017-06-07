@@ -21,18 +21,17 @@ const CantieriPanel = React.createClass({
         toolbarHeight: React.PropTypes.number,
         polygonSelectionGlyph: React.PropTypes.string,
         pointSelectionGlyph: React.PropTypes.string,
-        elementiGridGlyph: React.PropTypes.string,
+        elementsGridGlyph: React.PropTypes.string,
         areasGridGlyph: React.PropTypes.string,
         maxFeaturesExceeded: React.PropTypes.bool,
         tooltipPlace: React.PropTypes.string,
-        options: React.PropTypes.object,
         onInitPlugin: React.PropTypes.func,
         onActiveGrid: React.PropTypes.func,
         onActiveDrawTool: React.PropTypes.func,
         onHideModal: React.PropTypes.func,
         onDrawPolygon: React.PropTypes.func,
         onSave: React.PropTypes.func,
-        onResetCantieriAreas: React.PropTypes.func,
+        onResetCantieriFeatures: React.PropTypes.func,
         elementsSelected: React.PropTypes.number,
         useDock: React.PropTypes.bool,
         wrappedComponent: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
@@ -42,35 +41,31 @@ const CantieriPanel = React.createClass({
     },
     getDefaultProps() {
         return {
-            activeGrid: "elementiGrid",
+            activeGrid: "elementsGrid",
             pointSelectionGlyph: "1-point",
             polygonSelectionGlyph: "1-polygon",
             areasGridGlyph: "1-polygon",
-            elementiGridGlyph: "list-alt",
+            elementsGridGlyph: "list-alt",
             onInitPlugin: () => {},
             onActiveGrid: () => {},
             onActiveDrawTool: () => {},
             onDrawPolygon: () => {},
-            onResetCantieriAreas: () => {},
+            onResetCantieriFeatures: () => {},
             onSave: () => {},
             onHideModal: () => {},
-            options: {},
             toolbarHeight: 40,
             tooltipPlace: "top",
             elementsSelected: 0,
             toolbar: {
-                activeTools: [ "elementiGrid", pointSelection ],
+                activeTools: [ "elementsGrid", pointSelection ],
                 inactiveTools: [ "areasGrid", polygonSelection ]
             },
             useDock: false
         };
     },
-    componentDidMount() {
-        this.props.onInitPlugin(this.props.options); // TODO remove this for api
-    },
     render() {
         let rowsSelectedComp = null;
-        if (this.props.activeGrid === "elementiGrid") {
+        if (this.props.activeGrid === "elementsGrid") {
             const rowText = this.props.elementsSelected === 1 ? "row" : "rows";
 
             rowsSelectedComp = (<span style={{marginLeft: "15px"}}> <Message msgId={"dock." + rowText} msgParams={{rowsSelected: this.props.elementsSelected.toString()}}/></span>);
@@ -103,13 +98,13 @@ const CantieriPanel = React.createClass({
                 {rowsSelectedComp}
                 <Button key="save" value="save" onClick={() => this.props.onSave()}>
                     <Message msgId="cantieriGrid.toolbar.save"/></Button>
-                <Button key="reset" value="reset" onClick={() => this.props.onResetCantieriAreas()}>
+                <Button key="reset" value="reset" onClick={() => this.props.onResetCantieriFeatures()}>
                     <Message msgId="cantieriGrid.toolbar.reset"/></Button>
             </ButtonToolbar>
             <ButtonToolbar id="right-tools" className="right-tools" bsSize="sm">
-                <ToggleButton id="elementiGrid" glyphicon={this.props.elementiGridGlyph} text={LocaleUtils.getMessageById(this.context.messages, "cantieriGrid.toolbar.elements")} onClick={() => this.props.onActiveGrid("elementiGrid")}
+                <ToggleButton id="elementsGrid" glyphicon={this.props.elementsGridGlyph} text={LocaleUtils.getMessageById(this.context.messages, "cantieriGrid.toolbar.elements")} onClick={() => this.props.onActiveGrid("elementsGrid")}
                     tooltip={null} tooltipPlace={this.props.tooltipPlace} style={null}
-                    btnConfig={{key: "elementiGrid"}} pressed={this.isToolActive("elementiGrid")}/>
+                    btnConfig={{key: "elementsGrid"}} pressed={this.isToolActive("elementsGrid")}/>
                 <ToggleButton id="areasGrid" glyphicon={this.props.areasGridGlyph} text={LocaleUtils.getMessageById(this.context.messages, "cantieriGrid.toolbar.areas")} onClick={() => this.props.onActiveGrid("areasGrid")}
                     tooltip={null} tooltipPlace={this.props.tooltipPlace} style={null}
                     btnConfig={{key: "areasGrid"}} pressed={this.isToolActive("areasGrid")}/>
