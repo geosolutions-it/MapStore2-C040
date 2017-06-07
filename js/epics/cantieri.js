@@ -298,7 +298,7 @@ module.exports = {
                             let newFeatures = response.data.features.map(f => {
                                 return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
                             });
-                            return createAndAddLayers(newFeatures, store);// TODO GET FROM STORE
+                            return createAndAddLayers(newFeatures, store);// TODO GET FROM STORE the checked elements
                         }
                         return Rx.Observable.of(error({
                             uid: ERROR_LOAD_CANTIERI_AREAS,

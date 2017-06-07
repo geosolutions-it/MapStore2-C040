@@ -31,6 +31,7 @@ const CantieriPanel = React.createClass({
         onHideModal: React.PropTypes.func,
         onDrawPolygon: React.PropTypes.func,
         onSave: React.PropTypes.func,
+        position: React.PropTypes.string,
         onResetCantieriFeatures: React.PropTypes.func,
         elementsSelected: React.PropTypes.number,
         useDock: React.PropTypes.bool,
@@ -56,11 +57,24 @@ const CantieriPanel = React.createClass({
             toolbarHeight: 40,
             tooltipPlace: "top",
             elementsSelected: 0,
+            position: "bottom",
             toolbar: {
                 activeTools: [ "elementsGrid", pointSelection ],
                 inactiveTools: [ "areasGrid", polygonSelection ]
             },
             useDock: false
+        };
+    },
+    getStyle(pos) {
+        return {
+            width: pos === "right" || pos === "left" ? "560px" : "100%",
+            height: pos === "bottom" || pos === "top" ? "300px" : "100%",
+            position: "absolute",
+            background: "white",
+            right: pos === "right" ? 0 : "auto",
+            left: pos === "left" ? 0 : "auto",
+            top: pos === "top" ? 0 : "auto",
+            bottom: pos === "bottom" ? 0 : "auto"
         };
     },
     render() {
@@ -120,13 +134,7 @@ const CantieriPanel = React.createClass({
                     {...this.props}
                     toolbar={toolbar}
                     id="CantieriDockablePanel"
-                    style={ this.props.useDock ? null : {
-                        width: "100%",
-                        height: "300px",
-                        position: "absolute",
-                        background: "white",
-                        bottom: 0
-                    }}
+                    style={ this.props.useDock ? null : this.getStyle(this.props.position)}
                 />
         );
     },

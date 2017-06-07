@@ -34,7 +34,12 @@
         }
         </style>
     </head>
-    <body onload="init()">
+    <body >
+        <form>
+            <label>ID CANTIERE</label><input id="ID_CANTIERE" type="number" value="0">
+            <label>TIPOLOGIA</label><input id="TIPOLOGIA" type="text" value="cantiere"/>
+            <button onClick="init()">Avvia</button>
+        </form>
         <div id="container" class="ms2"></div>
         <script id="ms2-api" src="dist/ms2-api.js"></script>
         <script type="text/javascript">
@@ -108,8 +113,8 @@
               * @prop {string} typology equal to TIPOLOGIA of AREE_CANTIERE layer
             */
             var checkedElements = ["1212"];
-            var id = 0;
-            var typology = "cantiere";
+            var id = parseInt(document.getElementById("ID_CANTIERE").value) || 0;
+            var typology = document.getElementById("TIPOLOGIA").value || "cantiere";
             var options = {
                 "geoserverUrl": "/geoserver-test/ows",
                 "toolbar": {

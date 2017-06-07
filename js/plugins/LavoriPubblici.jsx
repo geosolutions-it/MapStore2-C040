@@ -54,7 +54,7 @@ const Dock = connect(
         activeGrid: state.cantieri && state.cantieri.activeGrid,
         dockSize: state.highlight && state.highlight.dockSize,
         maxFeaturesExceeded: state.cantieri && state.cantieri.maxFeaturesExceeded,
-        position: "bottom",
+        position: "right",
         selectBy: state.cantieri.activeGrid === "elementsGrid" ? {isSelectedKey: 'checked'} : null,
         toolbar: state.cantieri && state.cantieri.toolbar,
         elementsSelected: layer && layer.features ? layer.features.filter(f => f.checked).length : 0,
