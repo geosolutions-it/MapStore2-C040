@@ -18,7 +18,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.0.1/ol.js"></script>
         <style>
         #container {
-            width: 800px;
+            width: 1024px;
             height: 600px;
             position: absolute;
         }
@@ -38,6 +38,7 @@
         <form>
             <label>ID CANTIERE</label><input id="ID_CANTIERE" type="number" value="0">
             <label>TIPOLOGIA</label><input id="TIPOLOGIA" type="text" value="cantiere"/>
+            <label>CHECKED ELEMENTS</label><input id="CHECKED_ELEMENTS" type="text" value="1234 EDIFICI, 1235 PIANO_BACINO"/>
             <button onClick="init()">Avvia</button>
         </form>
         <div id="container" class="ms2"></div>
@@ -112,7 +113,7 @@
               * @prop {number} id equal to ID_CANTIERE of AREE_CANTIERE layer
               * @prop {string} typology equal to TIPOLOGIA of AREE_CANTIERE layer
             */
-            var checkedElements = ["1212"];
+            var checkedElements = document.getElementById("CHECKED_ELEMENTS").value;
             var id = parseInt(document.getElementById("ID_CANTIERE").value) || 0;
             var typology = document.getElementById("TIPOLOGIA").value || "cantiere";
             var options = {

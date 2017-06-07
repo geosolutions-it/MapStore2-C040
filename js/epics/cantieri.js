@@ -300,6 +300,9 @@ module.exports = {
                             });
                             return createAndAddLayers(newFeatures, store);// TODO GET FROM STORE the checked elements
                         }
+                        if (response.data.features.length === 0) {
+                            return Rx.Observable.empty();
+                        }
                         return Rx.Observable.of(error({
                             uid: ERROR_LOAD_CANTIERI_AREAS,
                             title: "warning",
