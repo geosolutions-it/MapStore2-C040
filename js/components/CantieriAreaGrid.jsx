@@ -37,12 +37,12 @@ const CantieriAreaGrid = React.createClass({
         );
     },
     rowGetter(i) {
-        let elementiGridTooltip = (<Tooltip key="elementiGridTooltip" id="elementiGridTooltip">
+        let elementsGridTooltip = (<Tooltip key="elementsGridTooltip" id="elementsGridTooltip">
             <Message msgId={"cantieriGrid.toolbar.deleteRow"}/></Tooltip>);
         if (this.props.rows[i].delete === "X") {
             return assign({}, {...this.props.rows[i], "delete": (<ToggleButton id={"delRow" + i} glyphicon="remove"
                 onClick={() => this.props.onDeleteRow(this.props.rows[i].name)}
-                tooltip={elementiGridTooltip} tooltipPlace="top" style={null}
+                tooltip={elementsGridTooltip} tooltipPlace="top" style={null}
                 btnConfig={{key: "delButton_" + i}} pressed={false}/>)});
         }
         return this.props.rows[i];
