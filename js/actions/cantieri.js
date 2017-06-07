@@ -10,9 +10,9 @@ const ROWS_SELECTED = "CANTIERI::ROWS_SELECTED";
 const ROWS_DESELECTED = "CANTIERI::ROWS_DESELECTED";
 const INIT_CANTIERI_PLUGIN = "INIT_CANTIERI_PLUGIN";
 const SET_ACTIVE_GRID = "SET_ACTIVE_GRID";
-const DELETE_CANTIERI_AREA = "DELETE_CANTIERI_AREA";
+const REMOVE_CANTIERI_AREA = "REMOVE_CANTIERI_AREA";
 const SET_ACTIVE_DRAW_TOOL = "SET_ACTIVE_DRAW_TOOL";
-const RESET_CANTIERI_AREAS = "RESET_CANTIERI_AREAS";
+const RESET_CANTIERI_FEATURES = "RESET_CANTIERI_FEATURES";
 const QUERY_ELEMENTS_FEATURES = "QUERY_ELEMENTS_FEATURES";
 const LOAD_CANTIERI_AREA_FEATURES = "LOAD_CANTIERI_AREA_FEATURES";
 const LOAD_CHECKED_ELEMENTS = "LOAD_CHECKED_ELEMENTS";
@@ -22,6 +22,10 @@ const AREAS_LAYER = "CANTIERI::AREAS_LAYER";
 const ELEMENTS_LAYER = "CANTIERI::ELEMENTS_LAYER";
 const DATA_SAVED = "CANTIERI::DATA_SAVED";
 const SAVING_ERROR = "CANTIERI::SAVE_ERROR";
+const ERROR_REMOVE_CANTIERI_AREA = "ERROR_REMOVE_CANTIERI_AREA";
+const ERROR_RESET_CANTIERI_FEATURES = "ERROR_RESET_CANTIERI_FEATURES";
+const ERROR_LOAD_CANTIERI_AREAS = "ERROR_LOAD_CANTIERI_AREAS";
+const ERROR_QUERY_ELEMENTS_FEATURES = "ERROR_QUERY_ELEMENTS_FEATURES";
 
 /**
  * updates in the state the selected rows
@@ -96,22 +100,22 @@ function setActiveGrid(activeGrid) {
 /**
  * delete a row in the areas grid
  * @memberof actions.cantieri
- * @return {action} of type `DELETE_CANTIERI_AREA`
+ * @return {action} of type `REMOVE_CANTIERI_AREA`
  */
-function deleteCantieriArea(area) {
+function removeCantieriArea(area) {
     return {
-        type: DELETE_CANTIERI_AREA,
+        type: REMOVE_CANTIERI_AREA,
         area
     };
 }
 /**
  * clear all areas
  * @memberof actions.cantieri
- * @return {action} of type `RESET_CANTIERI_AREAS`
+ * @return {action} of type `RESET_CANTIERI_FEATURES`
  */
-function resetCantieriAreas() {
+function resetCantieriFeatures() {
     return {
-        type: RESET_CANTIERI_AREAS
+        type: RESET_CANTIERI_FEATURES
     };
 }
 /**
@@ -177,14 +181,10 @@ function maxFeaturesExceeded(status) {
  * @return {action} of type `LOAD_CANTIERI_AREA_FEATURES`
  */
 function loadCantieriAreaFeatures() {
-    const checkedElements = ["14141"];
-    let myFeatures = [{"type": "Feature", "id": "area_0", "geometry": {"type": "MultiPolygon", "coordinates": [[[[-104.053108, 41.698246], [-104.054993, 41.564247], [-104.053505, 41.388107], [-104.051201, 41.003227], [-104.933968, 40.994305], [-105.278259, 40.996365], [-106.202896, 41.000111], [-106.328545, 41.001316], [-106.864838, 40.998489], [-107.303436, 41.000168], [-107.918037, 41.00341], [-109.047638, 40.998474], [-110.001457, 40.997646], [-110.062477, 40.99794], [-111.050285, 40.996635], [-111.050911, 41.25848], [-111.050323, 41.578648], [-111.047951, 41.996265], [-111.046028, 42.503323], [-111.048447, 43.019962], [-111.04673, 43.284813], [-111.045998, 43.515606], [-111.049629, 43.982632], [-111.050789, 44.473396], [-111.050842, 44.664562], [-111.05265, 44.995766], [-110.428894, 44.992348], [-110.392006, 44.998688], [-109.994789, 45.002853], [-109.798653, 44.99958], [-108.624573, 44.997643], [-108.258568, 45.00016], [-107.893715, 44.999813], [-106.258644, 44.996174], [-106.020576, 44.997227], [-105.084465, 44.999832], [-105.04126, 45.001091], [-104.059349, 44.997349], [-104.058975, 44.574368], [-104.060547, 44.181843], [-104.059242, 44.145844], [-104.05899, 43.852928], [-104.057426, 43.503738], [-104.05867, 43.47916], [-104.05571, 43.003094], [-104.055725, 42.614704], [-104.053009, 41.999851], [-104.053108, 41.698246]]]]}, "geometry_name": "the_geom", "properties": {}}];
-    return {
-        type: LOAD_CANTIERI_AREA_FEATURES,
-        myFeatures,
-        checkedElements
-    };
-}
+     return {
+         type: LOAD_CANTIERI_AREA_FEATURES
+     };
+ }
 
 function dataSaved(checked) {
     return {
@@ -205,9 +205,9 @@ module.exports = {
     ROWS_DESELECTED, rowsDeselected,
     INIT_CANTIERI_PLUGIN, initPlugin,
     SET_ACTIVE_GRID, setActiveGrid,
-    DELETE_CANTIERI_AREA, deleteCantieriArea,
+    REMOVE_CANTIERI_AREA, removeCantieriArea,
     SET_ACTIVE_DRAW_TOOL, setActiveDrawTool,
-    RESET_CANTIERI_AREAS, resetCantieriAreas,
+    RESET_CANTIERI_FEATURES, resetCantieriFeatures,
     QUERY_ELEMENTS_FEATURES, queryElements,
     LOAD_CHECKED_ELEMENTS, loadCheckedElements,
     LOAD_CANTIERI_AREA_FEATURES, loadCantieriAreaFeatures,
@@ -215,5 +215,7 @@ module.exports = {
     SAVE_CANTIERI_DATA, saveCantieriData,
     DATA_SAVED, dataSaved,
     SAVING_ERROR, savingError,
-    AREAS_LAYER, ELEMENTS_LAYER
+    AREAS_LAYER, ELEMENTS_LAYER,
+    ERROR_REMOVE_CANTIERI_AREA, ERROR_RESET_CANTIERI_FEATURES,
+    ERROR_LOAD_CANTIERI_AREAS, ERROR_QUERY_ELEMENTS_FEATURES
 };

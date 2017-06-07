@@ -13,6 +13,13 @@
             },
             "error":{
                 "maxFeatures": "The drawn area is too big and it is not accepted. Please, draw a smaller area."
+            },
+            "notification":{
+                "confirm": "Ok",
+                "removeFeatureError": "An error occured while deleting this area.",
+                "resetCantieriFeaturesError": "An error occured while clearing the grids.",
+                "errorQueryElements": "",
+                "errorLoadCantieriAreas": ""
             }
         }
     }

@@ -13,6 +13,13 @@
             },
             "error":{
                 "maxFeatures": "L'area disegnata è troppo grande e verrà rimossa. Per favore, disegna un'area più piccola"
+            },
+            "notification":{
+                "confirm": "Ok",
+                "removeFeatureError": "Non è stato possibile rimuovere quest'area.",
+                "resetCantieriFeaturesError": "Non è stato possibile resettare le griglie.",
+                "errorQueryElements": "Non è stato possibile caricare gli elementi",
+                "errorLoadCantieriAreas": "Non è stato possibile caricare le aree."
             }
         }
     }

@@ -22,9 +22,15 @@
             height: 600px;
             position: absolute;
         }
+        .notifications-wrapper > div {
+            position: absolute !important;
+        }
         #mapstore2-embedded, #map, .fill {
             width: 100%;
             height: 100%;
+        }
+        #mapstore2-embedded{
+            border: 1px solid lightgray;
         }
         </style>
     </head>
@@ -49,15 +55,15 @@
                                 "mapType": 'openlayers',
                                 "tools": ["measurement", "locate", "draw", "highlight"]
                             }
-                        }, "TOC", "DrawerMenu",
+                        }, "Notifications", "TOC","DrawerMenu",
                         {
                             "name": "LavoriPubblici",
                             "cfg": {
                                 "options": {
                                     "geoserverUrl": "/geoserver-test/ows",
-                                    "activeTools": ["elementiGrid", "pointSelection"],
+                                    "activeTools": ["elementsGrid", "pointSelection"],
                                     "inactiveTools": ["areasGrid", "polygonSelection"],
-                                    "activeGrid": "elementiGrid",
+                                    "activeGrid": "elementsGrid",
                                     "maxFeatures": 1000
                                 }
                             }
@@ -94,41 +100,38 @@
                 }
             });
 
-            /** Action that initializes the LavoriPubblici plugin
+            /** Init action
+              * Action that initializes the LavoriPubblici plugin
               * @prop {object} options. Properties used to initialize the plugin
-              *
+              * @prop {string[]} checkedElements list of the ids of the checked elements
+              * @prop {number} id equal to ID_CANTIERE of AREE_CANTIERE layer
+              * @prop {string} typology equal to TIPOLOGIA of AREE_CANTIERE layer
             */
+            var checkedElements = ["1212"];
+            var id = 0;
+            var typology = "cantiere";
             var options = {
                 "geoserverUrl": "/geoserver-test/ows",
-                "activeTools": ["elementiGrid", "pointSelection"],
-                "inactiveTools": ["areasGrid", "polygonSelection"],
-                "activeGrid": "elementiGrid",
-                "maxFeatures": 1000
+                "toolbar": {
+                    "activeTools": ["elementsGrid", "pointSelection"],
+                    "inactiveTools": ["areasGrid", "polygonSelection"]
+                },
+                "activeGrid": "elementsGrid",
+                "maxFeatures": 1000,
+                "checkedElements": checkedElements,
+                "id": id,
+                "typology": typology
             };
             MapStore2.triggerAction({
                 type: "INIT_CANTIERI_PLUGIN",
                 options: options
             });
 
-            /** Action that will create the areaVectorLayer and the elementVectorLayer. It will load the area features and then it
-                will update the list of the features in the elementVectorLayer.
-              * @prop {object[]} areaFeatures: list of features representing the drawn areas (with blu border)
-                    for the moment it accept only MultiPolygon
-              * @prop {any[]} checkedElements: it contains the ids of the checked elements
+            /** Action that creates the areaVectorLayer and the elementVectorLayer. Then it loads the area features and it
+                updates the list of the features in the elementVectorLayer with the checked elements passed to the init action.
             */
-            var areaFeatures = [{"type": "Feature", "id": "1212", "geometry": {"type": "MultiPolygon", "coordinates": [[[
-                [8.984225724801172, 44.40639332278217], [8.983152841195215, 44.405749490942], [8.984955285653221, 44.40559619660227]
-            ]]]}, "geometry_name": "GEOMETRY", "properties": {
-                "ID": 1212,
-                "NOME_LIVELLO": "EDIFICI"
-            }}];
-            var checkedElements = ["1212"];
             MapStore2.triggerAction({
-                type: "LOAD_CANTIERI_AREA_FEATURES",
-                // areaFeatures: areaFeatures,
-                areaFeatures: [],
-                checkedElements: []
-                // checkedElements : checkedElements
+                type: "LOAD_CANTIERI_AREA_FEATURES"
             });
         }
         </script>
