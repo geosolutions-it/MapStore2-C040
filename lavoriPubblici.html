@@ -29,8 +29,16 @@
             width: 100%;
             height: 100%;
         }
-        #mapstore2-embedded{
+        #mapstore2-embedded {
             border: 1px solid lightgray;
+        }
+        #savedData {
+            overflow-wrap: break-word;
+            position: relative;
+            top: 605px;
+            border: 2px solid orange;
+            width: 990px;
+            padding: 15px;
         }
         </style>
     </head>
@@ -38,10 +46,20 @@
         <form>
             <label>ID CANTIERE</label><input id="ID_CANTIERE" type="number" value="0">
             <label>TIPOLOGIA</label><input id="TIPOLOGIA" type="text" value="cantiere"/>
-            <label>CHECKED ELEMENTS</label><input id="CHECKED_ELEMENTS" type="text" value="1234 EDIFICI, 1235 PIANO_BACINO"/>
-            <button onClick="init()">Avvia</button>
+            <label>CHECKED ELEMENTS</label><input id="CHECKED_ELEMENTS" type="text" value="22682,EDIFICI 1362,PIANO_BACINO"/>
+            <button onClick="init()" type="button">Avvia</button>
         </form>
-        <div id="container" class="ms2"></div>
+        <div>
+            <div id="container" class="ms2"></div>
+            <div id="savedData">
+                <p id="desc">
+                    <b>Data saved:</b>
+                </p>
+                <p id="checkedElements"></p>
+                <p id="idCantiere"></p>
+                <p id="typology"></p>
+            </div>
+        </div>
         <script id="ms2-api" src="dist/ms2-api.js"></script>
         <script type="text/javascript">
         function init() {
@@ -61,19 +79,7 @@
                                 "mapType": 'openlayers',
                                 "tools": ["measurement", "locate", "draw", "highlight"]
                             }
-                        }, "Notifications", "TOC","DrawerMenu",
-                        {
-                            "name": "LavoriPubblici",
-                            "cfg": {
-                                "options": {
-                                    "geoserverUrl": "/geoserver-test/ows",
-                                    "activeTools": ["elementsGrid", "pointSelection"],
-                                    "inactiveTools": ["areasGrid", "polygonSelection"],
-                                    "activeGrid": "elementsGrid",
-                                    "maxFeatures": 1000
-                                }
-                            }
-                        }
+                        }, "Notifications", "TOC", "DrawerMenu", "LavoriPubblici"
                     ]
                 },
                 config: {
@@ -114,6 +120,9 @@
               * @prop {string} typology equal to TIPOLOGIA of AREE_CANTIERE layer
             */
             var checkedElements = document.getElementById("CHECKED_ELEMENTS").value;
+            checkedElements = checkedElements.split(" ");
+            checkedElements = checkedElements.map(f => f.split(","));
+
             var id = parseInt(document.getElementById("ID_CANTIERE").value) || 0;
             var typology = document.getElementById("TIPOLOGIA").value || "cantiere";
             var options = {
@@ -126,7 +135,10 @@
                 "maxFeatures": 1000,
                 "checkedElements": checkedElements,
                 "id": id,
-                "typology": typology
+                "typology": typology,
+                "geometry_name": "GEOMETRY",
+                "elementsLayerName": "CORSO_1:V_ELEMENTI_CANTIERI",
+                "areasLayerName": "CORSO_1:AREE_CANTIERE"
             };
             MapStore2.triggerAction({
                 type: "INIT_CANTIERI_PLUGIN",
@@ -137,8 +149,16 @@
                 updates the list of the features in the elementVectorLayer with the checked elements passed to the init action.
             */
             MapStore2.triggerAction({
-                type: "LOAD_CANTIERI_AREA_FEATURES"
+                type: "FETCH_CANTIERI_FEATURES"
             });
+
+            MapStore2.onAction('CANTIERI::DATA_SAVED', function(action) {
+                console.log("checked elements: " + action.checkedElements.join(" ") + "\nid cantiere: " + action.idCantiere + "\ntypology: " + action.typology);
+                document.getElementById("checkedElements").innerHTML = "checked elements: " + action.checkedElements.join(" ");
+                document.getElementById("idCantiere").innerHTML = "id cantiere: " + action.idCantiere;
+                document.getElementById("typology").innerHTML = "typology: " + action.typology;
+            });
+
         }
         </script>
     </body>

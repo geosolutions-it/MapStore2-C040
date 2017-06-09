@@ -18,8 +18,13 @@
                 "confirm": "Ok",
                 "removeFeatureError": "Il n'a pas été possible de supprimer ce domaine.",
                 "resetCantieriFeaturesError": "Une erreur s'est produite lors de l'effacement des grilles.",
-                "errorQueryElements": "",
-                "errorLoadCantieriAreas": ""
+                "errorQueryElements": "Il n'y a aucun élément dans la zone tracée.",
+                "errorLoadCantieriAreas": "Erreur lors du chargement des zones.",
+                "errorDrawingAreas": "Erreur sur le dessin des zones.",
+                "noFeaturesSelected": "Il n'y a aucun élément dans le point cliqué.",
+                "elementAlreadyPresent": "L'élément sélectionné est déjà présent.",
+                "errorSavingData": "Erreur sur la sauvegarde des données.",
+                "successSaving": "Les données ont été correctement enregistrées."
             }
         }
     }

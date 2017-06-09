@@ -18,8 +18,13 @@
                 "confirm": "Ok",
                 "removeFeatureError": "An error occured while deleting this area.",
                 "resetCantieriFeaturesError": "An error occured while clearing the grids.",
-                "errorQueryElements": "",
-                "errorLoadCantieriAreas": ""
+                "errorQueryElements": "There are no elements in the drawn area.",
+                "errorLoadCantieriAreas": "Error on loading the areas.",
+                "errorDrawingAreas": "Error on drawing the areas.",
+                "noFeaturesSelected": "There are no elements in the clicked point.",
+                "elementAlreadyPresent": "The selected element is already present.",
+                "errorSavingData": "Error on saving data.",
+                "successSaving": "Data have been saved correctly."
             }
         }
     }

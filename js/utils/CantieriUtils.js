@@ -1,13 +1,13 @@
+const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {indexOf, max, startsWith, slice} = require('lodash');
 const Rx = require('rxjs');
 const {
     ELEMENTS_LAYER,
     AREAS_LAYER,
-    ERROR_QUERY_ELEMENTS_FEATURES,
     maxFeaturesExceeded
 } = require('../actions/cantieri');
 const {changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
-const {error} = require('../../MapStore2/web/client/actions/notifications');
+const {info} = require('../../MapStore2/web/client/actions/notifications');
 
 const checkedStyle = {
     type: "Polygon",
@@ -20,7 +20,18 @@ const checkedStyle = {
     }
 };
 
+const requestBuilder = require('../../MapStore2/web/client/utils/ogc/WFS/RequestBuilder');
+const {filter, and, or, getFeature, property, query} = requestBuilder({wfsVersion: "1.1.0"});
+
 const {elementsLayerSelector, areasLayerSelector} = require('../selector/cantieri');
+
+const getNewIndex = (features) => {
+    let indexesOfDrawnAreas = features.filter(f => startsWith(f.id, "area_"));
+    if (indexesOfDrawnAreas.length > 0) {
+        return max(indexesOfDrawnAreas.map(f => f.index )) + 1;
+    }
+    return 0;
+};
 
 module.exports = {
 
@@ -60,7 +71,13 @@ module.exports = {
             }
         }
     }),
-    getAreaFilter: (id = 0, typology = "cantiere") => {
+    getCheckedElements: (layer) => {
+        // Returns array of array
+        return layer.features.filter(f => f.checked).map(f => {
+            return [f.properties.ID, f.properties.NOME_LIVELLO ];
+        });
+    },
+    getAreaFilter: (id = 0, typology = "cantiere", areasLayerName) => {
         return {
             filterFields: [{
                 attribute: "ID_CANTIERE",
@@ -85,24 +102,49 @@ module.exports = {
                 logic: "AND"
             }],
             "filterType": "OGC",
-            "featureTypeName": "CORSO_1:AREE_CANTIERE",
+            "featureTypeName": areasLayerName,
             "ogcVersion": "1.1.0"
         };
+    },
+    getElementsFilter: (checkedElements, elementLayerName) => {
+        // return the filter as string
+        return getFeature(
+            query(
+                elementLayerName,
+                filter(
+                    or(
+                        checkedElements.map(el => {
+                            return and([property("ID").equalTo(el[0]), property("NOME_LIVELLO").equalTo(el[1])]);
+                        })
+                    )
+                )
+            ), {outputFormat: "application/json"}
+        );
     },
     isActiveTool: (tool, store) => {
         return store.getState() && store.getState().cantieri && store.getState().cantieri.toolbar && store.getState().cantieri.toolbar.activeTools &&
         indexOf(store.getState().cantieri.toolbar.activeTools, tool) !== -1 || false;
     },
-    getNewIndex: (features) => {
-        let indexesOfDrawnAreas = features.filter(f => startsWith(f.id, "area_"));
-        if (indexesOfDrawnAreas.length > 0) {
-            return max(indexesOfDrawnAreas.map(f => f.index )) + 1;
-        }
-        return 0;
-    },
     removeFeature: (idFeature, layer) => {
         const newLayerProps = {features: layer.features.filter(f => f.id !== idFeature)};
         return Rx.Observable.from([changeLayerProperties(layer.id, newLayerProps)]);
+    },
+    addFeatureToAreaLayer: (feature, layer) => {
+        const newIdx = layer.features.length > 0 ? getNewIndex(layer.features) : 0;
+        let newLayerProps = {};
+        feature.index = newIdx;
+        feature.id = "area_" + newIdx;
+        newLayerProps.features = layer.features.concat(feature);
+        return Rx.Observable.from([
+            changeDrawingStatus("cleanAndContinueDrawing", "", "LavoriPubblici", [], {}),
+            changeLayerProperties(AREAS_LAYER, newLayerProps)
+        ]);
+    },
+    replaceFeatures: (features, layer) => {
+        const newLayerProps = {features: features};
+        return Rx.Observable.from([
+            changeLayerProperties(layer.id, newLayerProps)
+        ]);
     },
     clearAllFeatures: () => {
         const newLayerProps = {features: []};
@@ -137,14 +179,13 @@ module.exports = {
             coordinates: features.map(f => f.geometry.coordinates)
         };
     },
-    showQueryElementsError: () => Rx.Observable.of(error({
-        uid: ERROR_QUERY_ELEMENTS_FEATURES,
+    showQueryElementsError: () => Rx.Observable.of(info({
         title: "warning",
         message: "cantieriGrid.notification.errorQueryElements",
         action: {
             label: "cantieriGrid.notification.confirm"
         },
-        autoDismiss: 0,
+        autoDismiss: 3,
         position: "tr"
     }))
 };

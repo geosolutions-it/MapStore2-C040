@@ -14,7 +14,7 @@ const REMOVE_CANTIERI_AREA = "REMOVE_CANTIERI_AREA";
 const SET_ACTIVE_DRAW_TOOL = "SET_ACTIVE_DRAW_TOOL";
 const RESET_CANTIERI_FEATURES = "RESET_CANTIERI_FEATURES";
 const QUERY_ELEMENTS_FEATURES = "QUERY_ELEMENTS_FEATURES";
-const LOAD_CANTIERI_AREA_FEATURES = "LOAD_CANTIERI_AREA_FEATURES";
+const FETCH_CANTIERI_FEATURES = "FETCH_CANTIERI_FEATURES";
 const LOAD_CHECKED_ELEMENTS = "LOAD_CHECKED_ELEMENTS";
 const SAVE_CANTIERI_DATA = "SAVE_CANTIERI_DATA";
 const MAX_FEATURES_EXCEEDED = "MAX_FEATURES_EXCEEDED";
@@ -26,6 +26,8 @@ const ERROR_REMOVE_CANTIERI_AREA = "ERROR_REMOVE_CANTIERI_AREA";
 const ERROR_RESET_CANTIERI_FEATURES = "ERROR_RESET_CANTIERI_FEATURES";
 const ERROR_LOAD_CANTIERI_AREAS = "ERROR_LOAD_CANTIERI_AREAS";
 const ERROR_QUERY_ELEMENTS_FEATURES = "ERROR_QUERY_ELEMENTS_FEATURES";
+const ERROR_DRAWING_AREAS = "ERROR_DRAWING_AREAS";
+const SUCCESS_SAVING = "SUCCESS_SAVING";
 
 /**
  * updates in the state the selected rows
@@ -157,11 +159,9 @@ function loadCheckedElements(checkedElements) {
  * @memberof actions.cantieri
  * @return {action} of type `SAVE_CANTIERI_DATA`
  */
-function saveCantieriData(checkedElements, areaFeatures) {
+function saveCantieriData() {
     return {
-        type: SAVE_CANTIERI_DATA,
-        checkedElements,
-        areaFeatures
+        type: SAVE_CANTIERI_DATA
     };
 }
 /**
@@ -178,18 +178,20 @@ function maxFeaturesExceeded(status) {
 /**
  * load area features
  * @memberof actions.cantieri
- * @return {action} of type `LOAD_CANTIERI_AREA_FEATURES`
+ * @return {action} of type `FETCH_CANTIERI_FEATURES`
  */
 function loadCantieriAreaFeatures() {
      return {
-         type: LOAD_CANTIERI_AREA_FEATURES
+         type: FETCH_CANTIERI_FEATURES
      };
  }
 
-function dataSaved(checked) {
+function dataSaved(checkedElements, idCantiere, typology) {
     return {
         type: DATA_SAVED,
-        checked
+        checkedElements,
+        idCantiere,
+        typology
     };
 }
 
@@ -210,12 +212,13 @@ module.exports = {
     RESET_CANTIERI_FEATURES, resetCantieriFeatures,
     QUERY_ELEMENTS_FEATURES, queryElements,
     LOAD_CHECKED_ELEMENTS, loadCheckedElements,
-    LOAD_CANTIERI_AREA_FEATURES, loadCantieriAreaFeatures,
+    FETCH_CANTIERI_FEATURES, loadCantieriAreaFeatures,
     MAX_FEATURES_EXCEEDED, maxFeaturesExceeded,
     SAVE_CANTIERI_DATA, saveCantieriData,
     DATA_SAVED, dataSaved,
     SAVING_ERROR, savingError,
     AREAS_LAYER, ELEMENTS_LAYER,
     ERROR_REMOVE_CANTIERI_AREA, ERROR_RESET_CANTIERI_FEATURES,
-    ERROR_LOAD_CANTIERI_AREAS, ERROR_QUERY_ELEMENTS_FEATURES
+    ERROR_LOAD_CANTIERI_AREAS, ERROR_QUERY_ELEMENTS_FEATURES,
+    ERROR_DRAWING_AREAS, SUCCESS_SAVING
 };

@@ -18,8 +18,13 @@
                 "confirm": "Ok",
                 "removeFeatureError": "Non è stato possibile rimuovere quest'area.",
                 "resetCantieriFeaturesError": "Non è stato possibile resettare le griglie.",
-                "errorQueryElements": "Non è stato possibile caricare gli elementi",
-                "errorLoadCantieriAreas": "Non è stato possibile caricare le aree."
+                "errorQueryElements": "Non ci sono elementi nell'area disegnata.",
+                "errorLoadCantieriAreas": "Non è stato possibile caricare le aree.",
+                "errorDrawingAreas": "Impossibile aggiungere l'area disegnata.",
+                "noFeaturesSelected": "Non ci sono elementi nel punto cliccato.",
+                "elementAlreadyPresent": "L'elemento selezionato è già presente nella tabella degli elementi.",
+                "errorSavingData": "c'è stato un errore durante il salvataggio",
+                "successSaving": "I dati sono stati salvati correttamente."
             }
         }
     }
