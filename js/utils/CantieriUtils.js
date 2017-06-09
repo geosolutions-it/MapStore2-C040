@@ -71,7 +71,7 @@ module.exports = {
             }
         }
     }),
-    getCheckedElements: (layer) => {
+    getCheckedElementsFromLayer: (layer) => {
         // Returns array of array
         return layer.features.filter(f => f.checked).map(f => {
             return [f.properties.ID, f.properties.NOME_LIVELLO ];
@@ -156,10 +156,10 @@ module.exports = {
     getAreasLayer: (store) => {
         return areasLayerSelector(store.getState());
     },
-    addFeaturesToElementLayer: (elementLayer, areasLayer, newFeatures, totalFeaturesReceived = 0, maxFeatures) => {
+    addFeaturesToElementLayer: (elementLayer, areasLayer, newFeatures, totalFeaturesReceived = 0, maxFeatures, check) => {
         let actions = [];
         let newLayerProps = {features: elementLayer.features.concat(newFeatures)};
-        if (totalFeaturesReceived > maxFeatures ) {
+        if (totalFeaturesReceived > maxFeatures && check === true) {
             actions.push(maxFeaturesExceeded(true));
             if (areasLayer !== undefined) {
                 // removing last drawn areas if it is too big, restoring previous elementLayer features in elementLayer

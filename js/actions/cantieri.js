@@ -128,10 +128,11 @@ function resetCantieriFeatures() {
  * @param {object} filter the filter to use to query the layer
  * @return {action} of type `QUERY_ELEMENTS_FEATURES`
  */
-function queryElements(filter) {
+function queryElements(filter, check) {
     return {
         type: QUERY_ELEMENTS_FEATURES,
-        filter
+        filter,
+        check
     };
 }
 /**
