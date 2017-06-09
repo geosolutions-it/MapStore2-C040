@@ -52,12 +52,14 @@
         </style>
     </head>
     <body >
-        <form>
-            <label>ID CANTIERE</label><input id="ID_CANTIERE" type="number" value="0">
-            <label>TIPOLOGIA</label><input id="TIPOLOGIA" type="text" value="cantiere"/>
-            <label>CHECKED ELEMENTS</label><input id="CHECKED_ELEMENTS" type="text" value="22682,EDIFICI 1362,PIANO_BACINO"/>
-            <button onClick="init()" type="button">Avvia</button>
-        </form>
+        <div id="formCantieri">
+            <form>
+                <label>ID CANTIERE</label><input id="ID_CANTIERE" type="number" value="0">
+                <label>TIPOLOGIA</label><input id="TIPOLOGIA" type="text" value="cantiere"/>
+                <label>CHECKED ELEMENTS</label><input id="CHECKED_ELEMENTS" type="text" value="22682,EDIFICI 1362,PIANO_BACINO"/>
+                <button onClick="init()" type="button">Avvia</button>
+            </form>
+        </div>
         <div>
             <div id="container" class="ms2"></div>
             <div id="savedData">
@@ -149,10 +151,6 @@
                 "elementsLayerName": "CORSO_1:V_ELEMENTI_CANTIERI",
                 "areasLayerName": "CORSO_1:AREE_CANTIERE"
             };
-            /*MapStore2.triggerAction({
-                type: "LOADING_DATA",
-                status: true
-            });*/
             MapStore2.triggerAction({
                 type: "INIT_CANTIERI_PLUGIN",
                 options: options
@@ -170,11 +168,8 @@
                 document.getElementById("checkedElements").innerHTML = "checked elements: " + action.checkedElements.join(" ");
                 document.getElementById("idCantiere").innerHTML = "id cantiere: " + action.idCantiere;
                 document.getElementById("typology").innerHTML = "typology: " + action.typology;
+                document.getElementById("formCantieri").style.display = "none";
 
-                MapStore2.triggerAction({
-                    type: "SAVING_DATA",
-                    status: false
-                });
             });
 
         }

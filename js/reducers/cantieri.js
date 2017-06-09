@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, HIDE_MODAL, SET_ACTIVE_DRAW_TOOL, SAVING_DATA} = require('../actions/cantieri');
+const { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED, SET_ACTIVE_DRAW_TOOL, SAVING_DATA, LOADING_DATA} = require('../actions/cantieri');
 const assign = require('object-assign');
 const {indexOf} = require('lodash');
 
@@ -72,11 +72,14 @@ function cantieri(state = {
                         inactiveTools: newInactiveTools
                     }});
         }
-        case HIDE_MODAL: {
+        case MAX_FEATURES_EXCEEDED: {
             return assign({}, state, {maxFeaturesExceeded: action.status});
         }
         case SAVING_DATA: {
             return assign({}, state, {saving: action.status});
+        }
+        case LOADING_DATA: {
+            return assign({}, state, {loading: action.status});
         }
         default:
             return state;

@@ -29,6 +29,7 @@ const ERROR_QUERY_ELEMENTS_FEATURES = "ERROR_QUERY_ELEMENTS_FEATURES";
 const ERROR_DRAWING_AREAS = "ERROR_DRAWING_AREAS";
 const SUCCESS_SAVING = "SUCCESS_SAVING";
 const SAVING_DATA = "SAVING_DATA";
+const LOADING_DATA = "LOADING_DATA";
 
 /**
  * updates in the state the selected rows
@@ -210,6 +211,13 @@ function savingData(status) {
     };
 }
 
+function loadingData(status) {
+    return {
+        type: LOADING_DATA,
+        status
+    };
+}
+
 module.exports = {
     ROWS_SELECTED, rowsSelected,
     ROWS_DESELECTED, rowsDeselected,
@@ -225,6 +233,7 @@ module.exports = {
     SAVE_CANTIERI_DATA, saveCantieriData,
     DATA_SAVED, dataSaved,
     SAVING_DATA, savingData,
+    LOADING_DATA, loadingData,
     SAVING_ERROR, savingError,
     AREAS_LAYER, ELEMENTS_LAYER,
     ERROR_REMOVE_CANTIERI_AREA, ERROR_RESET_CANTIERI_FEATURES,
