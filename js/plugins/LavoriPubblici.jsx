@@ -12,7 +12,7 @@ const {changeMapView} = require('../../MapStore2/web/client/actions/map');
 const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {dockSizeFeatures} = require('../../MapStore2/web/client/actions/featuregrid');
 const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, removeCantieriArea, setActiveDrawTool, resetCantieriFeatures,
-saveCantieriData, maxFeaturesExceeded } = require('../actions/cantieri');
+saveCantieriData, maxFeaturesExceeded, savingData } = require('../actions/cantieri');
 const epics = require('../epics/cantieri');
 const {featureToRow} = require('../utils/CantieriUtils');
 
@@ -54,6 +54,7 @@ const Dock = connect(
         activeGrid: state.cantieri && state.cantieri.activeGrid,
         dockSize: state.highlight && state.highlight.dockSize,
         maxFeaturesExceeded: state.cantieri && state.cantieri.maxFeaturesExceeded,
+        saving: state.cantieri && state.cantieri.saving,
         position: "right",
         selectBy: state.cantieri.activeGrid === "elementsGrid" ? {isSelectedKey: 'checked'} : null,
         toolbar: state.cantieri && state.cantieri.toolbar,
@@ -69,6 +70,7 @@ const Dock = connect(
     onDrawPolygon: changeDrawingStatus,
     onResetCantieriFeatures: resetCantieriFeatures,
     onHideModal: maxFeaturesExceeded,
+    onHideSavingModal: savingData,
     onBackToSearch: closeResponse,
     setDockSize: dockSizeFeatures
 })(require('../components/CantieriPanel'));

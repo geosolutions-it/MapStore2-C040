@@ -40,6 +40,15 @@
             width: 990px;
             padding: 15px;
         }
+        #maskSpinner .sk-circle-wrapper.sk-fade-in.spinner{
+            left: calc(50% - 19px);
+            top: calc(50% - 36px);
+        }
+        #maskSpinner p{
+            position: absolute;
+            left: calc(35% - 19px);
+            top: calc(53% - 36px);
+        }
         </style>
     </head>
     <body >
@@ -140,6 +149,10 @@
                 "elementsLayerName": "CORSO_1:V_ELEMENTI_CANTIERI",
                 "areasLayerName": "CORSO_1:AREE_CANTIERE"
             };
+            /*MapStore2.triggerAction({
+                type: "LOADING_DATA",
+                status: true
+            });*/
             MapStore2.triggerAction({
                 type: "INIT_CANTIERI_PLUGIN",
                 options: options
@@ -157,6 +170,11 @@
                 document.getElementById("checkedElements").innerHTML = "checked elements: " + action.checkedElements.join(" ");
                 document.getElementById("idCantiere").innerHTML = "id cantiere: " + action.idCantiere;
                 document.getElementById("typology").innerHTML = "typology: " + action.typology;
+
+                MapStore2.triggerAction({
+                    type: "SAVING_DATA",
+                    status: false
+                });
             });
 
         }

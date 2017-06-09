@@ -1,6 +1,7 @@
 
 const React = require('react');
-
+const Spinner = require('react-spinkit');
+const Message = require('../../MapStore2/web/client/components/I18N/Message');
 const StyledDiv = React.createClass({
     propTypes: {
         toolbar: React.PropTypes.object,
@@ -8,6 +9,7 @@ const StyledDiv = React.createClass({
         wrappedComponent: React.PropTypes.object,
         toolbarHeight: React.PropTypes.number,
         position: React.PropTypes.string,
+        saving: React.PropTypes.bool,
         style: React.PropTypes.object
     },
     getDefaultProps() {
@@ -27,6 +29,10 @@ const StyledDiv = React.createClass({
 
         return (
             <div style={this.props.style}>
+                {this .props.saving ? (<div id="maskSpinner" style={{width: "100%", position: "absolute", "zIndex": 1000, height: "100%", backgroundColor: "rgba(255, 255, 255, 0.56)", fontSize: "xx-large"}}>
+                    <Spinner spinnerName="circle" overrideSpinnerClassName="spinner" fadeIn="quarter"/>
+                    <p><Message msgId="loading"/></p>
+                </div>) : null}
                 <div className="dockpanel-wrapped-component" style={{height: "calc(100% - " + this.props.toolbarHeight + "px)"}}>
                     {this.props.wrappedComponent !== null ? (<WrappedComponent
                     size={{
