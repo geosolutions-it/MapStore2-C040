@@ -143,7 +143,7 @@ module.exports = {
                             if (elementsLayer !== undefined && featureByClick.length > 0) {
                                 featureByClick = getSmallestFeature(featureByClick);
                                 featureByClick = reprojectGeoJson(featureByClick, "EPSG:4326", store.getState().map.present.projection);
-                                let layerFeatures = elementsLayer.features.filter(f => f.id !== featureByClick.id);
+                                let layerFeatures = elementsLayer.features.filter(f => !isSameFeature(f, featureByClick));
                                 return replaceFeatures(layerFeatures.concat(
                                     [featureByClick].map(checkFeature)
                                 ), elementsLayer);

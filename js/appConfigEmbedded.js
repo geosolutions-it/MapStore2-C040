@@ -41,6 +41,9 @@ module.exports = {
                     enabled: false,
                     menu: "1"
                 },
+                cantieri: {
+                    enabled: true
+                },
                 saveAs: {
                     allowedRoles: ["ADMIN"]
                 }

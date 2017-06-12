@@ -15,7 +15,7 @@ const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, removeCantieriAr
 saveCantieriData, maxFeaturesExceeded, savingData } = require('../actions/cantieri');
 const epics = require('../epics/cantieri');
 const {featureToRow} = require('../utils/CantieriUtils');
-
+const {toggleControl} = require('../../MapStore2/web/client/actions/controls');
 const {stateSelector, elementsLayerSelector, areasLayerSelector} = require('../selector/cantieri');
 
 const ElementsGrid = connect(
@@ -57,6 +57,7 @@ const Dock = connect(
         saving: state.cantieri && state.cantieri.saving,
         loading: state.cantieri && state.cantieri.loading,
         position: "right",
+        show: state.controls.cantieri.enabled,
         selectBy: state.cantieri.activeGrid === "elementsGrid" ? {isSelectedKey: 'checked'} : null,
         toolbar: state.cantieri && state.cantieri.toolbar,
         elementsSelected: layer && layer.features ? layer.features.filter(f => f.checked).length : 0,
@@ -70,6 +71,7 @@ const Dock = connect(
     onSave: saveCantieriData,
     onDrawPolygon: changeDrawingStatus,
     onResetCantieriFeatures: resetCantieriFeatures,
+    onToggleGrid: toggleControl.bind(null, 'cantieri', null),
     onHideModal: maxFeaturesExceeded,
     onHideSavingModal: savingData,
     onBackToSearch: closeResponse,

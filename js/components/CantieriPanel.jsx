@@ -26,6 +26,8 @@ const CantieriPanel = React.createClass({
         areasGridGlyph: React.PropTypes.string,
         maxFeaturesExceeded: React.PropTypes.bool,
         tooltipPlace: React.PropTypes.string,
+        gridOpened: React.PropTypes.string,
+        gridClosed: React.PropTypes.string,
         onInitPlugin: React.PropTypes.func,
         onActiveGrid: React.PropTypes.func,
         onActiveDrawTool: React.PropTypes.func,
@@ -34,8 +36,10 @@ const CantieriPanel = React.createClass({
         onSave: React.PropTypes.func,
         position: React.PropTypes.string,
         onResetCantieriFeatures: React.PropTypes.func,
+        onToggleGrid: React.PropTypes.func,
         elementsSelected: React.PropTypes.number,
         saving: React.PropTypes.bool,
+        show: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         useDock: React.PropTypes.bool,
         wrappedComponent: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
@@ -53,12 +57,15 @@ const CantieriPanel = React.createClass({
             onInitPlugin: () => {},
             onActiveGrid: () => {},
             onActiveDrawTool: () => {},
+            onToggleGrid: () => {},
             onDrawPolygon: () => {},
             onResetCantieriFeatures: () => {},
             onSave: () => {},
             onHideModal: () => {},
             toolbarHeight: 40,
             tooltipPlace: "top",
+            gridOpened: "chevron-right",
+            gridClosed: "chevron-left",
             elementsSelected: 0,
             position: "bottom",
             toolbar: {
@@ -67,6 +74,7 @@ const CantieriPanel = React.createClass({
             },
             useDock: false,
             saving: false,
+            show: true,
             loading: false
         };
     },
@@ -82,7 +90,29 @@ const CantieriPanel = React.createClass({
             bottom: pos === "bottom" ? 0 : "auto"
         };
     },
+    getToggleStyle() {
+        if (this.props.position === "right") {
+            return {position: "relative", right: "55px", top: "-12px"};
+        }
+        if (this.props.show) {
+            return {position: "relative", left: "2px", bottom: "313px"};
+        }
+        return {position: "relative", left: "2px", bottom: "54px"};
+    },
+    getLeftToolsStyle() {
+        if (this.props.position === "right") {
+            return { position: "relative", left: "2px", bottom: "49px"};
+        }
+        return {position: "relative", left: "2px", bottom: "48px"};
+    },
+    getRightToolsStyle() {
+        if (this.props.position === "right") {
+            return { position: "relative", left: "379px", bottom: "82px"};
+        }
+        return {position: "relative", right: "-842px", bottom: "82px"};
+    },
     render() {
+
         let rowsSelectedComp = null;
         if (this.props.activeGrid === "elementsGrid") {
             const rowText = this.props.elementsSelected === 1 ? "row" : "rows";
@@ -94,8 +124,17 @@ const CantieriPanel = React.createClass({
         let polygonSelectionTooltip = (<Tooltip key="polygonSelectionTooltip" id="polygonSelectionTooltip">
             <Message msgId={"cantieriGrid.toolbar.polygonSelectionTooltip"}/></Tooltip>);
 
+        const toggleStyle = this.getToggleStyle();
+        const toggleGliphiconOpened = this.props.position === "right" ? this.props.gridOpened : "chevron-down";
+        const toggleGliphiconClosed = this.props.position === "right" ? this.props.gridClosed : "chevron-up";
+
         let toolbar = (<div id="dock-toolbar">
-            <ButtonToolbar id="left-tools" className="left-tools" bsSize="sm">
+
+            <ButtonToolbar id="toggle-tools" className="toggle-tool" bsSize="lg" style={toggleStyle}>
+                <ToggleButton disabled={this.props.loading} pressed={true} id="toggle-cantieri" className="square-button" glyphicon={this.props.show ? toggleGliphiconOpened : toggleGliphiconClosed} style={{ width: "none"}} btnConfig={{className: "square-button"}}
+                    onClick={() => { this.props.onToggleGrid(); }}/>
+            </ButtonToolbar>
+            <ButtonToolbar id="left-tools" className="left-tools" bsSize="sm" style={this.getLeftToolsStyle()}>
                 <ToggleButton id={pointSelection} glyphicon={this.props.pointSelectionGlyph}
                     onClick={() => {
                         this.props.onActiveDrawTool(pointSelection);
@@ -120,7 +159,7 @@ const CantieriPanel = React.createClass({
                 <Button key="reset" value="reset" onClick={() => this.props.onResetCantieriFeatures()}>
                     <Message msgId="cantieriGrid.toolbar.reset"/></Button>
             </ButtonToolbar>
-            <ButtonToolbar id="right-tools" className="right-tools" bsSize="sm">
+            <ButtonToolbar id="right-tools" className="right-tools" bsSize="sm" style={this.getRightToolsStyle()}>
                 <ToggleButton id="elementsGrid" glyphicon={this.props.elementsGridGlyph} text={LocaleUtils.getMessageById(this.context.messages, "cantieriGrid.toolbar.elements")} onClick={() => this.props.onActiveGrid("elementsGrid")}
                     tooltip={null} tooltipPlace={this.props.tooltipPlace} style={null}
                     btnConfig={{key: "elementsGrid"}} pressed={this.isToolActive("elementsGrid")}/>
@@ -146,7 +185,7 @@ const CantieriPanel = React.createClass({
                     <Message msgId="uploader.uploadingFiles"/>
                 </div>
         </Container>
-        );
+    );
     },
     isToolActive(tool) {
         return indexOf(this.props.toolbar.activeTools, tool) !== -1;
