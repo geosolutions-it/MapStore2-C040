@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 const Rx = require('rxjs');
-const area = require('@turf/area');
 const {CLICK_ON_MAP} = require('../../MapStore2/web/client/actions/map');
 const requestBuilder = require('../../MapStore2/web/client/utils/ogc/WFS/RequestBuilder');
 const {filter, and, property} = requestBuilder({wfsVersion: "1.1.0"});
@@ -14,7 +13,7 @@ const {error, info, success} = require('../../MapStore2/web/client/actions/notif
 const {featureToRow, isSameFeature, checkFeature, uncheckFeature, getAreaFilter, isActiveTool,
     removeFeature, clearAllFeatures, getAreasLayer, getElementsLayer, getAreasGeometry,
     addFeaturesToElementLayer, showQueryElementsError, getElementsFilter, addFeatureToAreaLayer,
-    replaceFeatures, getCheckedElementsFromLayer
+    replaceFeatures, getCheckedElementsFromLayer, getSmallestFeature
 } = require('../utils/CantieriUtils');
 const axios = require('../../MapStore2/web/client/libs/ajax');
 const {addLayer, changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
@@ -138,19 +137,11 @@ module.exports = {
                     .switchMap((response) => {
                         if (response.data && response.data.features) {
                             const elementsLayer = getElementsLayer(store);
+                            // get only new features
                             let featureByClick = response.data.features
                                 .filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
                             if (elementsLayer !== undefined && featureByClick.length > 0) {
-                                featureByClick = featureByClick.reduce((candidate, cur) => {
-                                    // get the feature with the smaller area (it is usually the wanted one when you click)
-                                    if (candidate) {
-                                        if (cur.geometry.type === "Polygon" || cur.geometry.type === "MultiPolygon") {
-                                            // turf miscalculate the area if the coords are not in 4326
-                                            return area(candidate) > area(cur) ? cur : candidate;
-                                        }
-                                    }
-                                    return cur;
-                                });
+                                featureByClick = getSmallestFeature(featureByClick);
                                 featureByClick = reprojectGeoJson(featureByClick, "EPSG:4326", store.getState().map.present.projection);
                                 let layerFeatures = elementsLayer.features.filter(f => f.id !== featureByClick.id);
                                 return replaceFeatures(layerFeatures.concat(
@@ -167,6 +158,23 @@ module.exports = {
                                     autoDismiss: 3,
                                     position: "tc"
                                 }));
+                            }
+                            // toggle style for selected features
+                            if (elementsLayer !== undefined && featureByClick.length === 0) {
+                                featureByClick = getSmallestFeature(response.data.features);
+                                featureByClick = reprojectGeoJson(featureByClick, "EPSG:4326", store.getState().map.present.projection);
+                                let correspondingFeature = elementsLayer.features.filter(f => isSameFeature(f, featureByClick))[0];
+
+                                if (correspondingFeature.checked) {
+                                    let layerFeatures = elementsLayer.features.filter(f => !isSameFeature(f, featureByClick));
+                                    return replaceFeatures(layerFeatures.concat(
+                                        [featureByClick].map(uncheckFeature)
+                                    ), elementsLayer);
+                                }
+                                let layerFeatures = elementsLayer.features.filter(f => !isSameFeature(f, featureByClick));
+                                return replaceFeatures(layerFeatures.concat(
+                                    [featureByClick].map(checkFeature)
+                                ), elementsLayer);
                             }
                         }
                         return Rx.Observable.of(info({
@@ -386,19 +394,20 @@ module.exports = {
                             ],
                             describe
                         ))
-                    .map(() => success({
-                            uid: SUCCESS_SAVING,
-                            title: "warning",
-                            message: "cantieriGrid.notification.successSaving",
-                            action: {
-                            label: "cantieriGrid.notification.confirm"
-                        },
-                        autoDismiss: 3,
-                        position: "tc"
-                    }))
-                    .map(() => dataSaved(getCheckedElementsFromLayer(getElementsLayer(store)), cantierState.id, cantierState.typology ))
                     .startWith(savingData(true))
-                    .concat([savingData(false)])
+                    .switchMap(() => Rx.Observable.from([
+                        dataSaved(getCheckedElementsFromLayer(getElementsLayer(store)), cantierState.id, cantierState.typology ),
+                        success({
+                                uid: SUCCESS_SAVING,
+                                title: "warning",
+                                message: "cantieriGrid.notification.successSaving",
+                                action: {
+                                label: "cantieriGrid.notification.confirm"
+                            },
+                            autoDismiss: 3,
+                            position: "tc"
+                        })/*,
+                        savingData(false)*/])).concat([savingData(false)])
                     .catch( () => Rx.Observable.of(error({
                         title: "warning",
                         message: "cantieriGrid.notification.errorSavingData",

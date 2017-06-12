@@ -55,6 +55,7 @@ const Dock = connect(
         dockSize: state.highlight && state.highlight.dockSize,
         maxFeaturesExceeded: state.cantieri && state.cantieri.maxFeaturesExceeded,
         saving: state.cantieri && state.cantieri.saving,
+        loading: state.cantieri && state.cantieri.loading,
         position: "right",
         selectBy: state.cantieri.activeGrid === "elementsGrid" ? {isSelectedKey: 'checked'} : null,
         toolbar: state.cantieri && state.cantieri.toolbar,

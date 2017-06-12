@@ -10,6 +10,7 @@ const StyledDiv = React.createClass({
         toolbarHeight: React.PropTypes.number,
         position: React.PropTypes.string,
         saving: React.PropTypes.bool,
+        loading: React.PropTypes.bool,
         style: React.PropTypes.object
     },
     getDefaultProps() {
@@ -29,7 +30,7 @@ const StyledDiv = React.createClass({
 
         return (
             <div style={this.props.style}>
-                {this .props.saving ? (<div id="maskSpinner" style={{width: "100%", position: "absolute", "zIndex": 1000, height: "100%", backgroundColor: "rgba(255, 255, 255, 0.56)", fontSize: "xx-large"}}>
+                {this .props.saving || this.props.loading ? (<div id="maskSpinner" style={{width: "100%", position: "absolute", "zIndex": 1000, height: "100%", backgroundColor: "rgba(255, 255, 255, 0.56)", fontSize: "xx-large"}}>
                     <Spinner spinnerName="circle" overrideSpinnerClassName="spinner" fadeIn="quarter"/>
                     <p><Message msgId="loading"/></p>
                 </div>) : null}

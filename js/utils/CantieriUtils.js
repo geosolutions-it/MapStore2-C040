@@ -1,6 +1,7 @@
-const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
-const {indexOf, max, startsWith, slice} = require('lodash');
 const Rx = require('rxjs');
+const area = require('@turf/area');
+const {indexOf, max, startsWith, slice} = require('lodash');
+const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {
     ELEMENTS_LAYER,
     AREAS_LAYER,
@@ -19,7 +20,6 @@ const checkedStyle = {
         color: [255, 255, 0, 1]
     }
 };
-
 const requestBuilder = require('../../MapStore2/web/client/utils/ogc/WFS/RequestBuilder');
 const {filter, and, or, getFeature, property, query} = requestBuilder({wfsVersion: "1.1.0"});
 
@@ -187,5 +187,17 @@ module.exports = {
         },
         autoDismiss: 3,
         position: "tr"
-    }))
+    })),
+    getSmallestFeature(features) {
+        return features.reduce((candidate, cur) => {
+            // get the feature with the smaller area (it is usually the wanted one when you click)
+            if (candidate) {
+                if (cur.geometry.type === "Polygon" || cur.geometry.type === "MultiPolygon") {
+                    // turf miscalculate the area if the coords are not in 4326
+                    return area(candidate) > area(cur) ? cur : candidate;
+                }
+            }
+            return cur;
+        });
+    }
 };

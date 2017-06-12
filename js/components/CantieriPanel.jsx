@@ -36,6 +36,7 @@ const CantieriPanel = React.createClass({
         onResetCantieriFeatures: React.PropTypes.func,
         elementsSelected: React.PropTypes.number,
         saving: React.PropTypes.bool,
+        loading: React.PropTypes.bool,
         useDock: React.PropTypes.bool,
         wrappedComponent: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
     },
@@ -65,7 +66,8 @@ const CantieriPanel = React.createClass({
                 inactiveTools: [ "areasGrid", polygonSelection ]
             },
             useDock: false,
-            saving: false
+            saving: false,
+            loading: false
         };
     },
     getStyle(pos) {
