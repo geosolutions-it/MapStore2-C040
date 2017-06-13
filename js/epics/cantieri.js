@@ -314,7 +314,7 @@ module.exports = {
                         getElementsFilter(store.getState().cantieri.checkedElements, store.getState().cantieri.elementsLayerName), {
                             timeout: 60000,
                             headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-                        }).then(r => r.data.features)).catch( () => Rx.Observable.of([]))
+                        }).then(r => r.data.features))
                 ) // forkJoin
                 .concatMap(([areas, elements]) => {
                     if (areas.length === 0) {
@@ -324,7 +324,6 @@ module.exports = {
                             });
                             return createAndAddLayers([], store, checkedElements);
                         }
-                        return createAndAddLayers([], store, []);
                     }
                     // get elements for the areas received
                     return getWFSFeature(store.getState().cantieri.geoserverUrl,
