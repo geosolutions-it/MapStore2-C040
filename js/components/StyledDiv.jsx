@@ -29,7 +29,7 @@ const StyledDiv = React.createClass({
     },
     render() {
         const WrappedComponent = this.props.wrappedComponent;
-        let style = assign({}, this.props.style, this.isRightSide() ? {width: this.props.show ? this.props.style.width : 0} : {height: this.props.show ? this.props.style.height : 0}, {transition: this.isRightSide() ? "width 1s ease-in-out 1s" : null} );
+        let style = assign({}, this.props.style, this.isRightSide() ? {width: this.props.show ? this.props.style.width : 0} : {height: this.props.show ? this.props.style.height : 0}, {transition: this.isRightSide() ? "width 1s ease-in-out" : null} );
 
         return (
             <div id="cantieri-panel" style={style}>

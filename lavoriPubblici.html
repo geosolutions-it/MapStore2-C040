@@ -136,12 +136,12 @@
             var checkedElements = document.getElementById("CHECKED_ELEMENTS").value;
             if( checkedElements ) {
                 checkedElements = checkedElements.split(" ");
-                checkedElements = checkedElements.map(f => f.split(","));
+                if (checkedElements.length > 0 ) {
+                    checkedElements = checkedElements.map(f => f.split(","));
+                }
             } else {
                 checkedElements = []
             }
-
-
             var id = parseInt(document.getElementById("ID_CANTIERE").value) || 0;
             var typology = document.getElementById("TIPOLOGIA").value || "cantiere";
             var options = {
@@ -176,10 +176,9 @@
                 document.getElementById("checkedElements").innerHTML = "checked elements: " + action.checkedElements.join(" ");
                 document.getElementById("idCantiere").innerHTML = "id cantiere: " + action.idCantiere;
                 document.getElementById("typology").innerHTML = "typology: " + action.typology;
-                document.getElementById("formCantieri").style.display = "none";
-
             });
             setAvviaEnabled(false);
+            document.getElementById("formCantieri").style.display = "none";
         }
         </script>
     </body>

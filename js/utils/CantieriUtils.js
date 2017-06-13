@@ -78,33 +78,14 @@ module.exports = {
         });
     },
     getAreaFilter: (id = 0, typology = "cantiere", areasLayerName) => {
-        return {
-            filterFields: [{
-                attribute: "ID_CANTIERE",
-                exception: null,
-                operator: "=",
-                groupId: 1,
-                rowId: "0",
-                type: "number",
-                value: id
-            }, {
-                attribute: "TIPOLOGIA",
-                exception: null,
-                operator: "=",
-                groupId: 1,
-                rowId: "1",
-                type: "string",
-                value: typology
-            }],
-            groupFields: [{
-                id: 1,
-                index: 0,
-                logic: "AND"
-            }],
-            "filterType": "OGC",
-            "featureTypeName": areasLayerName,
-            "ogcVersion": "1.1.0"
-        };
+        return getFeature(
+            query(
+                areasLayerName,
+                filter(
+                    and([property("ID_CANTIERE").equalTo(id), property("TIPOLOGIA").equalTo(typology)])
+                )
+            ), {outputFormat: "application/json"}
+        );
     },
     getElementsFilter: (checkedElements, elementLayerName) => {
         // return the filter as string
