@@ -77,7 +77,7 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
         id: AREAS_LAYER,
         name: "CORSO_1:AREE_CANTIERE",
         style: {
-            type: "MultiPolygon",
+            type: "Polygon",
             stroke: {
                 color: 'blue',
                 width: 3
@@ -327,7 +327,7 @@ module.exports = {
                     return getWFSFeature(store.getState().cantieri.geoserverUrl,
                     getSpatialFilter(reprojectGeoJson(getAreasGeometry(areas), store.getState().map.present.projection), {"featureTypeName": store.getState().cantieri.elementsLayerName}, "WITHIN"), false)
                     .map((response) => {
-                        if (response.data && response.data.features && response.data.features.length > 0) {
+                        if (response.data && response.data.features) {
                             let newFeatures = response.data.features.filter(f => elements.findIndex(f2 => isSameFeature(f, f2)) < 0 )
                             .map( f => uncheckFeature(f))
                             .concat(elements.map(checkFeature))
