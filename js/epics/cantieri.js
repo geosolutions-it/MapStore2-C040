@@ -318,12 +318,10 @@ module.exports = {
                 ) // forkJoin
                 .concatMap(([areas, elements]) => {
                     if (areas.length === 0) {
-                        if (elements.length > 0) {
-                            const checkedElements = elements.map(checkFeature).map(f => {
-                                return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
-                            });
-                            return createAndAddLayers([], store, checkedElements);
-                        }
+                        const checkedElements = elements.map(checkFeature).map(f => {
+                            return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
+                        });
+                        return createAndAddLayers([], store, checkedElements);
                     }
                     // get elements for the areas received
                     return getWFSFeature(store.getState().cantieri.geoserverUrl,
