@@ -14,7 +14,7 @@ const {error, info, success} = require('../../MapStore2/web/client/actions/notif
 const {featureToRow, isSameFeature, checkFeature, uncheckFeature, getAreaFilter, isActiveTool,
     removeFeature, clearAllFeatures, getAreasLayer, getElementsLayer, getAreasGeometry,
     addFeaturesToElementLayer, showQueryElementsError, getElementsFilter, addFeatureToAreaLayer,
-    replaceFeatures, getCheckedElementsFromLayer, getSmallestFeature
+    replaceFeatures, getCheckedElementsFromLayer, getSmallestFeature, showTimeoutError, removeLastFeature
 } = require('../utils/CantieriUtils');
 const axios = require('../../MapStore2/web/client/libs/ajax');
 const {addLayer, changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
@@ -28,6 +28,7 @@ const {
 
 const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
 const {transaction, describeFeatureType} = require('../api/WFST');
+const assign = require('object-assign');
 
 
 const getWFSFeature = (searchUrl, filterObj) => {
@@ -106,17 +107,9 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
         },
         projection: store.getState().map.present.projection
     };
-    actions.push(addLayer(getLayer(areaOptions)));
     actions.push(addLayer(getLayer(elementiOptions)));
+    actions.push(addLayer(getLayer(areaOptions)));
 
-    // load elements inside areas
-    /*const options = {
-        "featureTypeName": store.getState().cantieri.elementsLayerName
-    };*/
-    // let areasGeometry = reprojectGeoJson(getAreasGeometry(areasFeatures), store.getState().map.present.projection);
-    /*if (areasGeometry.coordinates.length > 0 ) {
-        actions.push(queryElements(getSpatialFilter(areasGeometry, {"featureTypeName": store.getState().cantieri.elementsLayerName}, "WITHIN"), false));
-    }*/
     // updates draw support interaction
     actions.push(changeDrawingStatus("cleanAndContinueDrawing", "", "LavoriPubblici", [], {}));
     return Rx.Observable.from(actions);
@@ -132,21 +125,35 @@ module.exports = {
                     type: "Point",
                     coordinates: [action.point.latlng.lng, action.point.latlng.lat]
                 };
-                return getWFSFeature(store.getState().cantieri.geoserverUrl, getSpatialFilter(geometry, {
-                "featureTypeName": store.getState().cantieri.elementsLayerName}))
+                const cantieriState = store.getState().cantieri;
+                return getWFSFeature(cantieriState.geoserverUrl, getSpatialFilter(geometry, {
+                "featureTypeName": cantieriState.elementsLayerName}))
                     .switchMap((response) => {
                         if (response.data && response.data.features) {
                             const elementsLayer = getElementsLayer(store);
+                            const areasLayer = getAreasLayer(store);
                             // get only new features
                             let featureByClick = response.data.features
                                 .filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
-                            if (elementsLayer !== undefined && featureByClick.length > 0) {
+                            if (elementsLayer !== undefined && areasLayer !== undefined && featureByClick.length > 0) {
                                 featureByClick = getSmallestFeature(featureByClick);
                                 featureByClick = reprojectGeoJson(featureByClick, "EPSG:4326", store.getState().map.present.projection);
-                                let layerFeatures = elementsLayer.features.filter(f => f.id !== featureByClick.id);
-                                return replaceFeatures(layerFeatures.concat(
+                                let elementsFeatures = elementsLayer.features.filter(f => f.id !== featureByClick.id);
+                                let areasFeatureByClick = assign({}, featureByClick, {
+                                    properties: {
+                                        "ID_ELEMENTO": areaCount++,
+                                        "ID_CANTIERE": cantieriState.id,
+                                        "TIPOLOGIA": cantieriState.typology
+                                    },
+                                    geometry: {
+                                        coordinates: featureByClick.geometry.coordinates[0],
+                                        type: "Polygon"
+                                    }
+                                });
+                                return replaceFeatures(elementsFeatures.concat(
                                     [featureByClick].map(checkFeature)
-                                ), elementsLayer);
+                                ), elementsLayer)
+                                .concat( addFeatureToAreaLayer(areasFeatureByClick, areasLayer) );
                             }
                             if (elementsLayer !== undefined && response.data.features.length === 0) {
                                 return Rx.Observable.of(info({
@@ -276,21 +283,23 @@ module.exports = {
             let areasLayer = getAreasLayer(store);
             if (elementsLayer !== undefined && areasLayer !== undefined) {
                 return getWFSFeature(store.getState().cantieri.geoserverUrl, action.filter)
-                    .switchMap((response) => {
-                        if (response.data && response.data.features && response.data.features.length > 0) {
-                            let newFeatures = response.data.features.map(f => {
-                                return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
-                            }).filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
-                            return addFeaturesToElementLayer(
-                                elementsLayer,
-                                areasLayer,
-                                newFeatures.map(checkFeature),
-                                response.data.totalFeatures,
-                                store.getState().cantieri.maxFeatures,
-                                action.check);
-                        }
-                        return showQueryElementsError();
-                    });
+                .switchMap((response) => {
+                    if (response.data && response.data.features && response.data.features.length > 0) {
+                        let newFeatures = response.data.features.map(f => {
+                            return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
+                        }).filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
+                        return addFeaturesToElementLayer(
+                            elementsLayer,
+                            areasLayer,
+                            newFeatures.map(checkFeature),
+                            response.data.totalFeatures,
+                            store.getState().cantieri.maxFeatures,
+                            action.check);
+                    }
+                    return showQueryElementsError();
+                }).catch( () => {
+                    return showTimeoutError();
+                });
             }
             return showQueryElementsError();
         }),

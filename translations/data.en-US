@@ -19,6 +19,7 @@
                 "removeFeatureError": "An error occured while deleting this area.",
                 "resetCantieriFeaturesError": "An error occured while clearing the grids.",
                 "errorQueryElements": "There are no elements in the drawn area.",
+                "timeoutError": "La demande au service n'a pas été effectuée.",
                 "errorLoadCantieriAreas": "Error on loading the areas.",
                 "errorDrawingAreas": "Error on drawing the areas.",
                 "noFeaturesSelected": "There are no elements in the clicked point.",

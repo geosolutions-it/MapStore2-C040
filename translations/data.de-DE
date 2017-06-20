@@ -19,6 +19,7 @@
                 "removeFeatureError": "Es war nicht möglich, diesen Bereich zu entfernen",
                 "resetCantieriFeaturesError": "Beim Löschen der Raster ist ein Fehler aufgetreten.",
                 "errorQueryElements": "Es sind keine Elemente in der gezeichneten Bereich.",
+                "timeoutError": "Der Antrag an den Service wurde nicht abgeschlossen.",
                 "errorLoadCantieriAreas": "Fehler auf die Bereiche geladen werden.",
                 "errorDrawingAreas": "Fehler auf die Bereiche zeichnen.",
                 "noFeaturesSelected": "Es ist keine Elemente in dem angeklickten Punkt.",

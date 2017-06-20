@@ -8,7 +8,7 @@ const {
     maxFeaturesExceeded
 } = require('../actions/cantieri');
 const {changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
-const {info} = require('../../MapStore2/web/client/actions/notifications');
+const {info, error} = require('../../MapStore2/web/client/actions/notifications');
 
 const checkedStyle = {
     type: "Polygon",
@@ -110,6 +110,10 @@ module.exports = {
         const newLayerProps = {features: layer.features.filter(f => f.id !== idFeature)};
         return Rx.Observable.from([changeLayerProperties(layer.id, newLayerProps)]);
     },
+    removeLastFeature: (layer) => {
+        const newLayerProps = {features: layer.features.slice(0, layer.features.length - 1 )};
+        return Rx.Observable.of(changeLayerProperties(layer.id, newLayerProps));
+    },
     addFeatureToAreaLayer: (feature, layer) => {
         const newIdx = layer.features.length > 0 ? getNewIndex(layer.features) : 0;
         let newLayerProps = {};
@@ -169,6 +173,16 @@ module.exports = {
         autoDismiss: 3,
         position: "tr"
     })),
+    showTimeoutError: () => Rx.Observable.from([error({
+        id: "timeout",
+        title: "warning",
+        message: "cantieriGrid.notification.timeoutError",
+        action: {
+            label: "cantieriGrid.notification.confirm"
+        },
+        autoDismiss: 3,
+        position: "tc"
+    })]),
     getSmallestFeature(features) {
         return features.reduce((candidate, cur) => {
             // get the feature with the smaller area (it is usually the wanted one when you click)

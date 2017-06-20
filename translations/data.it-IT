@@ -18,6 +18,7 @@
                 "confirm": "Ok",
                 "removeFeatureError": "Non è stato possibile rimuovere quest'area.",
                 "resetCantieriFeaturesError": "Non è stato possibile resettare le griglie.",
+                "timeoutError": "La richiesta non è stata completata.",
                 "errorQueryElements": "Non ci sono elementi nell'area disegnata.",
                 "errorLoadCantieriAreas": "Non è stato possibile caricare le aree.",
                 "errorDrawingAreas": "Impossibile aggiungere l'area disegnata.",
