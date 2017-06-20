@@ -141,7 +141,9 @@ public class AuthenticationFilter extends SiracSSOAuthenticationFilter {
         	mapStoreUserData.setId(id);
         }
         // register the session with the service and store the related id in request session
-        String sessionId = sessionService.registerNewSession(new UserSessionImpl(mapStoreUserData, expire));
+        UserSessionImpl newSession = new UserSessionImpl(mapStoreUserData, expire);
+        newSession.setExpirationInterval(86400);
+        String sessionId = sessionService.registerNewSession(newSession);
         session.setAttribute(MAPSTORE_SESSION_ID_KEY, sessionId);
 
     	

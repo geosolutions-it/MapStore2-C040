@@ -157,6 +157,16 @@
         	<artifactId>geostore-services-impl</artifactId>
         	<version>1.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>it.geosolutions.geostore</groupId>
+            <artifactId>geostore-rest-api</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>it.geosolutions.geostore</groupId>
+            <artifactId>geostore-rest-impl</artifactId>
+            <version>1.4.1</version>
+        </dependency>
 
         <dependency>
             <groupId>commons-codec</groupId>
