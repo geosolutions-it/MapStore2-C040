@@ -32,7 +32,7 @@ module.exports = {
         HelpPlugin: require('../MapStore2/web/client/plugins/Help'),
         HomePlugin: require('../MapStore2/web/client/plugins/Home'),
         MetadataExplorerPlugin: require('../MapStore2/web/client/plugins/MetadataExplorer'),
-        LoginPlugin: require('../MapStore2/web/client/plugins/Login'),
+        LoginPlugin: require('./plugins/Login'),
         OmniBarPlugin: require('../MapStore2/web/client/plugins/OmniBar'),
         BurgerMenuPlugin: require('../MapStore2/web/client/plugins/BurgerMenu'),
         UndoPlugin: require('../MapStore2/web/client/plugins/History'),
