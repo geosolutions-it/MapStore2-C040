@@ -13,11 +13,22 @@ const {info, error} = require('../../MapStore2/web/client/actions/notifications'
 const checkedStyle = {
     type: "Polygon",
     stroke: {
-        color: 'blue',
+        color: 'black',
+        lineDash: [2],
         width: 1
     },
     fill: {
         color: [255, 255, 0, 1]
+    }
+};
+const unCheckedStyle = {
+    type: "Polygon",
+    stroke: {
+        color: 'red',
+        width: 1
+    },
+    fill: {
+        color: [200, 0, 0, 0.3]
     }
 };
 const requestBuilder = require('../../MapStore2/web/client/utils/ogc/WFS/RequestBuilder');
@@ -52,7 +63,7 @@ module.exports = {
         }),
     uncheckFeature: f => ({
             ...f,
-            style: undefined,
+            style: unCheckedStyle,
             checked: false
     }),
     hoverFeature: f => ({
