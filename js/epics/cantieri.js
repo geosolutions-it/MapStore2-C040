@@ -78,7 +78,7 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
         id: AREAS_LAYER,
         name: "CORSO_1:AREE_CANTIERE",
         style: {
-            type: "Polygon",
+            type: "MutliPolygon",
             stroke: {
                 color: 'blue',
                 width: 3
@@ -144,10 +144,6 @@ module.exports = {
                                         "ID_ELEMENTO": areaCount++,
                                         "ID_CANTIERE": cantieriState.id,
                                         "TIPOLOGIA": cantieriState.typology
-                                    },
-                                    geometry: {
-                                        coordinates: featureByClick.geometry.coordinates[0],
-                                        type: "Polygon"
                                     }
                                 });
                                 return replaceFeatures(elementsFeatures.concat(
@@ -204,8 +200,8 @@ module.exports = {
             let feature = {
                 type: "Feature",
                 geometry: {
-                    coordinates: action.geometry.coordinates,
-                    type: "Polygon"
+                    coordinates: [action.geometry.coordinates],
+                    type: "MultiPolygon"
                 },
                 id: "area_0",
                 geometry_name: cantieriState.geometry_name,
