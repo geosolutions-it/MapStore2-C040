@@ -1,5 +1,5 @@
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <display-name>GeoPortale - Comune di Genova - Web App</display-name>
@@ -56,7 +56,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
-    
+
     <!-- Spring Security Servlet -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -68,60 +68,60 @@
 	</filter-mapping>
 
     <!-- SIRAC -->
-    
+
     <context-param>
         <param-name>showDetailInErrorPage</param-name>
         <param-value>false</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>people.sirac.error.returnURL</param-name>
         <param-value>http://vm-linuxgeofetest.comune.genova.it/MapStore2_sirac</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>authenticationResponseReceiverServiceTransferMode</param-name>
         <!--  Indicare FORWARD o POST -->
         <param-value>POST</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>encryptAuthResponse</param-name>
         <param-value>true</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>encryptAuthResponseKeyFile</param-name>
         <!--  path relativo alla webapp -->
         <param-value>/keystore/encryptAuthResponse_Rijndael_256_PBEWithSHAAnd128BitRC4_100.key</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>encryptAuthResponseKeyFilePassPhrase</param-name>
         <param-value>testpassphrase</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>authResponseExpirationTime</param-name>
         <!--  expiration time in msec (usato solo nel caso di TransferMode=POST)-->
         <param-value>300000</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>authResponseExpirationDateTimeFormat</param-name>
         <param-value>yyyyMMdd'T'HH:mm:ss.SSSz</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>ignoreAuthResponseExpirationTime</param-name>
         <param-value>false</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>externalHostURL</param-name>
         <param-value>http://vm-linuxgeofetest.comune.genova.it</param-value>
     </context-param>
-    
+
     <filter>
         <filter-name>SIRAC-SSO Service Profile Loader Filter</filter-name>
         <filter-class>it.people.sirac.filters.GenericSiracServiceProfileLoaderFilter</filter-class>
@@ -130,7 +130,7 @@
             <param-value>/WEB-INF/classes/serviceProfile-list.properties</param-value>
         </init-param>
     </filter>
-    
+
     <filter>
         <filter-name>SIRAC-SSO Authentication Filter</filter-name>
         <filter-class>it.geosolutions.sirac.AuthenticationFilter</filter-class>
@@ -148,47 +148,47 @@
             <param-value>/LoginServlet</param-value>
         </init-param>
     </filter>
-    
+
     <servlet>
       <servlet-name>LoginServlet</servlet-name>
       <servlet-class>it.geosolutions.sirac.LoginServlet</servlet-class>
       <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
-    
+
     <filter-mapping>
         <filter-name>SIRAC-SSO Service Profile Loader Filter</filter-name>
         <url-pattern>/login/*</url-pattern>
     </filter-mapping>
-    
+
     <filter-mapping>
         <filter-name>SIRAC-SSO Authentication Filter</filter-name>
         <url-pattern>/login/*</url-pattern>
     </filter-mapping>
-    
+
     <listener>
         <listener-class>it.people.sirac.web.listeners.SessionListener</listener-class>
     </listener>
-    
+
     <listener>
         <listener-class>it.geosolutions.sirac.CleanSession</listener-class>
     </listener>
-    
+
     <servlet>
         <servlet-name>CleanSessionServlet</servlet-name>
         <servlet-class>it.people.sirac.web.InvalidateSessionServlet</servlet-class>
     </servlet>
-    
+
     <!-- This was missing in the documentation -->
     <servlet-mapping>
         <servlet-name>CleanSessionServlet</servlet-name>
         <url-pattern>/cleanSession</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <description>Authentication Response Receiver Service</description>
         <display-name>Authentication Response Receiver Service</display-name>
@@ -196,7 +196,7 @@
         <servlet-class>it.people.sirac.web.GenericAuthenticationResponseReceiverServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-        
+
     <servlet>
         <description>SIRAC SSO Global Logout Gateway Service</description>
         <display-name>SIRAC SSO Global Logout Gateway</display-name>
@@ -213,7 +213,7 @@
             <param-value>/</param-value>
         </init-param>
     </servlet>
-    
+
     <servlet>
         <description>SSO Local Logout Callback Service</description>
         <display-name>SSOLocalLogoutCallbackService</display-name>
@@ -230,17 +230,17 @@
         <servlet-name>AuthResponseReceiverService</servlet-name>
         <url-pattern>/AuthResponseReceiverService</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>SSOGlobalLogoutGatewayService</servlet-name>
         <url-pattern>/SSOGlobalLogoutGatewayService</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>SSOLocalLogoutCallbackService</servlet-name>
         <url-pattern>/SSOLocalLogoutService</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>SSOLocalLogoutCallbackService</servlet-name>
         <url-pattern>/ssolocalLogout</url-pattern>
@@ -250,7 +250,7 @@
         <exception-type>it.people.sirac.error.SiracException</exception-type>
         <location>/reserved/SiracError.jsp</location>
     </error-page>
-    
+
     <error-page>
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/reserved/SiracError.jsp</location>
@@ -260,7 +260,7 @@
         <param-name>people.sirac.error.page</param-name>
         <param-value>/reserved/SiracError.jsp</param-value>
     </context-param>
-        
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

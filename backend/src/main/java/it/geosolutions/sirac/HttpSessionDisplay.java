@@ -82,7 +82,8 @@ public class HttpSessionDisplay extends HttpServlet {
 		String head = "<head><script> "
 				+ "localStorage.setItem(\"mapstore_session_id\", \""+session.getAttribute("mapstore_session_id")+"\"); "
 				+ "localStorage.setItem(\"mapstore2.persist.security\", '"+toBePersisted+"'); "
-				//+ "setTimeout(function(){ window.location.replace('/MapStore2_sirac'); }, 10000); "
+				//+ "setTimeout(function(){ window.location.replace('/MapStore2_sirac'); }, 1); "
+				+ "setTimeout(function(){ window.location.href = '../' }, 1); "
 				+ "</script></head>";
 		
 		out.println("<HTML>"+head+"<BODY BGCOLOR=\"pink\">\n" +
