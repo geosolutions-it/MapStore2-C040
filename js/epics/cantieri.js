@@ -14,7 +14,7 @@ const {error, info, success} = require('../../MapStore2/web/client/actions/notif
 const {featureToRow, isSameFeature, checkFeature, uncheckFeature, getAreaFilter, isActiveTool,
     removeFeature, clearAllFeatures, getAreasLayer, getElementsLayer, getAreasGeometry,
     addFeaturesToElementLayer, showQueryElementsError, getElementsFilter, addFeatureToAreaLayer,
-    replaceFeatures, getCheckedElementsFromLayer, getSmallestFeature, showTimeoutError, removeLastFeature
+    replaceFeatures, getCheckedElementsFromLayer, getSmallestFeature, showTimeoutError
 } = require('../utils/CantieriUtils');
 const axios = require('../../MapStore2/web/client/libs/ajax');
 const {addLayer, changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
