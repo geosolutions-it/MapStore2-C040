@@ -69,13 +69,19 @@ public class HttpSessionDisplay extends HttpServlet {
 		UserSession eccolo = userSessionService.refreshSession(msSession, userSessionService.getRefreshToken(msSession));
 		SessionToken ti_serve_questo = toSessionToken(eccolo.getId(), eccolo);
 		
+		String toBePersisted = "{\"user\":{\"attribute\":[{\"name\":\"provider\",\"value\":\"sirac\"}],"
+				+ "\"enabled\":true,"
+				+ "\"id\": "+ eccolo.getUser().getId() +","
+				+ "\"name\": \""+ eccolo.getUser().getName()+"\","
+				+ "\"role\": \"USER\"},"
+				+ "\"errorCause\": null,\"loginError\": null,"
+				+ "\"token\": \""+ti_serve_questo.getAccessToken()+"\","
+				+ "\"refresh_token\":\""+ti_serve_questo.getRefreshToken()+"\","
+				+ "\"expires\": "+ti_serve_questo.getExpires()+"}";
 		
 		String head = "<head><script> "
 				+ "localStorage.setItem(\"mapstore_session_id\", \""+session.getAttribute("mapstore_session_id")+"\"); "
-				+ "localStorage.setItem(\"session_token\", '{ \"access_token\": \""+ti_serve_questo.getAccessToken()+"\","
-				+ "\"expires\": "+ti_serve_questo.getExpires()+","
-				+ "\"refresh_token\": \""+ti_serve_questo.getRefreshToken()+"\","
-				+ "\"token_type\": \""+ti_serve_questo.getTokenType()+"\"}'); "
+				+ "localStorage.setItem(\"mapstore2.persist.security\", '"+toBePersisted+"'); "
 				//+ "setTimeout(function(){ window.location.replace('/MapStore2_sirac'); }, 10000); "
 				+ "</script></head>";
 		
