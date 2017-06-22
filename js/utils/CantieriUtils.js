@@ -170,9 +170,12 @@ module.exports = {
         return elementsLayerSelector(store.getState());
     },
     getAreasGeometry: (features) => {
+        const newMultipolygon = features.reduce((p, c) => {
+            return p.concat(c.geometry.coordinates);
+        }, []);
         return {
             type: "MultiPolygon",
-            coordinates: features.map(f => f.geometry.coordinates)
+            coordinates: newMultipolygon
         };
     },
     showQueryElementsError: () => Rx.Observable.of(info({

@@ -78,7 +78,7 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
         id: AREAS_LAYER,
         name: "CORSO_1:AREE_CANTIERE",
         style: {
-            type: "MutliPolygon",
+            type: "MultiPolygon",
             stroke: {
                 color: 'blue',
                 width: 3
@@ -144,6 +144,11 @@ module.exports = {
                                         "ID_ELEMENTO": areaCount++,
                                         "ID_CANTIERE": cantieriState.id,
                                         "TIPOLOGIA": cantieriState.typology
+                                    },
+                                    geometry: {
+                                        // needed for converting polygons to multipolygons
+                                        type: featureByClick.geometry.type === "Polygon" ? "MultiPolygon" : "MultiPolygon",
+                                        coordinates: featureByClick.geometry.type === "Polygon" ? [featureByClick.geometry.coordinates] : featureByClick.geometry.coordinates
                                     }
                                 });
                                 return replaceFeatures(elementsFeatures.concat(
