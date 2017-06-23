@@ -83,31 +83,31 @@ public class HttpSessionDisplay extends HttpServlet {
 				+ "localStorage.setItem(\"mapstore_session_id\", \""+session.getAttribute("mapstore_session_id")+"\"); "
 				+ "localStorage.setItem(\"mapstore2.persist.security\", '"+toBePersisted+"'); "
 				//+ "setTimeout(function(){ window.location.replace('/MapStore2_sirac'); }, 1); "
-				+ "setTimeout(function(){ window.location.href = '../' }, 1); "
+				+ "setTimeout(function(){ window.location.href = './' }, 1); "
 				+ "</script></head>";
 		
 		out.println("<HTML>"+head+"<BODY BGCOLOR=\"pink\">\n" +
-				"<H2 ALIGN=\"CENTER\">" + head + "</H2>\n" +  
-				"<H3 ALIGN=\"CENTER\">Description about Session:</H3>\n" +
-				"<TABLE BORDER=1 ALIGN=CENTER>\n" + 
-				"<TR>\n" +
-				"<TH>Information Type<TH>Session Value\n"+
-				"<TR>\n" + "<TD>ID\n" +"<TD>" + 
-				session.getId() + "\n" +"<TR>\n" + 
-				" <TD>Session Creation Time\n" +" <TD>" + 
-				new Date(session.getCreationTime()) + "\n" +
-				"<TR>\n" +"  <TD>Last Session Access Time\n" +"  <TD>" +
-				new Date(session.getLastAccessedTime()) + "\n" +
-				"<TR>\n" +"  <TD>Number of Previous Session Accesses\n" +
-				"<TD>" + count + "\n" +
-				"<TR>\n" +"  <TD>mapstore_session_id\n" +
-				"<TD>" + session.getAttribute("mapstore_session_id") +
-				"<TR>\n" +"  <TD>it.people.sirac.authenticated_user_data\n" +
-				"<TD>" + session.getAttribute("it.people.sirac.authenticated_user_data") +
-				"<TR>\n" +"  <TD>it.people.sirac.authenticated_user\n" +
-				"<TD>" + session.getAttribute("it.people.sirac.authenticated_user") +"</TR>"+
-				showmethedata
-				+"\n</TABLE>\n" +"</BODY></HTML>");
+//				"<H3 ALIGN=\"CENTER\">Description about Session:</H3>\n" +
+//				"<TABLE BORDER=1 ALIGN=CENTER>\n" + 
+//				"<TR>\n" +
+//				"<TH>Information Type<TH>Session Value\n"+
+//				"<TR>\n" + "<TD>ID\n" +"<TD>" + 
+//				session.getId() + "\n" +"<TR>\n" + 
+//				" <TD>Session Creation Time\n" +" <TD>" + 
+//				new Date(session.getCreationTime()) + "\n" +
+//				"<TR>\n" +"  <TD>Last Session Access Time\n" +"  <TD>" +
+//				new Date(session.getLastAccessedTime()) + "\n" +
+//				"<TR>\n" +"  <TD>Number of Previous Session Accesses\n" +
+//				"<TD>" + count + "\n" +
+//				"<TR>\n" +"  <TD>mapstore_session_id\n" +
+//				"<TD>" + session.getAttribute("mapstore_session_id") +
+//				"<TR>\n" +"  <TD>it.people.sirac.authenticated_user_data\n" +
+//				"<TD>" + session.getAttribute("it.people.sirac.authenticated_user_data") +
+//				"<TR>\n" +"  <TD>it.people.sirac.authenticated_user\n" +
+//				"<TD>" + session.getAttribute("it.people.sirac.authenticated_user") +"</TR>"+
+//				showmethedata
+//				+"\n</TABLE>\n" +
+				"</BODY></HTML>");
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {

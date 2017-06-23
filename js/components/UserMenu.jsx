@@ -80,7 +80,7 @@ const UserMenu = React.createClass({
       let DropDown = this.props.nav ? NavDropdown : DropdownButton;
       const urlQuery = url.parse(window.location.href, true).query;
       return (<DropDown id="loginButton" className={this.props.className} pullRight bsStyle={this.props.bsStyle} title={this.renderButtonText()} id="dropdown-basic-primary" {...this.props.menuProps}>
-          <MenuItem onSelect={this.props.onShowLogin} disabled={urlQuery.public !== "no"}><Glyphicon glyph="log-in" />MapStore login</MenuItem>
+          <MenuItem onSelect={this.props.onShowLogin} disabled={urlQuery.public === "yes"}><Glyphicon glyph="log-in" />MapStore login</MenuItem>
           <MenuItem onSelect={()=>window.location.replace('login')}><Glyphicon glyph="log-in" />SiRAC login</MenuItem>
       </DropDown>);
   },

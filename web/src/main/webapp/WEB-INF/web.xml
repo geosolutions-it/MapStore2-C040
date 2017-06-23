@@ -266,4 +266,14 @@
     </session-config>
     <!-- END SIRAC CONFIG -->
 
+    <!-- servlet to redirect after login -->
+    <servlet>
+      <servlet-name>HttpSessionDisplay</servlet-name>
+      <servlet-class>it.geosolutions.sirac.HttpSessionDisplay</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>HttpSessionDisplay</servlet-name>
+      <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
 </web-app>
