@@ -250,12 +250,12 @@
         <exception-type>it.people.sirac.error.SiracException</exception-type>
         <location>/reserved/SiracError.jsp</location>
     </error-page>
-
+<!-- Do not use SiracError page to catch every exception
     <error-page>
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/reserved/SiracError.jsp</location>
     </error-page>
-
+-->
     <context-param>
         <param-name>people.sirac.error.page</param-name>
         <param-value>/reserved/SiracError.jsp</param-value>
