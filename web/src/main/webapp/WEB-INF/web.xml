@@ -76,7 +76,10 @@
 
     <context-param>
         <param-name>people.sirac.error.returnURL</param-name>
-        <param-value>http://mappe.comune.genova.it/MapStore2</param-value>
+        <!-- Production -->
+        <!-- <param-value>http://mappe.comune.genova.it/MapStore2</param-value> -->
+        <!-- Test -->
+        <param-value>http://vm-linuxgeofetest.comune.genova.it/MapStore2</param-value>
     </context-param>
 
     <context-param>
@@ -119,7 +122,10 @@
 
     <context-param>
         <param-name>externalHostURL</param-name>
-        <param-value>http://mappe.comune.genova.it</param-value>
+        <!-- Test -->
+        <param-value>http://vm-linuxgeofetest.comune.genova.it</param-value>
+        <!-- Production -->
+        <!-- <param-value>http://mappe.comune.genova.it</param-value> -->
     </context-param>
 
     <filter>
@@ -136,11 +142,17 @@
         <filter-class>it.geosolutions.sirac.AuthenticationFilter</filter-class>
         <init-param>
             <param-name>SIRACGatewayRedirectURL</param-name>
-            <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gis2</param-value>
+            <!-- Test -->
+            <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gistest3</param-value>
+            <!-- Production -->
+            <!-- <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gis2</param-value> -->
         </init-param>
         <init-param>
             <param-name>assertionConsumerURL</param-name>
-            <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AssertionConsumerService</param-value>
+            <!-- Test -->
+            <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/AssertionConsumerService</param-value>
+            <!-- Production -->
+            <!-- <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AssertionConsumerService</param-value> -->
         </init-param>
         <init-param>
             <param-name>postAuthRequestPage</param-name>
@@ -205,7 +217,10 @@
         <init-param>
             <param-name>globalLogoutURL</param-name>
             <!-- URL assoluta -->
-            <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value>
+            <!-- Test -->
+            <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value>
+            <!-- Production -->
+            <!-- <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value> -->
         </init-param>
         <init-param>
             <param-name>globalLogoutReturnURL</param-name>

@@ -30,7 +30,7 @@
         "title":"BASE_CARTOGRAFICA",
         "group": "background",
         "type":"wms",
-        "url":"http://mappe.comune.genova.it/geoserver/wms",
+        "url":"/geoserver-test/wms",
         "bbox":
           {
           "crs":"EPSG:4326",
