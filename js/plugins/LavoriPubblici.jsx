@@ -7,7 +7,7 @@
  */
 const {createSelector} = require('reselect');
 const {connect} = require('react-redux');
-const {query, closeResponse} = require('../../MapStore2/web/client/actions/wfsquery');
+const {query} = require('../../MapStore2/web/client/actions/wfsquery');
 const {changeMapView} = require('../../MapStore2/web/client/actions/map');
 const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {dockSizeFeatures} = require('../../MapStore2/web/client/actions/featuregrid');
@@ -74,7 +74,6 @@ const Dock = connect(
     onToggleGrid: toggleControl.bind(null, 'cantieri', null),
     onHideModal: maxFeaturesExceeded,
     onHideSavingModal: savingData,
-    onBackToSearch: closeResponse,
     setDockSize: dockSizeFeatures
 })(require('../components/CantieriPanel'));
 

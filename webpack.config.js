@@ -127,22 +127,21 @@ module.exports = {
     devServer: {
         proxy: {
             '/rest/geostore': {
-                target: "http://vm-linuxgeofetest.comune.genova.it",
+                target: "http://mappe.comune.genova.it",
                 pathRewrite: {'^/rest/geostore': '/MapStore2/rest/geostore'}
             },
             '/MapStore2/proxy': {
-                target: "http://vm-linuxgeofetest.comune.genova.it",
+                target: "http://mappe.comune.genova.it",
                 pathRewrite: {'^/MapStore2/proxy': '/MapStore2/proxy'}
             },
             '/geoserver/': {
-                target: "http://vm-linuxgeofetest.comune.genova.it",
-                pathRewrite: {'^/geoserver/': '/geoserver-test/'}
+                target: "http://mappe.comune.genova.it"
             },
             '/geoserver-test/': {
                 target: "http://vm-linuxgeofetest.comune.genova.it"
             },
             '/geonetwork': {
-                target: "http://vm-linuxgeofetest.comune.genova.it"
+                target: "http://mappe.comune.genova.it"
             }
         }
     },
