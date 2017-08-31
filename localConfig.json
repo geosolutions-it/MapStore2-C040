@@ -34,6 +34,36 @@
       }
     }
   },
+  "initialState": {
+    "defaultState": {
+      "catalog":{
+        "default": {
+          "newService": {
+              "url": "",
+              "type": "wms",
+              "title": "",
+              "isNew": true,
+              "autoload": false
+          },
+          "selectedService": "GeoPortale Comune di Genova",
+          "services": {
+            "GeoPortale Comune di Genova": {
+              "url": "/geoserver/csw",
+              "type": "csw",
+              "title": "GeoPortale Comune di Genova",
+              "autoload": true
+            }
+          }
+        },
+        "newService": {
+            "title": "",
+            "type": "wms",
+            "url": "",
+            "autoload": false
+        }
+      }
+    }
+  },
   "monitorState": [{
     "name": "routing",
     "path": "routing.location.pathname"
@@ -111,12 +141,7 @@
         "name": "MetadataExplorer",
         "cfg": {
           "wrap": true,
-          "zoomToLayer": false,
-          "initialCatalogURL": {
-            "csw": "/geonetwork/srv/ita/csw",
-            "wms": "/geoserver/wms",
-            "wmts": "/geoserver/gwc/service/wmts"
-          }
+          "zoomToLayer": false
         }
       },
       {
@@ -238,7 +263,7 @@
         }
       },
       "Home",
-      "FeatureGrid",
+      "FeatureEditor",
       "Notifications",
       {
         "name": "WFSDownload",
@@ -358,12 +383,7 @@
         "name": "MetadataExplorer",
         "cfg": {
           "zoomToLayer": false,
-          "wrap": true,
-          "initialCatalogURL": {
-            "csw": "/geonetwork/srv/ita/csw",
-            "wms": "/geoserver/wms",
-            "wmts": "/geoserver/gwc/service/wmts"
-          }
+          "wrap": true
         }
       }, "MousePosition", {
         "name": "Search",
@@ -587,7 +607,7 @@
             "alwaysVisible": true
           }
         }
-      }, "FeatureGrid", {
+      }, "FeatureEditor", {
         "name": "Toolbar",
         "id": "NavigationBar",
         "cfg": {
