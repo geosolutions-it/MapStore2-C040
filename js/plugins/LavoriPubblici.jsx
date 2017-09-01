@@ -12,7 +12,7 @@ const {changeMapView} = require('../../MapStore2/web/client/actions/map');
 const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {dockSizeFeatures} = require('../../MapStore2/web/client/actions/featuregrid');
 const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, removeCantieriArea, setActiveDrawTool, resetCantieriFeatures,
-saveCantieriData, maxFeaturesExceeded, savingData } = require('../actions/cantieri');
+saveCantieriData, maxFeaturesExceeded, savingData, loadCantieriAreaFeatures } = require('../actions/cantieri');
 const epics = require('../epics/cantieri');
 const {featureToRow} = require('../utils/CantieriUtils');
 const {toggleControl} = require('../../MapStore2/web/client/actions/controls');
@@ -57,11 +57,11 @@ const Dock = connect(
         saving: state.cantieri && state.cantieri.saving,
         loading: state.cantieri && state.cantieri.loading,
         position: "right",
-        show: state.controls.cantieri.enabled,
-        selectBy: state.cantieri.activeGrid === "elementsGrid" ? {isSelectedKey: 'checked'} : null,
+        show: state.controls && state.controls.cantieri && state.controls.cantieri.enabled,
+        selectBy: state.cantieri && state.cantieri.activeGrid === "elementsGrid" ? {isSelectedKey: 'checked'} : null,
         toolbar: state.cantieri && state.cantieri.toolbar,
         elementsSelected: layer && layer.features ? layer.features.filter(f => f.checked).length : 0,
-        wrappedComponent: state.cantieri.activeGrid === "elementsGrid" ? ElementsGrid : AreasGrid
+        wrappedComponent: state.cantieri && state.cantieri.activeGrid === "elementsGrid" ? ElementsGrid : AreasGrid
     })), {
     changeMapView,
     onQuery: query,
@@ -69,6 +69,7 @@ const Dock = connect(
     onActiveGrid: setActiveGrid,
     onActiveDrawTool: setActiveDrawTool,
     onSave: saveCantieriData,
+    onMount: loadCantieriAreaFeatures,
     onDrawPolygon: changeDrawingStatus,
     onResetCantieriFeatures: resetCantieriFeatures,
     onToggleGrid: toggleControl.bind(null, 'cantieri', null),

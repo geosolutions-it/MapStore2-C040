@@ -25,6 +25,8 @@ const {
     ERROR_LOAD_CANTIERI_AREAS, ERROR_RESET_CANTIERI_FEATURES, ERROR_REMOVE_CANTIERI_AREA, FETCH_CANTIERI_FEATURES,
     REMOVE_CANTIERI_AREA, RESET_CANTIERI_FEATURES, QUERY_ELEMENTS_FEATURES, ELEMENTS_LAYER, AREAS_LAYER, ROWS_SELECTED, ROWS_DESELECTED, SAVE_CANTIERI_DATA, dataSaved, queryElements, ERROR_DRAWING_AREAS, SUCCESS_SAVING, savingData, loadingData
 } = require('../actions/cantieri');
+const { setControlProperty } = require('../../MapStore2/web/client/actions/controls');
+const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config');
 
 const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
 const {transaction, describeFeatureType} = require('../api/WFST');
@@ -117,6 +119,11 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
 
 
 module.exports = {
+    initLavoriPubbliciPlugin: ( action$ ) =>
+    action$.ofType(MAP_CONFIG_LOADED)
+    .switchMap( () => {
+        return Rx.Observable.of(setControlProperty("cantieri", "enabled", true));
+    }),
     updateCantieriByClick: ( action$, store ) =>
         action$.ofType(CLICK_ON_MAP)
             .filter(() => isActiveTool("pointSelection", store))

@@ -1,0 +1,28 @@
+{
+  "map": {
+    "projection": "EPSG:900913",
+    "units": "m",
+    "center": {"x": 1000000.000000, "y": 5528000.000000, "crs": "EPSG:900913"},
+    "zoom": 15,
+    "maxExtent": [
+      -20037508.34, -20037508.34,
+      20037508.34, 20037508.34
+    ],
+    "layers": [{
+      "type": "osm",
+      "title": "Open Street Map",
+      "name": "mapnik",
+      "source": "osm",
+      "group": "background",
+      "visibility": false
+    }, {
+      "url": "/geoserver/ows",
+      "type": "wms",
+      "format": "image/png8",
+      "name": "CORSO_1:V_ELEMENTI_CANTIERI",
+      "title": "Elementi Esistenti",
+      "group": "Cantiere",
+      "visibility": true
+    }]
+  }
+}

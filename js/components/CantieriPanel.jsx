@@ -29,6 +29,7 @@ const CantieriPanel = React.createClass({
         gridOpened: React.PropTypes.string,
         gridClosed: React.PropTypes.string,
         onInitPlugin: React.PropTypes.func,
+        onMount: React.PropTypes.func,
         onActiveGrid: React.PropTypes.func,
         onActiveDrawTool: React.PropTypes.func,
         onHideModal: React.PropTypes.func,
@@ -61,6 +62,7 @@ const CantieriPanel = React.createClass({
             onDrawPolygon: () => {},
             onResetCantieriFeatures: () => {},
             onSave: () => {},
+            onMount: () => {},
             onHideModal: () => {},
             toolbarHeight: 40,
             tooltipPlace: "top",
@@ -78,16 +80,20 @@ const CantieriPanel = React.createClass({
             loading: false
         };
     },
+    componentDidMount() {
+        this.props.onMount();
+    },
     getStyle(pos) {
         return {
             width: pos === "right" || pos === "left" ? "560px" : "100%",
             height: pos === "bottom" || pos === "top" ? "300px" : "100%",
-            position: "absolute",
+            position: "fixed",
             background: "white",
             right: pos === "right" ? 0 : "auto",
             left: pos === "left" ? 0 : "auto",
             top: pos === "top" ? 0 : "auto",
-            bottom: pos === "bottom" ? 0 : "auto"
+            bottom: pos === "bottom" ? 0 : "auto",
+            zIndex: 20
         };
     },
     getToggleStyle() {

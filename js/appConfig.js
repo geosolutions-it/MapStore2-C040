@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017, GeoSolutions Sas.
  * All rights reserved.
  *
@@ -12,6 +12,10 @@ module.exports = {
          name: "home",
          path: "/",
          component: require('./pages/Home')
+     }, {
+         name: "cantieri",
+         path: "/cantieri/:idCantiere/:typology",
+         component: require('./pages/Cantieri')
      }, {
          name: "viewer",
          path: "/viewer",
@@ -37,7 +41,7 @@ module.exports = {
      initialState: {
          defaultState: {
              mapInfo: {infoFormat: 'text/html'},
-             mousePosition: {enabled: true, "crs": "EPSG:4326"},
+             mousePosition: {enabled: false, "crs": "EPSG:4326"},
              controls: {
                  styler: {
                      enabled: true

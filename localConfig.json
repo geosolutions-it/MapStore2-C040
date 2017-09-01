@@ -54,12 +54,6 @@
               "autoload": true
             }
           }
-        },
-        "newService": {
-            "title": "",
-            "type": "wms",
-            "url": "",
-            "autoload": false
         }
       }
     }
@@ -668,6 +662,13 @@
       "Maps",
       "Footer"
     ],
-    "manager": ["Header", "Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"]
+    "manager": ["Header", "Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
+    "cantieri": [{
+      "name": "Map",
+      "cfg" :{
+          "mapType": "openlayers",
+          "tools": ["measurement", "locate", "draw", "highlight"]
+      }
+    }, "Notifications", "LavoriPubblici"]
   }
 }
