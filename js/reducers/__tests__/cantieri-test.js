@@ -6,15 +6,6 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const rows = [{
-        rowIdx: 0,
-        row: {
-            id: 26185,
-            name: 'EDIFICI',
-            key: 'EDIFICI.26185'
-       }
-    }
-];
 const expect = require('expect');
 const {
     initPlugin,
@@ -26,17 +17,17 @@ const {
 } = require('../../actions/cantieri');
 const cantieri = require('../cantieri');
 
-describe('Testing the cantieri redurcer', () => {
+describe('Testing the cantieri reducers', () => {
     it('initPlugin', () => {
-        const initialState = {rows};
+        const initialState = {};
         const options = {
-            fetchDataRESTUrl: "/",
-            saveDataRESTUrl: "/"};
+            fetchServiceRESTUrl: "/",
+            saveServiceRESTUrl: "/"};
         const state = cantieri(initialState, initPlugin(options) );
-        expect(state.hasOwnProperty('fetchDataRESTUrl')).toBe(true);
-        expect(state.hasOwnProperty('saveDataRESTUrl')).toBe(true);
-        expect(state.fetchDataRESTUrl).toBe("/");
-        expect(state.saveDataRESTUrl).toBe("/");
+        expect(state.hasOwnProperty('fetchServiceRESTUrl')).toBe(true);
+        expect(state.hasOwnProperty('saveServiceRESTUrl')).toBe(true);
+        expect(state.fetchServiceRESTUrl).toBe("/");
+        expect(state.saveServiceRESTUrl).toBe("/");
     });
     it('setActiveGrid', () => {
         let activeTools = ["elementsGrid", "pointSelection"];
@@ -103,7 +94,7 @@ describe('Testing the cantieri redurcer', () => {
         expect(state.toolbar.inactiveTools.indexOf(activeDrawTool) === -1).toBe(true);
         expect(state.toolbar.inactiveTools.indexOf(inactiveDrawTool) !== -1).toBe(true);
     });
-    it('setActiveDrawTool disabling the selected one', () => {
+    it('setActiveDrawTool disabling the previously selected one', () => {
         let activeTools = ["elementsGrid", "pointSelection"];
         let inactiveTools = ["areasGrid", "polygonSelection"];
         const initialState = {

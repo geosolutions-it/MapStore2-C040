@@ -35,8 +35,7 @@ function cantieri(state = {
         name: 'nome area',
         resizable: true
     }]},
-    activeGrid: "elementsGrid",
-    open: true
+    activeGrid: "elementsGrid"
 }, action) {
     switch (action.type) {
         case INIT_CANTIERI_PLUGIN: {
