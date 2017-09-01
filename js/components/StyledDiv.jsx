@@ -3,30 +3,30 @@ const React = require('react');
 const Spinner = require('react-spinkit');
 const assign = require('object-assign');
 const Message = require('../../MapStore2/web/client/components/I18N/Message');
-const StyledDiv = React.createClass({
-    propTypes: {
-        toolbar: React.PropTypes.object,
-        dockSize: React.PropTypes.number,
-        wrappedComponent: React.PropTypes.object,
-        toolbarHeight: React.PropTypes.number,
-        position: React.PropTypes.string,
-        saving: React.PropTypes.bool,
-        show: React.PropTypes.bool,
-        loading: React.PropTypes.bool,
-        style: React.PropTypes.object
-    },
-    getDefaultProps() {
-        return {
-            style: {},
-            toolbar: {}
-        };
-    },
-    getHeight(pos) {
+const PropTypes = require('prop-types');
+
+class StyledDiv extends React.Component {
+    static propTypes = {
+        toolbar: PropTypes.object,
+        dockSize: PropTypes.number,
+        wrappedComponent: PropTypes.object,
+        toolbarHeight: PropTypes.number,
+        position: PropTypes.string,
+        saving: PropTypes.bool,
+        show: PropTypes.bool,
+        loading: PropTypes.bool,
+        style: PropTypes.object
+    }
+    static defaultProps = {
+        style: {},
+        toolbar: {}
+    };
+    getHeight = (pos) => {
         return pos === "top" || pos === "bottom" ? true : undefined;
-    },
-    getWidth(pos) {
+    }
+    getWidth = (pos) => {
         return pos === "left" || pos === "right" ? true : undefined;
-    },
+    }
     render() {
         const WrappedComponent = this.props.wrappedComponent;
         let style = assign({}, this.props.style, this.isRightSide() ? {width: this.props.show ? this.props.style.width : 0} : {height: this.props.show ? this.props.style.height : 0}, {transition: this.isRightSide() ? "width 1s ease-in-out" : null} );
@@ -48,10 +48,10 @@ const StyledDiv = React.createClass({
                 {this.props.toolbar}
             </div>
         );
-    },
-    isRightSide() {
+    }
+    isRightSide = () => {
         return this.props.position === "right";
     }
-});
+}
 
 module.exports = StyledDiv;

@@ -10,81 +10,81 @@ const React = require('react');
 const {DropdownButton, MenuItem, NavDropdown, Glyphicon} = require('react-bootstrap');
 const Message = require('../../MapStore2/web/client/components/I18N/Message');
 const url = require('url');
+const PropTypes = require('prop-types');
   /**
    * A DropDown menu for user details:
    */
-const UserMenu = React.createClass({
-  propTypes: {
-      // PROPS
-      user: React.PropTypes.object,
-      displayName: React.PropTypes.string,
-      showAccountInfo: React.PropTypes.bool,
-      showPasswordChange: React.PropTypes.bool,
-      showLogout: React.PropTypes.bool,
-      /**
-       * displayAttributes function to filter attributes to show
-       */
-      displayAttributes: React.PropTypes.func,
-      bsStyle: React.PropTypes.string,
-      renderButtonText: React.PropTypes.bool,
-      nav: React.PropTypes.bool,
-      menuProps: React.PropTypes.object,
 
-      // FUNCTIONS
-      renderButtonContent: React.PropTypes.func,
-      // CALLBACKS
-      onShowAccountInfo: React.PropTypes.func,
-      onShowChangePassword: React.PropTypes.func,
-      onShowLogin: React.PropTypes.func,
-      onLogout: React.PropTypes.func,
-      className: React.PropTypes.string
-  },
-  getDefaultProps() {
-      return {
-          user: {
-          },
-          showAccountInfo: true,
-          showPasswordChange: true,
-          showLogout: true,
-          onLogout: () => {},
-          onPasswordChange: () => {},
-          displayName: "name",
-          bsStyle: "primary",
-          displayAttributes: (attr) => {
-              return attr.name === "email";
-          },
-          className: "user-menu",
-          menuProps: {
-              noCaret: true
-          },
-          toolsCfg: [{
-              buttonSize: "small",
-              includeCloseButton: false,
-              useModal: false,
-              closeGlyph: "1-close"
-          }, {
-              buttonSize: "small",
-              includeCloseButton: false,
-              useModal: false,
-              closeGlyph: "1-close"
-          }, {
-              buttonSize: "small",
-              includeCloseButton: false,
-              useModal: false,
-              closeGlyph: "1-close"
-          }]
-      };
-  },
+class UserMenu extends React.Component {
+    static propTypes = {
+        // PROPS
+        user: PropTypes.object,
+        displayName: PropTypes.string,
+        showAccountInfo: PropTypes.bool,
+        showPasswordChange: PropTypes.bool,
+        showLogout: PropTypes.bool,
+        /**
+        * displayAttributes function to filter attributes to show
+        */
+        displayAttributes: PropTypes.func,
+        bsStyle: PropTypes.string,
+        renderButtonText: PropTypes.bool,
+        nav: PropTypes.bool,
+        menuProps: PropTypes.object,
 
-  renderGuestTools() {
+        // FUNCTIONS
+        renderButtonContent: PropTypes.func,
+        // CALLBACKS
+        onShowAccountInfo: PropTypes.func,
+        onShowChangePassword: PropTypes.func,
+        onShowLogin: PropTypes.func,
+        onLogout: PropTypes.func,
+        className: PropTypes.string
+    }
+    static defaultProps = {
+        user: {},
+        showAccountInfo: true,
+        showPasswordChange: true,
+        showLogout: true,
+        onLogout: () => {},
+        onPasswordChange: () => {},
+        displayName: "name",
+        bsStyle: "primary",
+        displayAttributes: (attr) => {
+            return attr.name === "email";
+        },
+        className: "user-menu",
+        menuProps: {
+            noCaret: true
+        },
+        toolsCfg: [{
+            buttonSize: "small",
+            includeCloseButton: false,
+            useModal: false,
+            closeGlyph: "1-close"
+        }, {
+            buttonSize: "small",
+            includeCloseButton: false,
+            useModal: false,
+            closeGlyph: "1-close"
+        }, {
+            buttonSize: "small",
+            includeCloseButton: false,
+            useModal: false,
+            closeGlyph: "1-close"
+        }]
+    };
+
+
+  renderGuestTools = () => {
       let DropDown = this.props.nav ? NavDropdown : DropdownButton;
       const urlQuery = url.parse(window.location.href, true).query;
       return (<DropDown id="loginButton" className={this.props.className} pullRight bsStyle={this.props.bsStyle} title={this.renderButtonText()} id="dropdown-basic-primary" {...this.props.menuProps}>
           <MenuItem onSelect={this.props.onShowLogin} disabled={urlQuery.public === "yes"}><Glyphicon glyph="log-in" />MapStore login</MenuItem>
           <MenuItem onSelect={()=>window.location.replace('login')}><Glyphicon glyph="log-in" />SPID login</MenuItem>
       </DropDown>);
-  },
-  renderLoggedTools() {
+  }
+  renderLoggedTools = () => {
       let DropDown = this.props.nav ? NavDropdown : DropdownButton;
       let itemArray = [];
       if (this.props.showAccountInfo) {
@@ -104,16 +104,16 @@ const UserMenu = React.createClass({
           <span key="logged-user"><MenuItem header>{this.props.user.name}</MenuItem></span>
           {itemArray}
       </DropDown>);
-  },
-  renderButtonText() {
+  }
+  renderButtonText = () => {
 
       return this.props.renderButtonContent ?
         this.props.renderButtonContent() :
         [<Glyphicon glyph="user" />, this.props.renderButtonText ? this.props.user && this.props.user[this.props.displayName] || "Guest" : null];
-  },
+  }
   render() {
       return this.props.user && this.props.user[this.props.displayName] ? this.renderLoggedTools() : this.renderGuestTools();
   }
-});
+}
 
 module.exports = UserMenu;

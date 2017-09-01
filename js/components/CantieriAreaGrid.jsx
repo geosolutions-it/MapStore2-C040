@@ -11,23 +11,22 @@ const assign = require('object-assign');
 const ToggleButton = require('../../MapStore2/web/client/components/buttons/ToggleButton');
 const Message = require('../../MapStore2/web/client/components/I18N/Message');
 const ResizableGrid = require('../../MapStore2/web/client/components/misc/ResizableGrid');
+const PropTypes = require('prop-types');
 
-const CantieriAreaGrid = React.createClass({
-    propTypes: {
-        rowGetter: React.PropTypes.func,
-        rows: React.PropTypes.array.isRequired,
-        onDeleteRow: React.PropTypes.func
-    },
-    contextTypes: {
-        messages: React.PropTypes.object
-    },
-    getDefaultProps() {
-        return {
+class CantieriAreaGrid extends React.Component {
+    static propTypes = {
+        rowGetter: PropTypes.func,
+        rows: PropTypes.array.isRequired,
+        onDeleteRow: PropTypes.func
+    };
+    static contextTypes = {
+        messages: PropTypes.object
+    };
+    static defaultProps = {
             rowGetter: () => {},
             onDeleteRow: () => {},
             rows: []
-        };
-    },
+    };
     render() {
         return (
             <ResizableGrid
@@ -35,8 +34,8 @@ const CantieriAreaGrid = React.createClass({
                 rowGetter={this.rowGetter}
             />
         );
-    },
-    rowGetter(i) {
+    }
+    rowGetter = (i) => {
         let elementsGridTooltip = (<Tooltip key="elementsGridTooltip" id="elementsGridTooltip">
             <Message msgId={"cantieriGrid.toolbar.deleteRow"}/></Tooltip>);
         if (this.props.rows[i].delete === "X") {
@@ -47,6 +46,6 @@ const CantieriAreaGrid = React.createClass({
         }
         return this.props.rows[i];
     }
-});
+}
 
 module.exports = CantieriAreaGrid;

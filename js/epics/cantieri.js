@@ -27,6 +27,7 @@ const {
 } = require('../actions/cantieri');
 const { setControlProperty } = require('../../MapStore2/web/client/actions/controls');
 const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config');
+const { changeMousePositionState } = require('../../MapStore2/web/client/actions/mousePosition');
 
 const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
 const {transaction, describeFeatureType} = require('../api/WFST');
@@ -122,7 +123,7 @@ module.exports = {
     initLavoriPubbliciPlugin: ( action$ ) =>
     action$.ofType(MAP_CONFIG_LOADED)
     .switchMap( () => {
-        return Rx.Observable.of(setControlProperty("cantieri", "enabled", true));
+        return Rx.Observable.of(setControlProperty("cantieri", "enabled", true), changeMousePositionState(false));
     }),
     updateCantieriByClick: ( action$, store ) =>
         action$.ofType(CLICK_ON_MAP)

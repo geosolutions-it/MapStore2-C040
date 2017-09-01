@@ -10,8 +10,10 @@ const PropTypes = require('prop-types');
 const {connect} = require('react-redux');
 const Page = require('../../MapStore2/web/client/containers/Page');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
-const {initPlugin} = require('../actions/cantieri');
+const {initPlugin, loadCantieriAreaFeatures} = require('../actions/cantieri');
 const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
+const axios = require('../../MapStore2/web/client/libs/ajax');
+const assign = require('object-assign');
 
 require('../../assets/css/custom.css');
 
@@ -21,6 +23,7 @@ class Cantieri extends React.Component {
         mode: PropTypes.string,
         geoStoreUrl: PropTypes.string,
         loadMapConfig: PropTypes.func,
+        loadCantieriAreaFeatures: PropTypes.func,
         match: PropTypes.object,
         initPlugin: PropTypes.func,
         reset: PropTypes.func,
@@ -39,26 +42,20 @@ class Cantieri extends React.Component {
         pluginsConfig: {}
     }
     componentWillMount() {
-        var idCantiere = this.props.match.params.idCantiere || 0;
+        var id = this.props.match.params.idCantiere || 0;
         var typology = this.props.match.params.typology || "cantiere";
 
-        var options = {
-            "geoserverUrl": "/geoserver-test/ows",
-            "toolbar": {
-                "activeTools": ["elementsGrid", "pointSelection"],
-                "inactiveTools": ["areasGrid", "polygonSelection"]
-            },
-            "activeGrid": "elementsGrid",
-            "maxFeatures": 1000,
-            "checkedElements": [],
-            "id": idCantiere,
-            "typology": typology,
-            "geometry_name": "GEOMETRY",
-            "elementsLayerName": "CORSO_1:V_ELEMENTI_CANTIERI",
-            "areasLayerName": "CORSO_1:AREE_CANTIERE"
-        };
-        this.props.loadMapConfig("../config.json", null);
-        this.props.initPlugin(options);
+        axios.get("js/llppConfig.json").then(res => {
+            let options = assign({}, res.data, {
+                id,
+                typology
+            });
+            this.props.initPlugin(options);
+            this.props.loadMapConfig("js/cantieriMapConfig.json", null);
+            this.props.loadCantieriAreaFeatures();
+        });
+
+
     }
     componentDidMount() {
         this.props.reset();
@@ -88,5 +85,6 @@ module.exports = connect((state) => {
 }, {
     reset: resetControls,
     initPlugin,
+    loadCantieriAreaFeatures,
     loadMapConfig
 })(Cantieri);

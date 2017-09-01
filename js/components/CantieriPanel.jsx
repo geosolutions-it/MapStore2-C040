@@ -1,4 +1,3 @@
-
 const Dock = require('../../MapStore2/web/client/components/misc/DockablePanel');
 const Spinner = require('react-spinkit');
 const Message = require('../../MapStore2/web/client/components/I18N/Message');
@@ -13,77 +12,77 @@ const {ButtonToolbar, Button, Tooltip, Alert} = require('react-bootstrap');
 
 const polygonSelection = "polygonSelection";
 const pointSelection = "pointSelection";
-const CantieriPanel = React.createClass({
-    propTypes: {
-        activeGrid: React.PropTypes.string,
-        toolbar: React.PropTypes.object,
-        dockSize: React.PropTypes.number,
-        selectBy: React.PropTypes.object,
-        toolbarHeight: React.PropTypes.number,
-        polygonSelectionGlyph: React.PropTypes.string,
-        pointSelectionGlyph: React.PropTypes.string,
-        elementsGridGlyph: React.PropTypes.string,
-        areasGridGlyph: React.PropTypes.string,
-        maxFeaturesExceeded: React.PropTypes.bool,
-        tooltipPlace: React.PropTypes.string,
-        gridOpened: React.PropTypes.string,
-        gridClosed: React.PropTypes.string,
-        onInitPlugin: React.PropTypes.func,
-        onMount: React.PropTypes.func,
-        onActiveGrid: React.PropTypes.func,
-        onActiveDrawTool: React.PropTypes.func,
-        onHideModal: React.PropTypes.func,
-        onDrawPolygon: React.PropTypes.func,
-        onSave: React.PropTypes.func,
-        position: React.PropTypes.string,
-        onResetCantieriFeatures: React.PropTypes.func,
-        onToggleGrid: React.PropTypes.func,
-        elementsSelected: React.PropTypes.number,
-        saving: React.PropTypes.bool,
-        show: React.PropTypes.bool,
-        loading: React.PropTypes.bool,
-        useDock: React.PropTypes.bool,
-        wrappedComponent: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
-    },
-    contextTypes: {
-       messages: React.PropTypes.object
-    },
-    getDefaultProps() {
-        return {
-            activeGrid: "elementsGrid",
-            pointSelectionGlyph: "1-point",
-            polygonSelectionGlyph: "1-polygon",
-            areasGridGlyph: "1-polygon",
-            elementsGridGlyph: "list-alt",
-            onInitPlugin: () => {},
-            onActiveGrid: () => {},
-            onActiveDrawTool: () => {},
-            onToggleGrid: () => {},
-            onDrawPolygon: () => {},
-            onResetCantieriFeatures: () => {},
-            onSave: () => {},
-            onMount: () => {},
-            onHideModal: () => {},
-            toolbarHeight: 40,
-            tooltipPlace: "top",
-            gridOpened: "chevron-right",
-            gridClosed: "chevron-left",
-            elementsSelected: 0,
-            position: "bottom",
-            toolbar: {
-                activeTools: [ "elementsGrid", pointSelection ],
-                inactiveTools: [ "areasGrid", polygonSelection ]
-            },
-            useDock: false,
-            saving: false,
-            show: true,
-            loading: false
-        };
-    },
+const PropTypes = require('prop-types');
+
+class CantieriPanel extends React.Component {
+    static propTypes = {
+        activeGrid: PropTypes.string,
+        toolbar: PropTypes.object,
+        dockSize: PropTypes.number,
+        selectBy: PropTypes.object,
+        toolbarHeight: PropTypes.number,
+        polygonSelectionGlyph: PropTypes.string,
+        pointSelectionGlyph: PropTypes.string,
+        elementsGridGlyph: PropTypes.string,
+        areasGridGlyph: PropTypes.string,
+        maxFeaturesExceeded: PropTypes.bool,
+        tooltipPlace: PropTypes.string,
+        gridOpened: PropTypes.string,
+        gridClosed: PropTypes.string,
+        onInitPlugin: PropTypes.func,
+        onMount: PropTypes.func,
+        onActiveGrid: PropTypes.func,
+        onActiveDrawTool: PropTypes.func,
+        onHideModal: PropTypes.func,
+        onDrawPolygon: PropTypes.func,
+        onSave: PropTypes.func,
+        position: PropTypes.string,
+        onResetCantieriFeatures: PropTypes.func,
+        onToggleGrid: PropTypes.func,
+        elementsSelected: PropTypes.number,
+        saving: PropTypes.bool,
+        show: PropTypes.bool,
+        loading: PropTypes.bool,
+        useDock: PropTypes.bool,
+        wrappedComponent: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+    };
+    static contextTypes = {
+        messages: PropTypes.object
+    };
+    static defaultProps = {
+        activeGrid: "elementsGrid",
+        pointSelectionGlyph: "1-point",
+        polygonSelectionGlyph: "1-polygon",
+        areasGridGlyph: "1-polygon",
+        elementsGridGlyph: "list-alt",
+        onInitPlugin: () => {},
+        onActiveGrid: () => {},
+        onActiveDrawTool: () => {},
+        onToggleGrid: () => {},
+        onDrawPolygon: () => {},
+        onResetCantieriFeatures: () => {},
+        onSave: () => {},
+        onMount: () => {},
+        onHideModal: () => {},
+        toolbarHeight: 40,
+        tooltipPlace: "top",
+        gridOpened: "chevron-right",
+        gridClosed: "chevron-left",
+        elementsSelected: 0,
+        position: "bottom",
+        toolbar: {
+            activeTools: [ "elementsGrid", pointSelection ],
+            inactiveTools: [ "areasGrid", polygonSelection ]
+        },
+        useDock: false,
+        saving: false,
+        show: true,
+        loading: false
+    };
     componentDidMount() {
-        this.props.onMount();
-    },
-    getStyle(pos) {
+        // this.props.onMount();
+    }
+    getStyle = (pos) => {
         return {
             width: pos === "right" || pos === "left" ? "560px" : "100%",
             height: pos === "bottom" || pos === "top" ? "300px" : "100%",
@@ -95,8 +94,8 @@ const CantieriPanel = React.createClass({
             bottom: pos === "bottom" ? 0 : "auto",
             zIndex: 20
         };
-    },
-    getToggleStyle() {
+    }
+    getToggleStyle = () => {
         if (this.props.position === "right") {
             return {position: "relative", right: "52px", top: "-12px"};
         }
@@ -104,19 +103,19 @@ const CantieriPanel = React.createClass({
             return {position: "relative", left: "2px", bottom: "313px"};
         }
         return {position: "relative", left: "2px", bottom: "54px"};
-    },
-    getLeftToolsStyle() {
+    }
+    getLeftToolsStyle = () => {
         if (this.props.position === "right") {
             return { position: "relative", left: "2px", bottom: "49px"};
         }
         return {position: "relative", left: "2px", bottom: "48px"};
-    },
-    getRightToolsStyle() {
+    }
+    getRightToolsStyle = () => {
         if (this.props.position === "right") {
             return { position: "relative", left: "379px", bottom: "82px"};
         }
         return {position: "relative", right: "-842px", bottom: "82px"};
-    },
+    }
     render() {
 
         let rowsSelectedComp = null;
@@ -192,10 +191,10 @@ const CantieriPanel = React.createClass({
                 </div>
         </Container>
     );
-    },
-    isToolActive(tool) {
+    }
+    isToolActive = (tool) => {
         return indexOf(this.props.toolbar.activeTools, tool) !== -1;
     }
-});
+}
 
 module.exports = CantieriPanel;

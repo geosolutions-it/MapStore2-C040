@@ -13,8 +13,8 @@ module.exports = {
          path: "/",
          component: require('./pages/Home')
      }, {
-         name: "cantieri",
-         path: "/cantieri/:idCantiere/:typology",
+         name: "llpp",
+         path: "/llpp/:typology/:idCantiere",
          component: require('./pages/Cantieri')
      }, {
          name: "viewer",
@@ -41,7 +41,7 @@ module.exports = {
      initialState: {
          defaultState: {
              mapInfo: {infoFormat: 'text/html'},
-             mousePosition: {enabled: false, "crs": "EPSG:4326"},
+             mousePosition: {enabled: true, "crs": "EPSG:4326"},
              controls: {
                  styler: {
                      enabled: true

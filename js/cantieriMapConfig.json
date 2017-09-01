@@ -16,7 +16,7 @@
       "group": "background",
       "visibility": false
     }, {
-      "url": "/geoserver/ows",
+      "url": "/geoserver-test/ows",
       "type": "wms",
       "format": "image/png8",
       "name": "CORSO_1:V_ELEMENTI_CANTIERI",

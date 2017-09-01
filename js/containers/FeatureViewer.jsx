@@ -11,6 +11,7 @@ const {connect} = require('react-redux');
 
 const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
 const PluginsUtils = require('../../MapStore2/web/client/utils/PluginsUtils');
+const PropTypes = require('prop-types');
 
 const PluginsContainer = connect((state) => ({
     pluginsConfig: state.plugins || ConfigUtils.getConfigProp('plugins') || null,
@@ -19,27 +20,25 @@ const PluginsContainer = connect((state) => ({
     monitoredState: PluginsUtils.filterState(state, ConfigUtils.getConfigProp('monitorState') || [])
 }))(require('../../MapStore2/web/client/components/plugins/PluginsContainer'));
 
-const MapViewer = React.createClass({
-    propTypes: {
-        params: React.PropTypes.object,
-        loadMapConfig: React.PropTypes.func,
-        plugins: React.PropTypes.object
-    },
-    getDefaultProps() {
-        return {
-            mode: 'featureviewer',
-            loadMapConfig: () => {}
-        };
-    },
+class MapViewer extends React.Component {
+    static propTypes = {
+        params: PropTypes.object,
+        loadMapConfig: PropTypes.func,
+        plugins: PropTypes.object
+    }
+    static defaultProps = {
+        mode: 'featureviewer',
+        loadMapConfig: () => {}
+    };
     componentWillMount() {
         this.props.loadMapConfig();
-    },
+    }
     render() {
         return (<PluginsContainer mode="featureviewer" key="featureviewer" id="featureviewer" className="viewer"
             plugins={this.props.plugins}
             params={this.props.params}
             />);
     }
-});
+}
 
 module.exports = MapViewer;

@@ -1,0 +1,15 @@
+{
+  "geoserverUrl": "/geoserver-test/ows",
+  "toolbar": {
+      "activeTools": ["elementsGrid", "pointSelection"],
+      "inactiveTools": ["areasGrid", "polygonSelection"]
+  },
+  "activeGrid": "elementsGrid",
+  "maxFeatures": 1000,
+  "checkedElements": [],
+  "id": 0,
+  "typology": "cantiere",
+  "geometry_name": "GEOMETRY",
+  "elementsLayerName": "CORSO_1:V_ELEMENTI_CANTIERI",
+  "areasLayerName": "CORSO_1:AREE_CANTIERE"
+}
