@@ -34,6 +34,13 @@
       }
     }
   },
+  "projectionDefs": [
+        {
+            "code": "EPSG:3003",
+            "def": "+proj=tmerc +lat_0=0 +lon_0=9 +k=0.9996 +x_0=1500000 +y_0=0 +ellps=intl +towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68 +units=m +no_defs",
+            "extent": [1241482.0019, 973563.1609, 1830078.9331, 5215189.0853],
+            "worldExtent": [6.6500, 8.8000, 12.0000, 47.0500]
+        }],
   "initialState": {
     "defaultState": {
       "catalog":{
@@ -61,7 +68,12 @@
             "url": "",
             "autoload": false
         }
-      }
+      },
+        "wfsdownload": {
+          "downloadOptions":{
+            "singlePage": false
+          }
+        }
     }
   },
   "monitorState": [{
@@ -79,7 +91,7 @@
         "name": "BackgroundSelector",
         "cfg": {
           "dimensions": {
-            "bottom": "50px",
+            "bottom": "30px",
             "side": 65,
             "sidePreview": 65,
             "frame": 3,
@@ -147,7 +159,16 @@
       {
         "name": "MousePosition",
         "cfg": {
-          "id": "mapstore-mouseposition-mobile"
+          "id": "mapstore-mouseposition-mobile",
+          "editCRS": true,
+          "showLabels": true,
+          "showToggle": true,
+          "filterAllowedCRS": ["EPSG:4326", "EPSG:3857"],
+          "additionalCRS": {
+            "EPSG:3003": {
+              "label": "EPSG:3003"
+            }
+          }
         }
       }, {
         "name": "Search",
@@ -233,25 +254,34 @@
       }, "Login",
       "OmniBar", "BurgerMenu", "Expander", "GlobeViewSwitcher"
     ],
-    "desktop": ["Map", "HelpLink", "Share", "DrawerMenu", {
+    "desktop": [
+      {
+        "name":"Map",
+        "cfg":{
+          "tools": ["measurement", "locate", "draw", "highlight"]
+        }
+      }, "HelpLink", "Share", "DrawerMenu", {
         "name": "BackgroundSelector",
         "cfg": {
-          "bottom": "50px"
+          "bottom": "30px"
         }
-      }, {
-        "name": "Identify",
-        "showIn": ["IdentifyBar", "Settings"],
-        "cfg": {
-          "viewerOptions": {
-            "container": "{context.ReactSwipe}",
-            "header": "{context.SwipeHeader}",
-            "collapsible": false,
-            "headerOptions": {
-              "useButtons": true
-            }
+      },
+      {
+          "name": "Identify",
+          "cfg": {
+              "viewerOptions": {
+                  "container": "{context.ReactSwipe}",
+                  "header": "{context.SwipeHeader}",
+                  "headerOptions": {
+                      "useButtons": true
+                  }
+              }
           },
-          "glyph": "info-sign"
-        }
+          "override": {
+            "Toolbar": {
+              "position": 11
+            }
+          }
       },
       "Attribution",
       {
@@ -403,7 +433,21 @@
           "zoomToLayer": false,
           "wrap": true
         }
-      }, "MousePosition", {
+      }, {
+        "name": "MousePosition",
+        "cfg": {
+          "editCRS": true,
+          "showLabels": true,
+          "showToggle": true,
+          "crs": "EPSG:4326",
+          "filterAllowedCRS": ["EPSG:4326", "EPSG:3857"],
+          "additionalCRS": {
+            "EPSG:3003": {
+              "label": "EPSG:3003"
+            }
+          }
+        }
+      }, "MapFooter", {
         "name": "Search",
         "cfg": {
           "searchOptions": {
