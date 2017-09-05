@@ -258,6 +258,23 @@
       {
         "name":"Map",
         "cfg":{
+          "mapOptions": {
+            "openlayers": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            },
+            "leaflet": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            }
+          },
+          "toolsOptions": {
+            "scalebar": {
+              "container" : "#mapstore-map-footer-container"
+            }
+          },
           "tools": ["measurement", "locate", "draw", "highlight"]
         }
       }, "HelpLink", "Share", "DrawerMenu", {
