@@ -1,5 +1,6 @@
 {
   "geoserverUrl": "/geoserver-test/ows",
+  "serviceRESTUrl": "/LFS/rest/cantiere",
   "toolbar": {
       "activeTools": ["elementsGrid", "pointSelection"],
       "inactiveTools": ["areasGrid", "polygonSelection"]

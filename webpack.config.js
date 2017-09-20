@@ -130,6 +130,9 @@ module.exports = {
                 target: "http://vm-linuxgeofetest.comune.genova.it",
                 pathRewrite: {'^/rest/geostore': '/MapStore2/rest/geostore'}
             },
+            '/LFS/rest/cantiere': {
+                target: "http://192.168.153.11:8080"
+            },
             '/MapStore2/proxy': {
                 target: "http://vm-linuxgeofetest.comune.genova.it",
                 pathRewrite: {'^/MapStore2/proxy': '/MapStore2/proxy'}
