@@ -7,6 +7,7 @@
  */
 module.exports = {
     plugins: {
+        MapFooter: require('../MapStore2/web/client/plugins/MapFooter'),
         MousePositionPlugin: require('../MapStore2/web/client/plugins/MousePosition'),
         PrintPlugin: require('../MapStore2/web/client/plugins/Print'),
         IdentifyPlugin: require('../MapStore2/web/client/plugins/Identify'),

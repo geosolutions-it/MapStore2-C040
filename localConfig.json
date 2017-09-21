@@ -70,10 +70,10 @@
         }
     }
   },
-  "monitorState": [{
-    "name": "routing",
-    "path": "routing.location.pathname"
-  }],
+   "monitorState": [
+      {"name": "routing", "path": "routing.location.pathname"},
+      {"name": "browser", "path": "browser"},
+      {"name": "featuregridmode", "path": "featuregrid.mode"}],
   "plugins": {
     "mobile": [{
         "name": "Map",
@@ -123,14 +123,7 @@
             "alwaysVisible": true
           }
         }
-      }, "Home",
-      {
-        "name":"TOC",
-        "cfg":{
-          "refreshMapEnabled": false,
-          "activateRefreshTool": false
-        }
-      }, {
+            }, "Home", "TOC", {
         "name": "Tutorial",
         "cfg": {
           "preset": "default_mobile_tutorial"
@@ -142,12 +135,6 @@
           "overrideSettings": {
              "language": false
           }
-        }
-      }, {
-        "name": "MetadataExplorer",
-        "cfg": {
-          "wrap": true,
-          "zoomToLayer": false
         }
       },
       {
@@ -268,8 +255,7 @@
             "scalebar": {
               "container" : "#mapstore-map-footer-container"
             }
-          },
-          "tools": ["measurement", "locate", "draw", "highlight"]
+          }
         }
       }, "HelpLink", "Share", "DrawerMenu", {
         "name": "BackgroundSelector",
@@ -280,9 +266,15 @@
       {
           "name": "Identify",
           "cfg": {
+              "panelClassName": "mapstore-right-panel modal-content",
+              "glyph": "info-sign",
+              "draggable": false,
+              "collapsible": true,
               "viewerOptions": {
                   "container": "{context.ReactSwipe}",
                   "header": "{context.SwipeHeader}",
+                  "draggable": false,
+                  "collapsible": false,
                   "headerOptions": {
                       "useButtons": true
                   }
@@ -290,7 +282,8 @@
           },
           "override": {
             "Toolbar": {
-              "position": 11
+                "position": 11,
+                "alwaysVisible": true
             }
           }
       },
@@ -347,14 +340,18 @@
               "name": "dxf-zip",
               "label": "dxf-zip"
             }
-          ]
+          ],
+          "srsList": [
+                      {"name": "native", "label": "Native"},
+                      {"name": "EPSG:4326", "label": "WGS84"}
+              ],
+           "defaultSrs": "EPSG:4326"
         }
       }, {
         "name": "TOC",
         "cfg": {
           "activateQueryTool": true,
-          "refreshMapEnabled": false,
-          "activateRefreshTool": false,
+          "activateAddLayerButton": true,
           "spatialMethodOptions": [
                   {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
                   {"id": "Circle", "name": "queryform.spatialfilter.methods.circle"},
@@ -555,7 +552,24 @@
     "embedded": [{
         "name": "Map",
         "cfg": {
-          "tools": ["locate"]
+          "tools": ["locate"],
+          "mapOptions": {
+            "openlayers": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            },
+            "leaflet": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            }
+          },
+          "toolsOptions": {
+            "scalebar": {
+              "container" : "#mapstore-map-footer-container"
+            }
+          }
         }
       }, {
         "name": "DrawerMenu",
@@ -607,15 +621,20 @@
             "alwaysVisible": true
           }
         }
-      }, "TOC", {
-        "name": "Settings",
+            }, {
+        "name": "TOC",
         "cfg": {
-          "wrap": true,
-          "overrideSettings": {
-             "language": false
+            "activateMapTitle": false,
+            "activateSettingsTool": false,
+            "activateRemoveLayer": false
           }
-        }
-      }, {
+
+        }, "MapFooter", {
+            "name": "Settings",
+            "cfg": {
+                "wrap": true
+              }
+       }, {
         "name": "Search",
         "cfg": {
           "withToggle": ["max-width: 768px", "min-width: 768px"]
@@ -633,7 +652,7 @@
             "alwaysVisible": true
           }
         }
-      },
+      }, "MapFooter",
       "OmniBar", {
         "name": "GoFull",
         "override": {
@@ -646,9 +665,27 @@
     "featureviewer": [{
         "name": "Map",
         "cfg": {
-          "tools": ["locate", "draw", "highlight"]
+          "mapType": "openlayers",
+          "tools": ["locate", "draw", "highlight"],
+          "mapOptions": {
+            "openlayers": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            },
+            "leaflet": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            }
+          },
+          "toolsOptions": {
+            "scalebar": {
+              "container" : "#mapstore-map-footer-container"
+            }
+          }
         }
-      }, {
+      }, "MapFooter",{
         "name": "Share",
         "cfg": {
           "showAPI": false,
@@ -659,18 +696,28 @@
           "shareUrlReplaceString": "$1$2#$3"
         }
       }, {
-        "name": "Identify",
-        "showIn": ["IdentifyBar", "Settings"],
-        "cfg": {
-          "viewerOptions": {
-            "container": "{context.ReactSwipe}",
-            "header": "{context.SwipeHeader}",
-            "collapsible": false,
-            "headerOptions": {
-              "useButtons": true
+          "name": "Identify",
+          "cfg": {
+              "panelClassName": "mapstore-right-panel modal-content",
+              "glyph": "info-sign",
+              "draggable": false,
+              "collapsible": true,
+              "viewerOptions": {
+                  "container": "{context.ReactSwipe}",
+                  "header": "{context.SwipeHeader}",
+                  "draggable": false,
+                  "collapsible": false,
+                  "headerOptions": {
+                      "useButtons": true
+                  }
+              }
+          },
+          "override": {
+            "Toolbar": {
+                "position": 11,
+                "alwaysVisible": true
             }
           }
-        }
       },
       "Attribution",
       {
