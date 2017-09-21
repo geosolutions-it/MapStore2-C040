@@ -13,6 +13,7 @@ module.exports = {
         'MapStore2-C040': path.join(__dirname, "js", "app"),
         "embedded": path.join(__dirname, "js", "embedded"),
         "ms2-api": path.join(__dirname, "js", "api"),
+        "llpp": path.join(__dirname, "js", "llpp"),
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
     },
 
