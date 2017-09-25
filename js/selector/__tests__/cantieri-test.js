@@ -8,13 +8,11 @@
 
 const expect = require('expect');
 const {
-    fetchServiceRESTUrlSelector,
-    saveServiceRESTUrlSelector,
+    serviceRESTUrlSelector,
     areasLayerSelector,
     elementsLayerSelector
 } = require('../cantieri');
-const fetchUrl = "fetch-url";
-const saveUrl = "save-url";
+const restUrl = "http://fetchUrl/rest";
 const idElementLayer = "CANTIERI::ELEMENTS_LAYER";
 const idAreaLayer = "CANTIERI::AREAS_LAYER";
 const elementLayer = {
@@ -131,19 +129,14 @@ const state = {
           ]
         },
         activeGrid: 'elementsGrid',
-        fetchServiceRESTUrl: fetchUrl,
-        saveServiceRESTUrl: saveUrl
+        serviceRESTUrl: restUrl
       }
 };
 describe('Testing the cantieri selectors', () => {
 
-    it('fetchServiceRESTUrlSelector', () => {
-        const retVal = fetchServiceRESTUrlSelector(state);
-        expect(retVal).toBe(fetchUrl);
-    });
-    it('saveServiceRESTUrlSelector', () => {
-        const retVal = saveServiceRESTUrlSelector(state);
-        expect(retVal).toBe(saveUrl);
+    it('serviceRESTUrlSelector', () => {
+        const retVal = serviceRESTUrlSelector(state);
+        expect(retVal).toBe(restUrl);
     });
     it('elementsLayerSelector', () => {
         const retVal = elementsLayerSelector(state);

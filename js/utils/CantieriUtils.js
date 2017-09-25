@@ -85,7 +85,7 @@ module.exports = {
     getCheckedElementsFromLayer: (layer) => {
         // Returns array of array
         return layer.features.filter(f => f.checked).map(f => {
-            return [f.properties.ID, f.properties.NOME_LIVELLO ];
+            return {"ID_ELEMENTO": f.properties.ID, "TIPOLOGIA": f.properties.NOME_LIVELLO};
         });
     },
     getAreaFilter: (id = 0, typology = "cantiere", areasLayerName) => {
@@ -106,7 +106,7 @@ module.exports = {
                 filter(
                     or(
                         checkedElements.map(el => {
-                            return and([property("ID").equalTo(el[0]), property("NOME_LIVELLO").equalTo(el[1])]);
+                            return and([property("ID").equalTo(el.ID_ELEMENTO), property("NOME_LIVELLO").equalTo(el.TIPOLOGIA)]);
                         })
                     )
                 )

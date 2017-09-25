@@ -12,7 +12,7 @@ const {changeMapView} = require('../../MapStore2/web/client/actions/map');
 const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
 const {dockSizeFeatures} = require('../../MapStore2/web/client/actions/featuregrid');
 const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, removeCantieriArea, setActiveDrawTool, resetCantieriFeatures,
-saveCantieriData, maxFeaturesExceeded, savingData, loadCantieriAreaFeatures } = require('../actions/cantieri');
+saveCantieriData, maxFeaturesExceeded, savingData } = require('../actions/cantieri');
 const epics = require('../epics/cantieri');
 const {featureToRow} = require('../utils/CantieriUtils');
 const {toggleControl} = require('../../MapStore2/web/client/actions/controls');
@@ -69,7 +69,6 @@ const Dock = connect(
     onActiveGrid: setActiveGrid,
     onActiveDrawTool: setActiveDrawTool,
     onSave: saveCantieriData,
-    onMount: loadCantieriAreaFeatures,
     onDrawPolygon: changeDrawingStatus,
     onResetCantieriFeatures: resetCantieriFeatures,
     onToggleGrid: toggleControl.bind(null, 'cantieri', null),
