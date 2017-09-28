@@ -33,7 +33,7 @@ const {
 const { setControlProperty } = require('../../MapStore2/web/client/actions/controls');
 const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config');
 const { changeMousePositionState } = require('../../MapStore2/web/client/actions/mousePosition');
-const {serviceRESTUrlSelector, routingSelector} = require('../selector/cantieri');
+const {serviceRESTUrlSelector} = require('../selector/cantieri');
 
 const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
 const {transaction, describeFeatureType} = require('../api/WFST');
@@ -140,7 +140,7 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
 module.exports = {
     initLavoriPubbliciPlugin: ( action$, store ) =>
         action$.ofType(MAP_CONFIG_LOADED)
-        .filter(() => routingSelector(store.getState()).indexOf("llpp") !== -1)
+        // .filter(() => routingSelector(store.getState()).indexOf("llpp") !== -1)
         .switchMap( () => {
             const cantieriState = store.getState().cantieri;
             return Rx.Observable.fromPromise(axios.get(getRestUrl(serviceRESTUrlSelector(store.getState()), "get", cantieriState.id), null, {

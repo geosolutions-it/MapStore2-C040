@@ -19,8 +19,8 @@ const Attribution = React.createClass({
             style: {
                 position: "absolute",
                 width: "124px",
-                left: 0,
-                bottom: 0
+                left: "calc(50% - 62px)",
+                bottom: "35px"
             }
         };
     },

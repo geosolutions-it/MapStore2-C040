@@ -8,6 +8,7 @@
 
 module.exports = {
     plugins: {
+        MapFooter: require('../MapStore2/web/client/plugins/MapFooter'),
         MousePositionPlugin: require('../MapStore2/web/client/plugins/MousePosition'),
         PrintPlugin: require('../MapStore2/web/client/plugins/Print'),
         IdentifyPlugin: require('../MapStore2/web/client/plugins/Identify'),
@@ -64,8 +65,7 @@ module.exports = {
         FeatureLoader: require('./plugins/FeatureLoader'),
         NotificationsPlugin: require('../MapStore2/web/client/plugins/Notifications'),
         FeatureEditorPlugin: require('../MapStore2/web/client/plugins/FeatureEditor'),
-        AutoMapUpdatePlugin: require('../MapStore2/web/client/plugins/AutoMapUpdate'),
-        LavoriPubbliciPlugin: require('./plugins/LavoriPubblici')
+        AutoMapUpdatePlugin: require('../MapStore2/web/client/plugins/AutoMapUpdate')
     },
     requires: {
         ReactSwipe: require('react-swipeable-views').default,

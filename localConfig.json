@@ -4,7 +4,7 @@
   "wmsURL": "/geoserver-test/wms",
   "proxyUrl": {
     "url": "/MapStore2/proxy/?url=",
-    "useCORS": ["http://nominatim.openstreetmap.org", "https://nominatim.openstreetmap.org", "http://mappe.comune.genova.it", "http://vm-linuxgeofetest.comune.genova.it", "http://www.realvista.it/"]
+    "useCORS": ["http://nominatim.openstreetmap.org", "https://nominatim.openstreetmap.org", "http://mappe.comune.genova.it", "http://vm-linuxgeofetest.comune.genova.it", "http://www.realvista.it/", "http://192.168.153.11:8080"]
   },
   "bingApiKey": "AhuXBu7ipR1gNbBfXhtUAyCZ6rkC5PkWpxs2MnMRZ1ZupxQfivjLCch22ozKSCAn",
   "translationsPath": ["MapStore2/web/client/translations", "translations"],
@@ -34,6 +34,13 @@
       }
     }
   },
+  "projectionDefs": [
+        {
+            "code": "EPSG:3003",
+            "def": "+proj=tmerc +lat_0=0 +lon_0=9 +k=0.9996 +x_0=1500000 +y_0=0 +ellps=intl +towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68 +units=m +no_defs",
+            "extent": [1241482.0019, 973563.1609, 1830078.9331, 5215189.0853],
+            "worldExtent": [6.6500, 8.8000, 12.0000, 47.0500]
+        }],
   "initialState": {
     "defaultState": {
       "catalog":{
@@ -55,13 +62,18 @@
             }
           }
         }
-      }
+      },
+        "wfsdownload": {
+          "downloadOptions":{
+            "singlePage": false
+          }
+        }
     }
   },
-  "monitorState": [{
-    "name": "routing",
-    "path": "routing.location.pathname"
-  }],
+   "monitorState": [
+      {"name": "routing", "path": "routing.location.pathname"},
+      {"name": "browser", "path": "browser"},
+      {"name": "featuregridmode", "path": "featuregrid.mode"}],
   "plugins": {
     "mobile": [{
         "name": "Map",
@@ -73,7 +85,7 @@
         "name": "BackgroundSelector",
         "cfg": {
           "dimensions": {
-            "bottom": "50px",
+            "bottom": "30px",
             "side": 65,
             "sidePreview": 65,
             "frame": 3,
@@ -111,14 +123,7 @@
             "alwaysVisible": true
           }
         }
-      }, "Home",
-      {
-        "name":"TOC",
-        "cfg":{
-          "refreshMapEnabled": false,
-          "activateRefreshTool": false
-        }
-      }, {
+            }, "Home", "TOC", {
         "name": "Tutorial",
         "cfg": {
           "preset": "default_mobile_tutorial"
@@ -131,17 +136,20 @@
              "language": false
           }
         }
-      }, {
-        "name": "MetadataExplorer",
-        "cfg": {
-          "wrap": true,
-          "zoomToLayer": false
-        }
       },
       {
         "name": "MousePosition",
         "cfg": {
-          "id": "mapstore-mouseposition-mobile"
+          "id": "mapstore-mouseposition-mobile",
+          "editCRS": true,
+          "showLabels": true,
+          "showToggle": true,
+          "filterAllowedCRS": ["EPSG:4326", "EPSG:3857"],
+          "additionalCRS": {
+            "EPSG:3003": {
+              "label": "EPSG:3003"
+            }
+          }
         }
       }, {
         "name": "Search",
@@ -227,25 +235,57 @@
       }, "Login",
       "OmniBar", "BurgerMenu", "Expander", "GlobeViewSwitcher"
     ],
-    "desktop": ["Map", "HelpLink", "Share", "DrawerMenu", {
-        "name": "BackgroundSelector",
-        "cfg": {
-          "bottom": "50px"
-        }
-      }, {
-        "name": "Identify",
-        "showIn": ["IdentifyBar", "Settings"],
-        "cfg": {
-          "viewerOptions": {
-            "container": "{context.ReactSwipe}",
-            "header": "{context.SwipeHeader}",
-            "collapsible": false,
-            "headerOptions": {
-              "useButtons": true
+    "desktop": [
+      {
+        "name":"Map",
+        "cfg":{
+          "mapOptions": {
+            "openlayers": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            },
+            "leaflet": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
             }
           },
-          "glyph": "info-sign"
+          "toolsOptions": {
+            "scalebar": {
+              "container" : "#mapstore-map-footer-container"
+            }
+          }
         }
+      }, "HelpLink", "Share", "DrawerMenu", {
+        "name": "BackgroundSelector",
+        "cfg": {
+          "bottom": "30px"
+        }
+      },
+      {
+          "name": "Identify",
+          "cfg": {
+              "panelClassName": "mapstore-right-panel modal-content",
+              "glyph": "info-sign",
+              "draggable": false,
+              "collapsible": true,
+              "viewerOptions": {
+                  "container": "{context.ReactSwipe}",
+                  "header": "{context.SwipeHeader}",
+                  "draggable": false,
+                  "collapsible": false,
+                  "headerOptions": {
+                      "useButtons": true
+                  }
+              }
+          },
+          "override": {
+            "Toolbar": {
+                "position": 11,
+                "alwaysVisible": true
+            }
+          }
       },
       "Attribution",
       {
@@ -300,14 +340,18 @@
               "name": "dxf-zip",
               "label": "dxf-zip"
             }
-          ]
+          ],
+          "srsList": [
+                      {"name": "native", "label": "Native"},
+                      {"name": "EPSG:4326", "label": "WGS84"}
+              ],
+           "defaultSrs": "EPSG:4326"
         }
       }, {
         "name": "TOC",
         "cfg": {
           "activateQueryTool": true,
-          "refreshMapEnabled": false,
-          "activateRefreshTool": false,
+          "activateAddLayerButton": true,
           "spatialMethodOptions": [
                   {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
                   {"id": "Circle", "name": "queryform.spatialfilter.methods.circle"},
@@ -397,7 +441,21 @@
           "zoomToLayer": false,
           "wrap": true
         }
-      }, "MousePosition", {
+      }, {
+        "name": "MousePosition",
+        "cfg": {
+          "editCRS": true,
+          "showLabels": true,
+          "showToggle": true,
+          "crs": "EPSG:4326",
+          "filterAllowedCRS": ["EPSG:4326", "EPSG:3857"],
+          "additionalCRS": {
+            "EPSG:3003": {
+              "label": "EPSG:3003"
+            }
+          }
+        }
+      }, "MapFooter", {
         "name": "Search",
         "cfg": {
           "searchOptions": {
@@ -494,7 +552,24 @@
     "embedded": [{
         "name": "Map",
         "cfg": {
-          "tools": ["locate"]
+          "tools": ["locate"],
+          "mapOptions": {
+            "openlayers": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            },
+            "leaflet": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            }
+          },
+          "toolsOptions": {
+            "scalebar": {
+              "container" : "#mapstore-map-footer-container"
+            }
+          }
         }
       }, {
         "name": "DrawerMenu",
@@ -546,15 +621,20 @@
             "alwaysVisible": true
           }
         }
-      }, "TOC", {
-        "name": "Settings",
+            }, {
+        "name": "TOC",
         "cfg": {
-          "wrap": true,
-          "overrideSettings": {
-             "language": false
+            "activateMapTitle": false,
+            "activateSettingsTool": false,
+            "activateRemoveLayer": false
           }
-        }
-      }, {
+
+        }, "MapFooter", {
+            "name": "Settings",
+            "cfg": {
+                "wrap": true
+              }
+       }, {
         "name": "Search",
         "cfg": {
           "withToggle": ["max-width: 768px", "min-width: 768px"]
@@ -572,7 +652,7 @@
             "alwaysVisible": true
           }
         }
-      },
+      }, "MapFooter",
       "OmniBar", {
         "name": "GoFull",
         "override": {
@@ -585,9 +665,27 @@
     "featureviewer": [{
         "name": "Map",
         "cfg": {
-          "tools": ["locate", "draw", "highlight"]
+          "mapType": "openlayers",
+          "tools": ["locate", "draw", "highlight"],
+          "mapOptions": {
+            "openlayers": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            },
+            "leaflet": {
+              "attribution": {
+                "container": "#mapstore-map-footer-container"
+              }
+            }
+          },
+          "toolsOptions": {
+            "scalebar": {
+              "container" : "#mapstore-map-footer-container"
+            }
+          }
         }
-      }, {
+      }, "MapFooter",{
         "name": "Share",
         "cfg": {
           "showAPI": false,
@@ -598,18 +696,28 @@
           "shareUrlReplaceString": "$1$2#$3"
         }
       }, {
-        "name": "Identify",
-        "showIn": ["IdentifyBar", "Settings"],
-        "cfg": {
-          "viewerOptions": {
-            "container": "{context.ReactSwipe}",
-            "header": "{context.SwipeHeader}",
-            "collapsible": false,
-            "headerOptions": {
-              "useButtons": true
+          "name": "Identify",
+          "cfg": {
+              "panelClassName": "mapstore-right-panel modal-content",
+              "glyph": "info-sign",
+              "draggable": false,
+              "collapsible": true,
+              "viewerOptions": {
+                  "container": "{context.ReactSwipe}",
+                  "header": "{context.SwipeHeader}",
+                  "draggable": false,
+                  "collapsible": false,
+                  "headerOptions": {
+                      "useButtons": true
+                  }
+              }
+          },
+          "override": {
+            "Toolbar": {
+                "position": 11,
+                "alwaysVisible": true
             }
           }
-        }
       },
       "Attribution",
       {
