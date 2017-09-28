@@ -30,6 +30,7 @@ const ERROR_DRAWING_AREAS = "ERROR_DRAWING_AREAS";
 const SUCCESS_SAVING = "SUCCESS_SAVING";
 const SAVING_DATA = "SAVING_DATA";
 const LOADING_DATA = "LOADING_DATA";
+const UPDATE_CHECKED_ELEMENTS = "UPDATE_CHECKED_ELEMENTS";
 
 /**
  * updates in the state the selected rows
@@ -218,6 +219,12 @@ function loadingData(status) {
         status
     };
 }
+function updateCheckedElements(elements) {
+    return {
+        type: UPDATE_CHECKED_ELEMENTS,
+        elements
+    };
+}
 
 module.exports = {
     ROWS_SELECTED, rowsSelected,
@@ -236,6 +243,7 @@ module.exports = {
     SAVING_DATA, savingData,
     LOADING_DATA, loadingData,
     SAVING_ERROR, savingError,
+    UPDATE_CHECKED_ELEMENTS, updateCheckedElements,
     AREAS_LAYER, ELEMENTS_LAYER,
     ERROR_REMOVE_CANTIERI_AREA, ERROR_RESET_CANTIERI_FEATURES,
     ERROR_LOAD_CANTIERI_AREAS, ERROR_QUERY_ELEMENTS_FEATURES,

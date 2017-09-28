@@ -10,7 +10,7 @@ const PropTypes = require('prop-types');
 const {connect} = require('react-redux');
 const Page = require('../../MapStore2/web/client/containers/Page');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
-const {initPlugin, loadCantieriAreaFeatures} = require('../actions/cantieri');
+const {initPlugin} = require('../actions/cantieri');
 const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
 const axios = require('../../MapStore2/web/client/libs/ajax');
 const assign = require('object-assign');
@@ -23,7 +23,6 @@ class Cantieri extends React.Component {
         mode: PropTypes.string,
         geoStoreUrl: PropTypes.string,
         loadMapConfig: PropTypes.func,
-        loadCantieriAreaFeatures: PropTypes.func,
         match: PropTypes.object,
         initPlugin: PropTypes.func,
         reset: PropTypes.func,
@@ -52,7 +51,6 @@ class Cantieri extends React.Component {
             });
             this.props.initPlugin(options);
             this.props.loadMapConfig("js/cantieriMapConfig.json", null);
-            this.props.loadCantieriAreaFeatures();
         });
 
 
@@ -85,6 +83,5 @@ module.exports = connect((state) => {
 }, {
     reset: resetControls,
     initPlugin,
-    loadCantieriAreaFeatures,
     loadMapConfig
 })(Cantieri);

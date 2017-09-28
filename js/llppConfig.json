@@ -1,5 +1,6 @@
 {
   "geoserverUrl": "/geoserver-test/ows",
+  "serviceRESTUrl": "http://192.168.153.11:8080/LFS/rest/cantiere",
   "toolbar": {
       "activeTools": ["elementsGrid", "pointSelection"],
       "inactiveTools": ["areasGrid", "polygonSelection"]

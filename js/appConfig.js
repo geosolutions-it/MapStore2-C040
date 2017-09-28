@@ -13,10 +13,6 @@ module.exports = {
          path: "/",
          component: require('./pages/Home')
      }, {
-         name: "llpp",
-         path: "/llpp/:typology/:idCantiere",
-         component: require('./pages/Cantieri')
-     }, {
          name: "viewer",
          path: "/viewer",
          component: require('./pages/MapViewer')

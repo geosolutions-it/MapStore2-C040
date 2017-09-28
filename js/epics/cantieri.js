@@ -10,7 +10,6 @@ const {CLICK_ON_MAP} = require('../../MapStore2/web/client/actions/map');
 const requestBuilder = require('../../MapStore2/web/client/utils/ogc/WFS/RequestBuilder');
 const transactionRequestBuilder = require('../../MapStore2/web/client/utils/ogc/WFST/RequestBuilder');
 const {filter, and, property} = requestBuilder({wfsVersion: "1.1.0"});
-const {error, info, success} = require('../../MapStore2/web/client/actions/notifications');
 const {featureToRow, isSameFeature, checkFeature, uncheckFeature, getAreaFilter, isActiveTool,
     removeFeature, clearAllFeatures, getAreasLayer, getElementsLayer, getAreasGeometry,
     addFeaturesToElementLayer, showQueryElementsError, getElementsFilter, addFeatureToAreaLayer,
@@ -22,17 +21,23 @@ const {changeDrawingStatus, END_DRAWING} = require('../../MapStore2/web/client/a
 
 const {reprojectGeoJson} = require('../../MapStore2/web/client/utils/CoordinatesUtils');
 const {
-    ERROR_LOAD_CANTIERI_AREAS, ERROR_RESET_CANTIERI_FEATURES, ERROR_REMOVE_CANTIERI_AREA, FETCH_CANTIERI_FEATURES,
-    REMOVE_CANTIERI_AREA, RESET_CANTIERI_FEATURES, QUERY_ELEMENTS_FEATURES, ELEMENTS_LAYER, AREAS_LAYER, ROWS_SELECTED, ROWS_DESELECTED, SAVE_CANTIERI_DATA, dataSaved, queryElements, ERROR_DRAWING_AREAS, SUCCESS_SAVING, savingData, loadingData
+    UPDATE_CHECKED_ELEMENTS, REMOVE_CANTIERI_AREA, RESET_CANTIERI_FEATURES,
+    QUERY_ELEMENTS_FEATURES, ELEMENTS_LAYER, AREAS_LAYER, ROWS_SELECTED, ROWS_DESELECTED, SAVE_CANTIERI_DATA,
+    dataSaved, queryElements, savingData, loadingData, updateCheckedElements
 } = require('../actions/cantieri');
+
+const {
+    errorSavingData, successSavingData, errorSavingElements, infoNoFeaturesSelected, infoElementAlreadyPresent,
+    errorRemoveFeature, errorResetCantieriFeatures, errorDrawingAreas, errorLoadCantieriAreas
+} = require('../actions/notifications');
 const { setControlProperty } = require('../../MapStore2/web/client/actions/controls');
 const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config');
 const { changeMousePositionState } = require('../../MapStore2/web/client/actions/mousePosition');
+const {serviceRESTUrlSelector} = require('../selector/cantieri');
 
 const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
 const {transaction, describeFeatureType} = require('../api/WFST');
 const assign = require('object-assign');
-
 
 const getWFSFeature = (searchUrl, filterObj) => {
     const data = getWFSFilterData(filterObj);
@@ -43,6 +48,12 @@ const getWFSFeature = (searchUrl, filterObj) => {
      }));
 };
 
+const prepareDataToSave = (elements, id) => {
+    return assign({}, {
+        "ELEMENTS": elements,
+        "ID_CANTIERE": id
+    });
+};
 const getLayer = (props) => {
     return {
         "group": props.group,
@@ -56,6 +67,14 @@ const getLayer = (props) => {
         "featuresCrs": props.projection,
         "style": props.style
     };
+};
+const urlUtil = require('url');
+
+const getRestUrl = (url, type, idCantiere) => {
+    const parsed = urlUtil.parse(url, true);
+    return urlUtil.format(assign({}, parsed, {
+        query: assign({}, parsed.query, type === "get" ? {"id_cantiere": idCantiere} : {})
+    }));
 };
 
 var areaCount = 0;
@@ -118,13 +137,29 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
     return Rx.Observable.from(actions);
 };
 
-
 module.exports = {
-    initLavoriPubbliciPlugin: ( action$ ) =>
-    action$.ofType(MAP_CONFIG_LOADED)
-    .switchMap( () => {
-        return Rx.Observable.of(setControlProperty("cantieri", "enabled", true), changeMousePositionState(false));
-    }),
+    initLavoriPubbliciPlugin: ( action$, store ) =>
+        action$.ofType(MAP_CONFIG_LOADED)
+        // .filter(() => routingSelector(store.getState()).indexOf("llpp") !== -1)
+        .switchMap( () => {
+            const cantieriState = store.getState().cantieri;
+            return Rx.Observable.fromPromise(axios.get(getRestUrl(serviceRESTUrlSelector(store.getState()), "get", cantieriState.id), null, {
+                timeout: 60000,
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+            }).then(r => {
+                return r && r.data && r.data.ELEMENTS && r.data.ELEMENTS.length ? r.data.ELEMENTS : [];
+            }))
+            .switchMap((elements) => {
+                return Rx.Observable.of(
+                    updateCheckedElements(elements),
+                    setControlProperty("cantieri", "enabled", true),
+                    changeMousePositionState(false)
+                );
+            });
+        }).catch( () => {
+            return Rx.Observable.of(
+                updateCheckedElements([]), changeMousePositionState(false));
+        }),
     updateCantieriByClick: ( action$, store ) =>
         action$.ofType(CLICK_ON_MAP)
             .filter(() => isActiveTool("pointSelection", store))
@@ -165,15 +200,7 @@ module.exports = {
                                 .concat( addFeatureToAreaLayer(areasFeatureByClick, areasLayer) );
                             }
                             if (elementsLayer !== undefined && response.data.features.length === 0) {
-                                return Rx.Observable.of(info({
-                                    title: "warning",
-                                    message: "cantieriGrid.notification.noFeaturesSelected",
-                                    action: {
-                                        label: "cantieriGrid.notification.confirm"
-                                    },
-                                    autoDismiss: 3,
-                                    position: "tc"
-                                }));
+                                return Rx.Observable.of(infoNoFeaturesSelected());
                             }
                             // toggle style for selected features
                             if (elementsLayer !== undefined && featureByClick.length === 0) {
@@ -193,15 +220,7 @@ module.exports = {
                                 ), elementsLayer);
                             }
                         }
-                        return Rx.Observable.of(info({
-                            title: "warning",
-                            message: "cantieriGrid.notification.elementAlreadyPresent",
-                            action: {
-                                label: "cantieriGrid.notification.confirm"
-                            },
-                            autoDismiss: 3,
-                            position: "tc"
-                        }));
+                        return Rx.Observable.of(infoElementAlreadyPresent());
                     });
             }),
     updateCantieriAreaLayer: ( action$, store ) =>
@@ -237,16 +256,7 @@ module.exports = {
                 return addFeatureToAreaLayer(feature, areasLayer).concat(Rx.Observable.of(queryElements(f, true)));
             }
 
-            return Rx.Observable.of(error({
-                uid: ERROR_DRAWING_AREAS,
-                title: "warning",
-                message: "cantieriGrid.notification.errorDrawingAreas",
-                action: {
-                    label: "cantieriGrid.notification.confirm"
-                },
-                autoDismiss: 3,
-                position: "tr"
-            }));
+            return Rx.Observable.of(errorDrawingAreas());
         }),
     deleteCantieriAreaFeature: ( action$, store ) =>
         action$.ofType(REMOVE_CANTIERI_AREA)
@@ -255,16 +265,7 @@ module.exports = {
             if (areasLayer !== undefined) {
                 return removeFeature(action.area, areasLayer);
             }
-            return Rx.Observable.of(error({
-                uid: ERROR_REMOVE_CANTIERI_AREA,
-                title: "warning",
-                message: "cantieriGrid.notification.removeFeatureError",
-                action: {
-                    label: "cantieriGrid.notification.confirm"
-                },
-                autoDismiss: 3,
-                position: "tr"
-            }));
+            return Rx.Observable.of(errorRemoveFeature());
         }),
     resetCantieriFeatures: ( action$, store ) =>
         action$.ofType(RESET_CANTIERI_FEATURES)
@@ -274,16 +275,7 @@ module.exports = {
             if (areasLayer !== undefined && elementsLayer !== undefined) {
                 return clearAllFeatures();
             }
-            return Rx.Observable.of(error({
-                uid: ERROR_RESET_CANTIERI_FEATURES,
-                title: "warning",
-                message: "cantieriGrid.notification.resetCantieriFeaturesError",
-                action: {
-                    label: "cantieriGrid.notification.confirm"
-                },
-                autoDismiss: 3,
-                position: "tr"
-            }));
+            return Rx.Observable.of(errorResetCantieriFeatures());
         }),
     updateCantieriElementsFeatures: ( action$, store ) =>
         action$.ofType(QUERY_ELEMENTS_FEATURES)
@@ -313,14 +305,14 @@ module.exports = {
             return showQueryElementsError();
         }),
     fetchCantieriAreaFeatures: ( action$, store ) =>
-        action$.ofType(FETCH_CANTIERI_FEATURES)
+        action$.ofType(UPDATE_CHECKED_ELEMENTS)
             .switchMap( () => {
                 const cantieriState = store.getState().cantieri;
                 return Rx.Observable.forkJoin(
                     // fetch areas features
                     getWFSFeature(cantieriState.geoserverUrl, getAreaFilter(cantieriState.id, cantieriState.typology, cantieriState.areasLayerName))
                         .switchMap((response) => {
-                            if (response.data && response.data.features) {
+                            if (response.data && response.data.features && response.data.features.length) {
                                 return Rx.Observable.of(response.data.features.map(f => {
                                     return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
                                 }));
@@ -358,17 +350,7 @@ module.exports = {
                 })
                 .startWith(loadingData(true))
                 .catch( () => {
-                    return createAndAddLayers([], store, []).concat(Rx.Observable.of(
-                        error({
-                            uid: ERROR_LOAD_CANTIERI_AREAS,
-                            title: "warning",
-                            message: "cantieriGrid.notification.errorLoadCantieriAreas",
-                            action: {
-                                label: "cantieriGrid.notification.confirm"
-                            },
-                            autoDismiss: 3,
-                            position: "tr"
-                        })));
+                    return createAndAddLayers([], store, []).concat(Rx.Observable.of(errorLoadCantieriAreas()));
                 })
                 .concat([loadingData(false)]);
             }),
@@ -393,47 +375,47 @@ module.exports = {
             }
         }),
         saveCantieriAreas: (action$, store) =>
-                action$.ofType(SAVE_CANTIERI_DATA)
-                    .throttleTime(2000)
-                    .switchMap( () => {
-                        const cantierState = store.getState().cantieri;
-                        return Rx.Observable.defer( () => describeFeatureType(cantierState.geoserverUrl, getAreasLayer(store).name ) )
-                        .switchMap(describe => {
-                            const {insert, deleteByFilter} = transactionRequestBuilder(describe);
-                            return Rx.Observable.fromPromise(transaction(cantierState.geoserverUrl,
-                                [
-                                    // SOME PROBLEM ON SERVER SIDE DO NOT ALLOW TO SAVE
-                                    deleteByFilter(
-                                            filter(and(property("ID_CANTIERE").equalTo(cantierState.id), property("TIPOLOGIA").equalTo(cantierState.typology))),
-                                    ),
-                                    insert(reprojectGeoJson({type: "FeatureCollection", features: getAreasLayer(store).features}, store.getState().map.present.projection, "EPSG:4326"))
-                                ],
-                                describe
-                            )).switchMap(() => Rx.Observable.from([
-                                dataSaved(getCheckedElementsFromLayer(getElementsLayer(store)), cantierState.id, cantierState.typology ),
-                                success({
-                                        uid: SUCCESS_SAVING,
-                                        title: "warning",
-                                        message: "cantieriGrid.notification.successSaving",
-                                        action: {
-                                        label: "cantieriGrid.notification.confirm"
-                                    },
-                                    autoDismiss: 3,
-                                    position: "tc"
-                                })]
-                            ));
-                        })
-                        .startWith(savingData(true))
-                        .catch( () => Rx.Observable.of(error({
-                            title: "warning",
-                            message: "cantieriGrid.notification.errorSavingData",
-                            action: {
-                                label: "cantieriGrid.notification.confirm"
-                            },
-                            autoDismiss: 3,
-                            position: "tr"
-                        })))
-                        .concat([savingData(false)]);
-                    }
-                )
+            action$.ofType(SAVE_CANTIERI_DATA)
+            .throttleTime(2000)
+            .switchMap( () => {
+                const cantierState = store.getState().cantieri;
+                return Rx.Observable.defer( () => describeFeatureType(cantierState.geoserverUrl, getAreasLayer(store).name ) )
+                .switchMap(describe => {
+                    const {insert, deleteByFilter} = transactionRequestBuilder(describe);
+                    return Rx.Observable.fromPromise(transaction(cantierState.geoserverUrl,
+                        [
+                            // SOME PROBLEM ON SERVER SIDE DO NOT ALLOW TO SAVE
+                            deleteByFilter(
+                                    filter(and(property("ID_CANTIERE").equalTo(cantierState.id), property("TIPOLOGIA").equalTo(cantierState.typology))),
+                            ),
+                            insert(reprojectGeoJson({type: "FeatureCollection", features: getAreasLayer(store).features}, store.getState().map.present.projection, "EPSG:4326"))
+                        ],
+                        describe
+                    )).switchMap(() =>
+                        Rx.Observable.fromPromise(axios.post(getRestUrl(serviceRESTUrlSelector(store.getState()), "post", null),
+                            prepareDataToSave(getCheckedElementsFromLayer(getElementsLayer(store)), store.getState().cantieri.id), {
+                                timeout: 60000,
+                                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+                            }).then(r => {
+                                if (r.data.STATO) {
+                                    return r.data;
+                                }
+                                return null;
+                            }))
+                            .switchMap((data) => {
+                                if (data) {
+                                    return Rx.Observable.from([
+                                        dataSaved(getCheckedElementsFromLayer(getElementsLayer(store)), cantierState.id, cantierState.typology ),
+                                        successSavingData()]
+                                    );
+                                }
+                                return Rx.Observable.of(errorSavingElements(data.MESSAGGIO));
+                            }
+                        ));
+                })
+                .startWith(savingData(true))
+                .catch( () => Rx.Observable.of(errorSavingData()))
+                .concat([savingData(false)]);
+            }
+        )
 };

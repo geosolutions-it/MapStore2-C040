@@ -30,7 +30,6 @@ class CantieriPanel extends React.Component {
         gridOpened: PropTypes.string,
         gridClosed: PropTypes.string,
         onInitPlugin: PropTypes.func,
-        onMount: PropTypes.func,
         onActiveGrid: PropTypes.func,
         onActiveDrawTool: PropTypes.func,
         onHideModal: PropTypes.func,
@@ -62,7 +61,6 @@ class CantieriPanel extends React.Component {
         onDrawPolygon: () => {},
         onResetCantieriFeatures: () => {},
         onSave: () => {},
-        onMount: () => {},
         onHideModal: () => {},
         toolbarHeight: 40,
         tooltipPlace: "top",
@@ -79,9 +77,6 @@ class CantieriPanel extends React.Component {
         show: true,
         loading: false
     };
-    componentDidMount() {
-        // this.props.onMount();
-    }
     getStyle = (pos) => {
         return {
             width: pos === "right" || pos === "left" ? "560px" : "100%",
