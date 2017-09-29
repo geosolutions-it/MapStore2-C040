@@ -81,7 +81,7 @@ module.exports = connect((state) => {
         pluginsConfig: (state.localConfig && state.localConfig.plugins) || null
     };
 }, {
-    reset: resetControls,
+    reset: resetControls.bind(null, ["cantieri"]),
     initPlugin,
     loadMapConfig
 })(Cantieri);

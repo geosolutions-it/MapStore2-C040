@@ -151,9 +151,7 @@ module.exports = {
             }))
             .switchMap((elements) => {
                 return Rx.Observable.of(
-                    updateCheckedElements(elements),
-                    setControlProperty("cantieri", "enabled", true),
-                    changeMousePositionState(false)
+                    updateCheckedElements(elements)
                 );
             });
         }).catch( () => {
@@ -409,7 +407,7 @@ module.exports = {
                                         successSavingData()]
                                     );
                                 }
-                                return Rx.Observable.of(errorSavingElements(data.MESSAGGIO));
+                                return Rx.Observable.of(errorSavingElements(data && data.MESSAGGIO || "Non è stato possibile salvare gli elementi"));
                             }
                         ));
                 })
