@@ -297,7 +297,24 @@
         }
       },
       "Home",
-      "FeatureEditor", {
+      {
+        "name":"FeatureEditor",
+        "cfg": {
+      		"customEditorsOptions": {
+      			"rules": [{
+      				"regex": {
+      					"attribute": "TIPO_ACCESSO",
+      					"typeName": "CORSO_1:CIVICI_TEST"
+      				},
+      				"editor": "IndirizziEditor",
+      				"editorProps": {
+      					"forceSelection": true,
+      					"allowEmpty": false
+      				}
+      			}]
+      		}
+      	}
+      }, {
         "name": "QueryPanel",
         "cfg": {
             "activateQueryTool": true,

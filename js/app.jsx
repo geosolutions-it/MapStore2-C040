@@ -11,6 +11,8 @@ const {connect} = require('react-redux');
 const {createSelector} = require('reselect');
 const {startLoading, updateFeatureLoader} = require('./epics/featureloader');
 const LocaleUtils = require('../MapStore2/web/client/utils/LocaleUtils');
+const {addCustomEditors} = require('./epics/featureeditor');
+
 const startApp = () => {
     const StandardApp = require('../MapStore2/web/client/components/app/StandardApp');
     const {pages, pluginsDef, initialState, storeOpts, printingEnabled} = require('./appConfig');
@@ -27,7 +29,8 @@ const startApp = () => {
         security: require('../MapStore2/web/client/reducers/security')
     }, {
         "FEATUREVIEWER:startLoading": startLoading,
-        "FEATUREVIEWER:updateFeatureLoader": updateFeatureLoader
+        "FEATUREVIEWER:updateFeatureLoader": updateFeatureLoader,
+        addCustomEditors
     });
     const appConfig = {
         appStore,
