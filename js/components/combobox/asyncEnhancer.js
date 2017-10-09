@@ -26,7 +26,6 @@ const streamEnhancer = mapPropsStream(props$ => {
 
 const addStateHandlers = compose(
     withStateHandlers((props) => ({
-
         delayDebounce: 0,
         performFetch: false,
         open: false,
@@ -40,9 +39,8 @@ const addStateHandlers = compose(
         attribute: props.column && props.column.key,
         autocompleteStreamFactory: props.autocompleteStreamFactory
     }), {
-        select: (state) => (v) => ({
+        select: (state) => () => ({
             ...state,
-            defaultValue: typeof v === "string" ? v : v.value,
             selected: true
         }),
         change: (state) => (v) => {

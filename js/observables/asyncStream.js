@@ -10,8 +10,9 @@ const Rx = require('rxjs');
 const {API} = require('../../MapStore2/web/client/api/searchText');
 const assign = require('object-assign');
 const {isNil} = require('lodash');
-const {getParsedUrl} = require('../../MapStore2/web/client/utils/ConfigUtils');
 const {generateTemplateString} = require('../../MapStore2/web/client/utils/TemplateUtils');
+var url = require('url');
+const {endsWith} = require('lodash');
 
 /**
  * creates a stream for fetching data via WPS with a customized CQL filter
@@ -19,7 +20,7 @@ const {generateTemplateString} = require('../../MapStore2/web/client/utils/Templ
  * @return {external:Observable} the stream used for fetching data for the Indirizzi editor
 */
 
-const textIntoFilter = ({searchText, staticFilter, blacklist, item} ) => {
+const fromTextToFilter = ({searchText, staticFilter, blacklist, item} ) => {
     const staticFilterParsed = generateTemplateString(staticFilter || "")(item);
     const regAddress = /^([a-zA-Z\s'\\\é\è\ò\à\ù\ì]*)/g;
     const regCivic = /(\d{1,4}[a-zA-Z]{0,2})/g;
@@ -37,6 +38,10 @@ const textIntoFilter = ({searchText, staticFilter, blacklist, item} ) => {
     if (!isNil(matchedCivic) && matchedCivic[0] !== "" ) {
         matches.push("TESTO ILIKE " + `'%${matchedCivic[0]}%'`);
     }
+    // no match case
+    if (matches.length === 0 && !isNil(matchedCCode) && matchedCCode[0] === "") {
+        return staticFilterParsed || null;
+    }
     if (matches.length === 2) {
         filter += matches.join( " AND ");
     }
@@ -52,27 +57,34 @@ const textIntoFilter = ({searchText, staticFilter, blacklist, item} ) => {
 };
 
 const createIndirizziStream = (props$) => props$
-    .debounce(props => Rx.Observable.timer(props.delayDebounce || 0))/*
     .throttle(props => Rx.Observable.timer(props.delayDebounce || 0))
-    .merge(props$.debounce(props => Rx.Observable.timer(props.delayDebounce || 0)))*/
+    .merge(props$.debounce(props => Rx.Observable.timer(props.delayDebounce || 0)))
     .switchMap((p) => {
         if (p.performFetch) {
 
+            let parsed = url.parse(p.url, true);
+            let newPathname = "";
+            if (endsWith(parsed.pathname, "wms") || endsWith(parsed.pathname, "ows") || endsWith(parsed.pathname, "wps")) {
+                newPathname = parsed.pathname.replace(/(wms|ows|wps)$/, "wfs");
+            }
+            if ( !!parsed.query && !!parsed.query.service) {
+                delete parsed.query.service;
+            }
+            const urlParsed = url.format(assign({}, parsed, {search: null, pathname: newPathname }));
             let serviceOptions = assign({},
-                {url: getParsedUrl(p.url, {service: "WFS"}, "wfs"),
+                {url: urlParsed,
                 typeName: "SITGEO:CIVICI_COD_TOPON",
                 queriableAttributes: ["DESVIA", "TESTO"],
                 outputFormat: "application/json",
                 predicate: "ILIKE",
                 staticFilter: "",
                 blacklist: ["via", "viale", "piazza"],
-                textIntoFilter,
+                fromTextToFilter,
                 item: {},
-                params: {
-                    timeout: 60000,
-                    headers: {'Accept': 'application/json', 'Content-Type': 'application/xml'}
-                },
-                maxFeatures: 5
+                timeout: 60000,
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/xml'},
+                maxFeatures: 5,
+                ...parsed.query
             });
             return Rx.Observable.fromPromise((API.Utils.getService("wfs")(p.value, serviceOptions)
                 .then( features => {

@@ -8,10 +8,10 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const AttributeEditor = require('../../MapStore2/web/client/components/data/featuregrid/editors/AttributeEditor');
-const AsyncCombobox = require('./combobox/AsyncCombobox');
+const IndirizziCombobox = require('./combobox/IndirizziCombobox');
 const {createIndirizziStream} = require('../observables/asyncStream');
+const assign = require('object-assign');
 const IndirizziItem = require('./combobox/IndirizziItem');
-
 
 class IndirizziEditor extends AttributeEditor {
     static propTypes = {
@@ -22,7 +22,6 @@ class IndirizziEditor extends AttributeEditor {
         allowEmpty: PropTypes.bool,
         itemComponent: PropTypes.function,
         isValid: PropTypes.func,
-        onBlur: PropTypes.func,
         typeName: PropTypes.string,
         url: PropTypes.string,
         value: PropTypes.string,
@@ -47,11 +46,17 @@ class IndirizziEditor extends AttributeEditor {
         };
         this.getValue = () => {
             const updated = super.getValue();
-            return updated;
+            const attribute = this.props.column && this.props.column.key;
+            const regControlCode = /(\d?[a-zA-Z]?\d){10}/g;
+            const isValid = regControlCode.test(this.refs.combo.state.value);
+            if (isValid) {
+                return updated;
+            }
+            return assign({}, {[attribute]: ""});
         };
     }
     render() {
-        return <AsyncCombobox {...this.props} filter="contains" autocompleteStreamFactory={createIndirizziStream}/>;
+        return <IndirizziCombobox ref="combo" {...this.props} filter="contains" autocompleteStreamFactory={createIndirizziStream}/>;
     }
 }
 

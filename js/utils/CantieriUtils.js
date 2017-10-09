@@ -10,6 +10,7 @@ const {
 const {changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
 const {info, error} = require('../../MapStore2/web/client/actions/notifications');
 
+
 const checkedStyle = {
     type: "MultiPolygon",
     stroke: {

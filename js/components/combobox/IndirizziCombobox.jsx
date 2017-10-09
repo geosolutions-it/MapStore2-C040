@@ -31,6 +31,6 @@ const PagedComboboxEnhanced = streamEnhancer(
             />);
     });
 
-const AsyncCombobox = addStateHandlers(PagedComboboxEnhanced);
+const IndirizziCombobox = addStateHandlers(PagedComboboxEnhanced);
 
-module.exports = AsyncCombobox;
+module.exports = IndirizziCombobox;
