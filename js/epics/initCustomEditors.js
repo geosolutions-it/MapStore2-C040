@@ -9,11 +9,11 @@ const Rx = require('rxjs');
 const React = require('react');
 const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config');
 const { register, clean } = require('../../MapStore2/web/client/utils/featuregrid/EditorRegistry');
-const IndirizziEditor = require('../components/IndirizziEditor');
+const AddressesEditor = require('../components/AddressesEditor');
 
 const editors = {
-    "IndirizziEditor": {
-        "string": (props) => <IndirizziEditor dataType="string" {...props}/>
+    "AddressesEditor": {
+        "string": (props) => <AddressesEditor dataType="string" {...props}/>
     }
 };
 

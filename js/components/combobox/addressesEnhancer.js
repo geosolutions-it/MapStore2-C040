@@ -1,7 +1,6 @@
 const {isArray} = require('lodash');
-const {setObservableConfig, mapPropsStreamWithConfig, compose, withStateHandlers} = require('recompose');
+const {mapPropsStreamWithConfig, compose, withStateHandlers} = require('recompose');
 const rxjsConfig = require('recompose/rxjsObservableConfig').default;
-setObservableConfig(rxjsConfig);
 const mapPropsStream = mapPropsStreamWithConfig(rxjsConfig);
 
 const streamEnhancer = mapPropsStream(props$ => {
@@ -9,9 +8,7 @@ const streamEnhancer = mapPropsStream(props$ => {
         return p.autocompleteStreamFactory(props$);
     });
     return fetcherStream.combineLatest(props$, (data, props) => ({
-        data: isArray(data && data.fetchedData && data.fetchedData.values) ? data.fetchedData.values.map(v => {
-            return {label: v.DESVIA + " " + v.TESTO, value: v.CODICE_CONTROLLO};
-        }) : [],
+        data: isArray(data && data.fetchedData && data.fetchedData.values) ? data.fetchedData.values : [],
         select: props && props.select,
         focus: props && props.focus,
         toggle: props && props.toggle,
@@ -20,6 +17,8 @@ const streamEnhancer = mapPropsStream(props$ => {
         itemComponent: props.itemComponent,
         selected: props && props.selected,
         value: props.value,
+        valueField: props.valueField,
+        textField: props.textField,
         busy: data.busy
     }));
 });
@@ -36,6 +35,7 @@ const addStateHandlers = compose(
         value: props.value,
         itemComponent: props.itemComponent,
         valueField: props.valueField,
+        textField: props.textField,
         attribute: props.column && props.column.key,
         autocompleteStreamFactory: props.autocompleteStreamFactory
     }), {
@@ -55,7 +55,7 @@ const addStateHandlers = compose(
                     currentPage: !state.changingPage ? 1 : state.currentPage
                 });
             }
-            const value = typeof v === "string" ? v : v.value;
+            const value = typeof v === "string" ? v : v[state.valueField];
             return ({
                 ...state,
                 delayDebounce: state.selected ? 0 : 500,

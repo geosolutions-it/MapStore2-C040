@@ -8,12 +8,12 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const AttributeEditor = require('../../MapStore2/web/client/components/data/featuregrid/editors/AttributeEditor');
-const IndirizziCombobox = require('./combobox/IndirizziCombobox');
-const {createIndirizziStream} = require('../observables/asyncStream');
+const AddressesCombobox = require('./combobox/AddressesCombobox');
+const {createAddresses} = require('../observables/createAddressCodesStream');
 const assign = require('object-assign');
-const IndirizziItem = require('./combobox/IndirizziItem');
+const AddressesItem = require('./combobox/AddressesItem');
 
-class IndirizziEditor extends AttributeEditor {
+class AddressesEditor extends AttributeEditor {
     static propTypes = {
         column: PropTypes.object,
         dataType: PropTypes.string,
@@ -32,7 +32,7 @@ class IndirizziEditor extends AttributeEditor {
         dataType: "string",
         values: [],
         forceSelection: true,
-        itemComponent: IndirizziItem,
+        itemComponent: AddressesItem,
         allowEmpty: true
     };
     constructor(props) {
@@ -56,8 +56,8 @@ class IndirizziEditor extends AttributeEditor {
         };
     }
     render() {
-        return <IndirizziCombobox ref="combo" {...this.props} filter="contains" autocompleteStreamFactory={createIndirizziStream}/>;
+        return <AddressesCombobox ref="combo" {...this.props} filter="contains" autocompleteStreamFactory={createAddresses}/>;
     }
 }
 
-module.exports = IndirizziEditor;
+module.exports = AddressesEditor;

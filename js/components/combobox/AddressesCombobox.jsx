@@ -8,11 +8,11 @@
 
 const React = require('react');
 const PagedCombobox = require('../../../MapStore2/web/client/components/misc/combobox/PagedCombobox');
-const {streamEnhancer, addStateHandlers} = require('./asyncEnhancer');
+const {streamEnhancer, addStateHandlers} = require('./addressesEnhancer');
 
 // component enhanced with props from stream, and local state
 const PagedComboboxEnhanced = streamEnhancer(
-    ({ open, toggle, select, focus, change, value, valueField, busy, itemComponent, data, loading = false, filter }) => {
+    ({ open, toggle, select, focus, change, value, valueField, textField, busy, itemComponent, data, loading = false, filter }) => {
         return (<PagedCombobox
             pagination={{paginated: false}}
             dropUp={false}
@@ -25,12 +25,13 @@ const PagedComboboxEnhanced = streamEnhancer(
             valueField={valueField}
             busy={busy}
             data={data}
+            textField={textField}
             open={open}
             loading={loading}
             filter={filter}
             />);
     });
 
-const IndirizziCombobox = addStateHandlers(PagedComboboxEnhanced);
+const AddressesCombobox = addStateHandlers(PagedComboboxEnhanced);
 
-module.exports = IndirizziCombobox;
+module.exports = AddressesCombobox;

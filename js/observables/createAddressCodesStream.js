@@ -17,7 +17,7 @@ const {endsWith} = require('lodash');
 /**
  * creates a stream for fetching data via WPS with a customized CQL filter
  * @param  {external:Observable} props
- * @return {external:Observable} the stream used for fetching data for the Indirizzi editor
+ * @return {external:Observable} the stream used for fetching data for the Addresses editor
 */
 
 const fromTextToFilter = ({searchText, staticFilter, blacklist, item} ) => {
@@ -56,7 +56,7 @@ const fromTextToFilter = ({searchText, staticFilter, blacklist, item} ) => {
     return filter;
 };
 
-const createIndirizziStream = (props$) => props$
+const createAddresses = (props$) => props$
     .throttle(props => Rx.Observable.timer(props.delayDebounce || 0))
     .merge(props$.debounce(props => Rx.Observable.timer(props.delayDebounce || 0)))
     .switchMap((p) => {
@@ -64,8 +64,8 @@ const createIndirizziStream = (props$) => props$
 
             let parsed = url.parse(p.url, true);
             let newPathname = "";
-            if (endsWith(parsed.pathname, "wms") || endsWith(parsed.pathname, "ows") || endsWith(parsed.pathname, "wps")) {
-                newPathname = parsed.pathname.replace(/(wms|ows|wps)$/, "wfs");
+            if (endsWith(parsed.pathname, "wfs") || endsWith(parsed.pathname, "wms") || endsWith(parsed.pathname, "ows") || endsWith(parsed.pathname, "wps")) {
+                newPathname = parsed.pathname.replace(/(wms|ows|wps|wfs)$/, "wfs");
             }
             if ( !!parsed.query && !!parsed.query.service) {
                 delete parsed.query.service;
@@ -73,17 +73,17 @@ const createIndirizziStream = (props$) => props$
             const urlParsed = url.format(assign({}, parsed, {search: null, pathname: newPathname }));
             let serviceOptions = assign({},
                 {url: urlParsed,
-                typeName: "SITGEO:CIVICI_COD_TOPON",
-                queriableAttributes: ["DESVIA", "TESTO"],
+                typeName: p.filterProps.typeName,
+                queriableAttributes: "",
                 outputFormat: "application/json",
-                predicate: "ILIKE",
+                predicate: p.filterProps.predicate,
                 staticFilter: "",
-                blacklist: ["via", "viale", "piazza"],
+                blacklist: p.filterProps.blacklist,
                 fromTextToFilter,
                 item: {},
                 timeout: 60000,
                 headers: {'Accept': 'application/json', 'Content-Type': 'application/xml'},
-                maxFeatures: 5,
+                maxFeatures: p.filterProps.maxFeatures,
                 ...parsed.query
             });
             return Rx.Observable.fromPromise((API.Utils.getService("wfs")(p.value, serviceOptions)
@@ -98,5 +98,5 @@ const createIndirizziStream = (props$) => props$
 
 
 module.exports = {
-    createIndirizziStream
+    createAddresses
 };
