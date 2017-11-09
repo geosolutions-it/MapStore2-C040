@@ -241,6 +241,13 @@
         "cfg":{
           "mapOptions": {
             "openlayers": {
+              "view": {
+                "minZoom": 10,
+                "extent": [
+                  938423.3073872962, 5477830.72555533,
+                  1016346.9509425878, 5557204.676715576
+                ]
+              },
               "attribution": {
                 "container": "#mapstore-map-footer-container"
               }
