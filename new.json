@@ -2,12 +2,8 @@
   "map": {
     "projection": "EPSG:900913",
     "units": "m",
-    "center": {"x": 8.880386352539062, "y": 44.44897735945844, "crs": "EPSG:4326"},
-    "zoom":12,
-    "maxExtent": [
-      -20037508.34, -20037508.34,
-      20037508.34, 20037508.34
-    ],
+    "center": {"x": 977941.7266189083, "y": 5517659.964062111, "crs": "EPSG:900913"},
+    "zoom":10,
     "layers": [
       {
         "type": "osm",
@@ -78,14 +74,15 @@
       },
       {
         "source": "ol",
+        "name": "Nessuno sfondo",
         "group": "background",
         "title": "Nessuno sfondo",
         "fixed": true,
-        "type": "OpenLayers.Layer",
-        "visibility": false,
+        "type": "ol",
+        "visibility": true,
         "args": [
           "Nessuno sfondo", {
-            "visibility": false
+            "visibility": true
           }
         ]
       }
