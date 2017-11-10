@@ -30,7 +30,7 @@ const fromTextToFilter = ({searchText = "", queriableAttributes = [], predicate 
     let matchedCCode = regCCode.exec(searchText);
     let matches = [];
     let filter = "( ";
-    const singleFilterwords = searchWords.map( (w) => queriableAttributes.map( attr => `${attr} ${predicate} '%${w.replace("'", "''")}%'`)).join(" AND ");
+    const singleFilterwords = searchWords.filter(w => !regCivic.test(w)).map( (w) => queriableAttributes.map( attr => `${attr} ${predicate} '%${w.replace("'", "''")}%'`)).join(" AND ");
 
     matches.push(singleFilterwords);
 
@@ -78,7 +78,7 @@ const createAddresses = (props$) => props$
                 maxFeatures: p.filterProps && p.filterProps.maxFeatures || 3,
                 queriableAttributes: p.filterProps && p.filterProps.queriableAttributes || [],
                 returnFullData: p.filterProps && p.filterProps.returnFullData,
-                startIndex: ((p.currentPage || 1) - 1) * p.filterProps && p.filterProps.maxFeatures || 3,
+                startIndex: ((p.currentPage || 1) - 1) * (p.filterProps && p.filterProps.maxFeatures),
                 outputFormat: "application/json",
                 staticFilter: "",
                 fromTextToFilter,
