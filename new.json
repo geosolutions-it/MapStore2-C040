@@ -74,15 +74,14 @@
       },
       {
         "source": "ol",
-        "name": "Nessuno sfondo",
         "group": "background",
         "title": "Nessuno sfondo",
         "fixed": true,
         "type": "ol",
-        "visibility": true,
+        "visibility": false,
         "args": [
           "Nessuno sfondo", {
-            "visibility": true
+            "visibility": false
           }
         ]
       }
