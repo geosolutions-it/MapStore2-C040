@@ -77,7 +77,7 @@
         "group": "background",
         "title": "Nessuno sfondo",
         "fixed": true,
-        "type": "ol",
+        "type": "empty",
         "visibility": false,
         "args": [
           "Nessuno sfondo", {
