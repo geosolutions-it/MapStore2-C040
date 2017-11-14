@@ -25,12 +25,18 @@ const fromTextToFilter = ({searchText = "", queriableAttributes = [], predicate 
     const regCivic = /(\d{1,4}[a-zA-Z]{0,2})/g;
     const regCCode = /([a-zA-Z]?\d){0,10}/g;
     let searchWords = searchText.split(" ").filter(w => w).filter( w => blacklist.indexOf(w.toLowerCase()) < 0 );
-
+    //  if no searchwords are returned then use what the user has typed
+    if (searchWords.length === 0) {
+        searchWords = [searchText];
+    }
     let matchedCivic = regCivic.exec(searchText);
     let matchedCCode = regCCode.exec(searchText);
     let matches = [];
     let filter = "( ";
-    const singleFilterwords = searchWords.filter(w => !regCivic.test(w)).map( (w) => queriableAttributes.map( attr => `${attr} ${predicate} '%${w.replace("'", "''")}%'`)).join(" AND ");
+    const singleFilterwords = searchWords.filter(w => !regCivic.test(w))
+        .map( (w) => queriableAttributes
+            .map( attr => `${attr} ${predicate} '%${w.replace("'", "''")}%'`).join(" AND ")
+        ).join(" AND ");
 
     matches.push(singleFilterwords);
 
@@ -99,5 +105,6 @@ const createAddresses = (props$) => props$
 
 
 module.exports = {
-    createAddresses
+    createAddresses,
+    fromTextToFilter
 };
