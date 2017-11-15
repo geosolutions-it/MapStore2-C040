@@ -44,7 +44,8 @@ const twoCall = (response, viewerConfig) => {
             url,
             {
                 typeName: 'cens_muri_sop',
-                cql_filter: cqlFilter
+                cql_filter: cqlFilter,
+                sortBy: 'gc_created D'
             }
         )
     );
