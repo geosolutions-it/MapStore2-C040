@@ -16,7 +16,7 @@
     "urlPattern": ".*geostore.*",
     "method": "bearer"
   }, {
-    "urlPattern": "\\/geoserver.*",
+    "urlPattern": "\\/geoserver\\-test.*",
     "authkeyParamName": "ms2-authkey",
     "method": "authkey"
   }],
@@ -578,7 +578,7 @@
           }
         }
       },
-      "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen", "GlobeViewSwitcher", "SearchServicesConfig"
+      "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen", "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate"
     ],
     "embedded": [{
         "name": "Map",
