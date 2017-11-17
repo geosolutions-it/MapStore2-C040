@@ -16,6 +16,7 @@ const {resetControls} = require('../../MapStore2/web/client/actions/controls');
 const {startFeatureLoader, updateFeatureLoader} = require('../actions/featureloader');
 
 const MapViewer = require('../containers/FeatureViewer');
+const isWmsViewer = path => path.indexOf("/wmsfeatureviewer") !== -1;
 
 class MapViewerPage extends React.Component{
     static propTypes = {
@@ -34,7 +35,7 @@ class MapViewerPage extends React.Component{
     };
 
     componentWillMount() {
-        this.props.onMount(ConfigUtils.getConfigProp("wmsURL"), this.props.match.params, "config.json");
+        this.props.onMount(ConfigUtils.getConfigProp("wmsURL"), this.props.match.params, "config.json", isWmsViewer(this.props.match.path));
         if (!ConfigUtils.getDefaults().ignoreMobileCss) {
             if (this.props.mode === 'mobile') {
                 require('../../MapStore2/web/client/product/assets/css/mobile.css');
@@ -43,7 +44,7 @@ class MapViewerPage extends React.Component{
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params !== prevProps.params) {
-            this.props.onUpdate(prevProps, this.props.match.params, ConfigUtils.getConfigProp("wmsURL"));
+            this.props.onUpdate(prevProps, this.props.match.params, ConfigUtils.getConfigProp("wmsURL"), isWmsViewer(this.props.match.path));
         }
     }
     render() {

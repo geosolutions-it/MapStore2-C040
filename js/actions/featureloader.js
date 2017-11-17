@@ -11,19 +11,21 @@ module.exports = {
     /**
      * start loading the features
      */
-    startFeatureLoader: (wmsURL, params = {}, configURL) => ({
+    startFeatureLoader: (wmsURL, params = {}, configURL, isWmsViewer = false) => ({
         type: STARTLOADING,
         wmsURL,
         layer: params.layer,
         cql_filter: params.cql_filter,
-        configURL
+        configURL,
+        isWmsViewer
     }),
-    updateFeatureLoader: (oldParams = {}, params = {}, wmsURL) => ({
+    updateFeatureLoader: (oldParams = {}, params = {}, wmsURL, isWmsViewer = false) => ({
         type: UPDATE,
         layer: params.layer,
         cql_filter: params.cql_filter,
         oldParams,
-        wmsURL
+        wmsURL,
+        isWmsViewer
     }),
     STARTLOADING,
     UPDATE

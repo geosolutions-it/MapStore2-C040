@@ -17,9 +17,13 @@ module.exports = {
          path: "/viewer",
          component: require('./pages/MapViewer')
      }, {
-         name: "viewer",
+         name: "featureviewer",
          path: "/featureviewer/:mapType/:layer/:cql_filter",
          component: require('./pages/FeatureViewer')
+     }, {
+        name: "wmsviewer",
+        path: "/wmsfeatureviewer/:mapType/:layer/:cql_filter",
+        component: require('./pages/FeatureViewer')
      }, {
          name: "mapviewer",
          path: "/viewer/:mapType/:mapId",

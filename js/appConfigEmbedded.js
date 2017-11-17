@@ -20,7 +20,11 @@ module.exports = {
         name: "mapviewer",
         path: "/viewer/:mapType/:mapId",
         component: require('./pages/MapViewer')
-    }],
+    }, {
+        name: "wmsviewer",
+        path: "/wmsfeatureviewer/:mapType/:layer/:cql_filter",
+        component: require('./pages/FeatureViewer')
+     }],
     pluginsDef: require('./apiPlugins'),
     translations: ["MapStore2/web/client/translations", "translations"],
     initialState: {

@@ -38,7 +38,8 @@ module.exports = {
                                         url: `${action.wmsURL}`,
                                         visibility: true,
                                         name: data.layerDescriptions && data.layerDescriptions[0] && data.layerDescriptions[0].layerName,
-                                        title: data.layerDescriptions && data.layerDescriptions.layerName
+                                        title: data.layerDescriptions && data.layerDescriptions.layerName,
+                                        ...(action.isWmsViewer && {params: {cql_filter: action.cql_filter}} || {})
                                     })).concat(
                                         Rx.Observable.defer( () => axios.get(`${data.layerDescriptions[0].owsURL}request=GetFeature&TypeName=${data.layerDescriptions[0].typeName}&outputFormat=application/json&srsName=EPSG:4326&version=1.1.0&cql_filter=${action.cql_filter}`) )
                                             .concatMap((res) => Rx.Observable.from([
@@ -49,6 +50,7 @@ module.exports = {
                                                     group: "highlight",
                                                     name: "highlight",
                                                     hideLoading: true,
+                                                    queryable: false,
                                                     style: {
                                                       weight: 3,
                                                       radius: 10,
@@ -59,7 +61,7 @@ module.exports = {
                                                     },
                                                     features: res.data.features
                                                 }),
-                                                zoomToExtent(bbox(res.data), "EPSG:4326")])
+                                                zoomToExtent(bbox(res.data), "EPSG:4326")]).filter(a => !( action.isWmsViewer && a.type === 'ADD_LAYER'))
                                         )
                                     )
                                 )
@@ -68,6 +70,6 @@ module.exports = {
         updateFeatureLoader: action$ => action$.ofType(UPDATE).switchMap((action) => Rx.Observable.from([
             removeLayer(WMS_ID),
             removeLayer(WFS_ID),
-            startFeatureLoader(action.wmsURL, action)
+            startFeatureLoader(action.wmsURL, action, undefined, action.isWmsViewer)
         ]))
 };
