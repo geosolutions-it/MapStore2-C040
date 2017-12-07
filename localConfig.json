@@ -289,8 +289,7 @@
           },
           "override": {
             "Toolbar": {
-                "position": 11,
-                "alwaysVisible": true
+                "position": 11
             }
           }
       },
@@ -348,6 +347,12 @@
                      "name": "Municipi",
                      "type": "wfsGeocoder",
                      "url": "/geoserver-test/wfs",
+                     "autoZoom": true,
+                     "crossLayer": {
+                       "cqlTemplate": "NOME_MUNICIPIO = '${properties.NOME_MUNICIPIO}'",
+                       "geometryName": "GEOMETRY",
+                       "typeName": "SITGEO:V_MUNICIPI"
+                     },
                      "filterProps": {
                          "blacklist": [],
                          "maxFeatures": 5,
@@ -361,6 +366,12 @@
                       "name": "Unità Urbanistiche",
                       "type": "wfsGeocoder",
                       "url": "/geoserver-test/wfs",
+                      "autoZoom": true,
+                      "crossLayer": {
+                        "cqlTemplate": "NOME_UU = '${properties.NOME_UU}'",
+                        "geometryName": "GEOMETRY",
+                        "typeName": "SITGEO:V_UNITA_URBANISTICHE"
+                      },
                       "filterProps": {
                           "blacklist": [],
                           "maxFeatures": 5,
@@ -772,8 +783,7 @@
           },
           "override": {
             "Toolbar": {
-                "position": 11,
-                "alwaysVisible": true
+                "position": 11
             }
           }
       },
