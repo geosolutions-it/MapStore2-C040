@@ -7,7 +7,7 @@
  */
 module.exports = {
     plugins: {
-        BackgroundSwitcherPlugin: require('../MapStore2/web/client/plugins/BackgroundSwitcher'),
+        BackgroundSelectorPlugin: require('../MapStore2/web/client/plugins/BackgroundSelector'),
         MapPlugin: require('../MapStore2/web/client/plugins/Map'),
         ToolbarPlugin: require('../MapStore2/web/client/plugins/Toolbar'),
         DrawerMenuPlugin: require('../MapStore2/web/client/plugins/DrawerMenu'),

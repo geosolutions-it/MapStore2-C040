@@ -333,7 +333,6 @@
             "activateQueryTool": true,
             "spatialOperations": [
                 {"id": "INTERSECTS", "name": "queryform.spatialfilter.operations.intersects"},
-                {"id": "BBOX", "name": "queryform.spatialfilter.operations.bbox"},
                 {"id": "CONTAINS", "name": "queryform.spatialfilter.operations.contains"},
                 {"id": "WITHIN", "name": "queryform.spatialfilter.operations.within"}
             ],
@@ -881,6 +880,6 @@
           "mapType": "openlayers",
           "tools": ["measurement", "locate", "draw", "highlight"]
       }
-    }, "Notifications", "LavoriPubblici"]
+    }, "Notifications", "LavoriPubblici", "BackgroundSelector"]
   }
 }
