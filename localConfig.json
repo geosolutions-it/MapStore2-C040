@@ -391,6 +391,7 @@
         "cfg": {
           "activateQueryTool": true,
           "activateAddLayerButton": true,
+          "showExpandTitle": true,
           "spatialMethodOptions": [
                   {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
                   {"id": "Circle", "name": "queryform.spatialfilter.methods.circle"},
@@ -658,6 +659,7 @@
         "name": "TOC",
         "cfg": {
             "activateMapTitle": false,
+            "showExpandTitle": true,
             "activateSettingsTool": false,
             "activateRemoveLayer": false
           }
