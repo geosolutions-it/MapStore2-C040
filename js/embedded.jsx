@@ -28,7 +28,8 @@ const startApp = () => {
     const appStore = require('../MapStore2/web/client/stores/StandardStore').bind(null, initialState, {
         mode: (state = 'embedded') => state,
         maps: require('../MapStore2/web/client/reducers/maps'),
-        security: require('../MapStore2/web/client/reducers/security')
+        security: require('../MapStore2/web/client/reducers/security'),
+        searchconfig: require('../MapStore2/web/client/reducers/searchconfig')
     }, {
         "FEATUREVIEWER:startLoading": startLoading,
         "FEATUREVIEWER:updateFeatureLoader": updateFeatureLoader,
