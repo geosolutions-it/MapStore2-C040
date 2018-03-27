@@ -375,6 +375,10 @@
             {
               "name": "dxf-zip",
               "label": "dxf-zip"
+            },
+            {
+              "name": "application/json",
+              "label": "GeoJSON"
             }
           ],
           "srsList": [
