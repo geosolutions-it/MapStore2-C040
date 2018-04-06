@@ -867,7 +867,12 @@
         "name": "Header",
         "hide": true
       },
-      "MapSearch",
+      {
+        "name": "MapSearch",
+        "cfg": {
+          "splitTools" : false
+        }
+      },
       {
         "name": "CreateNewMap",
         "cfg": {
