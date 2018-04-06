@@ -23,6 +23,8 @@ module.exports = {
         UndoPlugin: require('../MapStore2/web/client/plugins/History'),
         RedoPlugin: require('../MapStore2/web/client/plugins/History'),
         MapsPlugin: require('../MapStore2/web/client/plugins/Maps'),
+        SearchPlugin: require('../MapStore2/web/client/plugins/Search'),
+        SearchServicesConfig: require('../MapStore2/web/client/plugins/SearchServicesConfig'),
         MapSearchPlugin: require('../MapStore2/web/client/plugins/MapSearch'),
         LanguagePlugin: require('../MapStore2/web/client/plugins/Language'),
         RedirectPlugin: require('../MapStore2/web/client/plugins/Redirect'),

@@ -124,7 +124,7 @@
     "leaflet.locatecontrol": "0.45.1",
     "leaflet.nontiledlayer": "1.0.3",
     "lodash": "4.16.6",
-    "moment": "2.13.0",
+    "moment": "2.21.0",
     "node-uuid": "1.4.3",
     "object-assign": "4.1.1",
     "ogc-schemas": "2.6.1",

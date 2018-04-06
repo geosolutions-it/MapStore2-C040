@@ -884,6 +884,28 @@
           "mapType": "openlayers",
           "tools": ["measurement", "locate", "draw", "highlight"]
       }
-    }, "Notifications", "LavoriPubblici", "BackgroundSelector"]
+    }, "Notifications", "LavoriPubblici",
+     {
+      "name": "Search",
+      "cfg": {
+        "searchOptions": {
+          "services": [{
+            "type": "nominatim",
+            "searchTextTemplate": "${properties.display_name}",
+            "priority": 5,
+            "options": {
+              "polygon_geojson": 1,
+              "limit": 3
+            }
+          }]
+        }
+      }
+    }, "SearchServicesConfig", "OmniBar", {
+      "name": "Toolbar",
+      "id": "NavigationBar",
+      "cfg": {
+        "id": "navigationBar"
+      }
+    }, "BackgroundSelector"]
   }
 }
