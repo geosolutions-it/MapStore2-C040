@@ -40,7 +40,7 @@ const startApp = () => {
         printingEnabled
     };
     ReactDOM.render(
-        <StandardApp {...appConfig} mode="embedded"/>,
+        <StandardApp {...appConfig} mode="desktop"/>,
         document.getElementById('container')
     );
 };

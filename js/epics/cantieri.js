@@ -35,12 +35,12 @@ const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config
 const { changeMousePositionState } = require('../../MapStore2/web/client/actions/mousePosition');
 const {serviceRESTUrlSelector} = require('../selector/cantieri');
 
-const {getWFSFilterData} = require('../../MapStore2/web/client/epics/wfsquery');
+const FilterUtils = require('../../MapStore2/web/client/utils/FilterUtils');
 const {transaction, describeFeatureType} = require('../api/WFST');
 const assign = require('object-assign');
 
 const getWFSFeature = (searchUrl, filterObj) => {
-    const data = getWFSFilterData(filterObj);
+    const data = FilterUtils.getWFSFilterData(filterObj);
     return Rx.Observable.defer( () =>
         axios.post(searchUrl + '?service=WFS&outputFormat=json&request=getFeature', data, {
           timeout: 10000,

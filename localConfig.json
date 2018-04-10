@@ -42,6 +42,9 @@
         }],
   "initialState": {
     "defaultState": {
+      "maptype": {
+        "mapType": "{context.mode === 'embedded' ? 'leaflet' : 'openlayers'}"
+      },
       "catalog":{
         "default": {
           "newService": {
@@ -889,28 +892,36 @@
           "mapType": "openlayers",
           "tools": ["measurement", "locate", "draw", "highlight"]
       }
-    }, "Notifications", "LavoriPubblici",
-     {
-      "name": "Search",
-      "cfg": {
-        "searchOptions": {
-          "services": [{
-            "type": "nominatim",
-            "searchTextTemplate": "${properties.display_name}",
-            "priority": 5,
-            "options": {
-              "polygon_geojson": 1,
-              "limit": 3
-            }
-          }]
+    }, "Notifications", "LavoriPubblici","BackgroundSelector"],
+    "dashboard": [
+      {
+        "name": "OmniBar",
+        "cfg": {
+          "containerPosition": "header",
+          "className": "navbar shadow navbar-home"
         }
-      }
-    }, "SearchServicesConfig", "OmniBar", {
-      "name": "Toolbar",
-      "id": "NavigationBar",
-      "cfg": {
-        "id": "navigationBar"
-      }
-    }, "BackgroundSelector"]
+      },
+      "ManagerMenu",
+      "Login",
+      {
+        "name": "DashboardEditor",
+        "cfg": {
+          "catalog": {
+            "url": "/geoserver/csw",
+            "type": "csw",
+            "title": "Demo CSW Service",
+            "autoload": true
+          },
+          "containerPosition": "columns"
+        }
+      },
+      {
+        "name": "QueryPanel",
+        "cfg": {
+          "containerPosition": "columns"
+        }
+      },
+      "Dashboard"
+    ]
   }
 }
