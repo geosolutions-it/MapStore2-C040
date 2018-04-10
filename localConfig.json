@@ -42,6 +42,9 @@
         }],
   "initialState": {
     "defaultState": {
+      "maptype": {
+        "mapType": "{context.mode === 'embedded' ? 'leaflet' : 'openlayers'}"
+      },
       "catalog":{
         "default": {
           "newService": {
@@ -890,27 +893,95 @@
           "tools": ["measurement", "locate", "draw", "highlight"]
       }
     }, "Notifications", "LavoriPubblici",
-     {
+        {
       "name": "Search",
       "cfg": {
         "searchOptions": {
-          "services": [{
-            "type": "nominatim",
-            "searchTextTemplate": "${properties.display_name}",
-            "priority": 5,
-            "options": {
-              "polygon_geojson": 1,
-              "limit": 3
+          "services": [
+                {
+                  "type": "wfs",
+                  "priority": 6,
+                  "displayName": "${properties.NOMEVIA}",
+                  "subTitle": " (seleziona per cercare numero civico)",
+                  "options": {
+                    "url": "/geoserver-test/wfs",
+                    "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
+                    "queriableAttributes": [
+                      "NOMEVIA"
+                    ],
+                    "sortBy": "ID",
+                    "srsName": "EPSG:4326",
+                    "maxFeatures": 20,
+                    "blacklist": [
+                      "via",
+                      "viale",
+                      "piazza"
+                    ]
+                  },
+                  "nestedPlaceholder": "Digita numero civico o località",
+                  "then": [
+                    {
+                      "type": "wfs",
+                      "priority": 1,
+                      "displayName": "${properties.DESVIA} ${properties.TESTO}",
+                      "subTitle": " (ricerca numero civico)",
+                      "searchTextTemplate": "${properties.TESTO}",
+                      "options": {
+                        "staticFilter": " AND COD_STRADA = '${properties.COD_STRADA}'",
+                        "url": "/geoserver-test/wfs",
+                        "typeName": "SITGEO:CIVICI_COD_TOPON",
+                        "queriableAttributes": [
+                          "TESTO"
+                        ],
+                        "srsName": "EPSG:4326",
+                        "maxFeatures": 10
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "nominatim",
+                  "searchTextTemplate": "${properties.display_name}",
+                  "priority": 5,
+                  "options": {
+                    "polygon_geojson": 1,
+                    "limit": 3
+                  }
+                }
+              ]
             }
-          }]
+          }
+        },
+         "BackgroundSelector"],
+    "dashboard": [
+      {
+        "name": "OmniBar",
+        "cfg": {
+          "containerPosition": "header",
+          "className": "navbar shadow navbar-home"
         }
-      }
-    }, "SearchServicesConfig", "OmniBar", {
-      "name": "Toolbar",
-      "id": "NavigationBar",
-      "cfg": {
-        "id": "navigationBar"
-      }
-    }, "BackgroundSelector"]
+      },
+      "ManagerMenu",
+      "Login",
+      {
+        "name": "DashboardEditor",
+        "cfg": {
+          "catalog": {
+            "url": "/geoserver/csw",
+            "type": "csw",
+            "title": "Demo CSW Service",
+            "autoload": true
+          },
+          "containerPosition": "columns"
+        }
+      },
+      {
+        "name": "QueryPanel",
+        "cfg": {
+          "containerPosition": "columns"
+        }
+      },
+      "Dashboard"
+    ]
   }
 }

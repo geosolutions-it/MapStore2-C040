@@ -36,6 +36,7 @@ const startApp = () => {
         addCustomViewer
     });
     const appConfig = {
+        mode: 'embedded',
         appStore,
         storeOpts,
         pluginsDef,
