@@ -967,7 +967,7 @@
         "name": "DashboardEditor",
         "cfg": {
           "catalog": {
-            "url": "/geoserver/csw",
+            "url": "/geoserver-test/csw",
             "type": "csw",
             "title": "Demo CSW Service",
             "autoload": true
