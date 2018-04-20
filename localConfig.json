@@ -80,6 +80,14 @@
     "mobile": [{
         "name": "Map",
         "cfg": {
+          "mapOptions": {
+            "openlayers": {
+              "interactions": {
+                "altShiftDragRotate": false,
+                "pinchRotate": false
+              }
+            }
+          },
           "tools": ["locate"]
         }
       }, "Version", "DrawerMenu",
@@ -217,6 +225,10 @@
         "cfg":{
           "mapOptions": {
             "openlayers": {
+              "interactions": {
+                "altShiftDragRotate": false,
+                "pinchRotate": false
+              },
               "view": {
                 "minZoom": 10,
                 "extent": [
@@ -749,6 +761,10 @@
           "tools": ["locate", "draw", "highlight"],
           "mapOptions": {
             "openlayers": {
+              "interactions": {
+                "altShiftDragRotate": false,
+                "pinchRotate": false
+              },
               "attribution": {
                 "container": "#mapstore-map-footer-container"
               }
@@ -894,8 +910,16 @@
     "cantieri": [{
       "name": "Map",
       "cfg" :{
-          "mapType": "openlayers",
-          "tools": ["measurement", "locate", "draw", "highlight"]
+        "mapOptions": {
+          "openlayers": {
+            "interactions": {
+              "altShiftDragRotate": false,
+              "pinchRotate": false
+            }
+          }
+        },
+        "mapType": "openlayers",
+        "tools": ["measurement", "locate", "draw", "highlight"]
       }
     }, "Notifications", "LavoriPubblici",
         {
