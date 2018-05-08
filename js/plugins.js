@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016, GeoSolutions Sas.
  * All rights reserved.
  *
@@ -76,7 +76,10 @@ module.exports = {
         WidgetsBuilderPlugin: require('../MapStore2/web/client/plugins/WidgetsBuilder'),
         TOCItemsSettingsPlugin: require('../MapStore2/web/client/plugins/TOCItemsSettings'),
         FeaturedMaps: require('../MapStore2/web/client/plugins/FeaturedMaps'),
-        NavMenu: require('../MapStore2/web/client/product/plugins/NavMenu')
+        NavMenu: require('../MapStore2/web/client/product/plugins/NavMenu'),
+        FloatingLegend: require('../MapStore2/web/client/plugins/FloatingLegend'),
+        Dashboards: require('../MapStore2/web/client/plugins/Dashboards'),
+        ContentTabs: require('../MapStore2/web/client/plugins/ContentTabs')
 
     },
     requires: {
