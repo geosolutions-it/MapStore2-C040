@@ -1000,16 +1000,11 @@
       },
       "Dashboard",
       "NavMenu",
-      "Header",
-      "Notifications",{
-        "name": "Home",
-        "override": {
-          "OmniBar": {
-            "position": 1,
-            "priority": 1
-          }
-        }
-      }
+      {
+        "name": "Header",
+        "hide": true
+      },
+      "Notifications", "Home"
     ],
     "cantieri": [{
       "name": "Map",
