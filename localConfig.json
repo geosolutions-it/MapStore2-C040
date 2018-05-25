@@ -525,7 +525,7 @@
             }
           }
         }
-      }, "MapFooter", {
+      }, "MapFooter", "PrivacyNote", {
         "name": "Search",
         "cfg": {
           "searchOptions": {
@@ -619,7 +619,7 @@
       },
       "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen",
       "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",  "Widgets", "WidgetsBuilder",
-      "FloatingLegend", {
+      {
         "name": "Cookie",
         "cfg": {
           "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",

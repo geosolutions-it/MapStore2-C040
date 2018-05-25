@@ -66,6 +66,7 @@ module.exports = {
         HeaderPlugin: require('./plugins/Header'),
         FooterPlugin: require('./plugins/Footer'),
         AttributionPlugin: require('./plugins/Attribution'),
+        PrivacyNote: require('./plugins/PrivacyNote'),
         FeatureLoader: require('./plugins/FeatureLoader'),
         NotificationsPlugin: require('../MapStore2/web/client/plugins/Notifications'),
         FeatureEditorPlugin: require('../MapStore2/web/client/plugins/FeatureEditor'),
