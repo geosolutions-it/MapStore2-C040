@@ -1,15 +1,15 @@
 {
   "geoStoreUrl": "rest/geostore/",
+  "printUrl": "/geoserver/pdf/info.json",
+  "wmsURL": "/geoserver/wms",
   "geoFenceUrl": "/",
   "geoFenceGeoServerInstance": {
-    "url": "/geoserver-test/",
+    "url": "/geoserver/",
     "id": 5
   },
-  "printUrl": "/geoserver-test/pdf/info.json",
-  "wmsURL": "/geoserver-test/wms",
   "proxyUrl": {
     "url": "/MapStore2/proxy/?url=",
-    "useCORS": ["http://nominatim.openstreetmap.org", "https://nominatim.openstreetmap.org", "http://mappe.comune.genova.it", "http://vm-linuxgeofetest.comune.genova.it", "http://www.realvista.it/", "http://192.168.153.11:8080"]
+    "useCORS": ["https://nominatim.openstreetmap.org", "https://mappe.comune.genova.it", "http://vm-linuxgeofetest.comune.genova.it", "http://www.realvista.it/", "http://192.168.153.1:8080", "http://192.168.153.11:8080"]
   },
   "bingApiKey": "AhuXBu7ipR1gNbBfXhtUAyCZ6rkC5PkWpxs2MnMRZ1ZupxQfivjLCch22ozKSCAn",
   "translationsPath": ["MapStore2/web/client/translations", "translations"],
@@ -20,7 +20,7 @@
     "urlPattern": ".*geostore.*",
     "method": "bearer"
   }, {
-    "urlPattern": "\\/geoserver\\-test.*",
+    "urlPattern": "\\/geoserver/.*",
     "authkeyParamName": "ms2-authkey",
     "method": "authkey"
   }],
@@ -62,7 +62,7 @@
           "selectedService": "GeoPortale Comune di Genova",
           "services": {
             "GeoPortale Comune di Genova": {
-              "url": "/geoserver-test/csw",
+              "url": "/geoserver/ows",
               "type": "csw",
               "title": "GeoPortale Comune di Genova",
               "autoload": true
@@ -159,7 +159,7 @@
               "displayName": "${properties.NOMEVIA}",
               "subTitle": " (seleziona per cercare numero civico)",
               "options": {
-                "url": "/geoserver-test/wfs",
+                "url": "/geoserver/wfs",
                 "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
                 "queriableAttributes": ["NOMEVIA"],
                 "sortBy": "ID",
@@ -176,7 +176,7 @@
                 "searchTextTemplate": "${properties.TESTO}",
                 "options": {
                   "staticFilter": " AND COD_STRADA = '${properties.COD_STRADA}'",
-                  "url": "/geoserver-test/wfs",
+                  "url": "/geoserver/wfs",
                   "typeName": "SITGEO:CIVICI_COD_TOPON",
                   "queriableAttributes": ["TESTO"],
                   "srsName": "EPSG:4326",
@@ -259,7 +259,7 @@
           "additionalLayers": [
             {
               "type": "wms",
-              "url": "/geoserver-test/TEST/wms",
+              "url": "/geoserver/SITGEO/wms",
               "visibility": true,
               "title": "Elevation",
               "name": "elevation",
@@ -318,6 +318,23 @@
                     "returnFullData": true
                   }
                 }
+              },{
+                "regex": {
+                  "attribute": "AMBITO_INT",
+                  "typeName": "AMBIENTE:TEST"
+                },
+                "editor": "AddressesEditor",
+                "editorProps": {
+                  "filterProps":{
+                    "blacklist": ["via", "piazza", "viale"],
+                    "maxFeatures": 3,
+                    "queriableAttributes": ["DESVIA"],
+                    "predicate": "ILIKE",
+                    "typeName": "SITGEO:CIVICI_COD_TOPON",
+                    "valueField": "CODICE_CONTROLLO",
+                    "returnFullData": true
+                  }
+                }
               }]
             },
             "editingAllowedRoles": ["ADMIN", "USER"]
@@ -340,7 +357,7 @@
                      "id": "municipi",
                      "name": "Municipi",
                      "type": "wfsGeocoder",
-                     "url": "/geoserver-test/wfs",
+                     "url": "/geoserver/wfs",
                      "autoZoom": true,
                      "crossLayer": {
                        "cqlTemplate": "NOME_MUNICIPIO = '${properties.NOME_MUNICIPIO}'",
@@ -359,7 +376,7 @@
                       "id": "unita",
                       "name": "Unità Urbanistiche",
                       "type": "wfsGeocoder",
-                      "url": "/geoserver-test/wfs",
+                      "url": "/geoserver/wfs",
                       "autoZoom": true,
                       "crossLayer": {
                         "cqlTemplate": "NOME_UU = '${properties.NOME_UU}'",
@@ -535,7 +552,7 @@
               "displayName": "${properties.NOMEVIA}",
               "subTitle": " (seleziona per cercare numero civico)",
               "options": {
-                "url": "/geoserver-test/wfs",
+                "url": "/geoserver/wfs",
                 "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
                 "queriableAttributes": ["NOMEVIA"],
                 "sortBy": "ID",
@@ -554,7 +571,7 @@
                 "options": {
                   "staticFilter": " AND COD_STRADA = '${properties.COD_STRADA}'",
                   "sortBy": "NUMERO",
-                  "url": "/geoserver-test/wfs",
+                  "url": "/geoserver/wfs",
                   "typeName": "SITGEO:CIVICI_COD_TOPON",
                   "queriableAttributes": ["TESTO"],
                   "srsName": "EPSG:4326",
@@ -710,7 +727,7 @@
             "displayName": "${properties.NOMEVIA}",
             "subTitle": " (seleziona per cercare numero civico)",
             "options": {
-              "url": "/geoserver-test/wfs",
+              "url": "/geoserver/wfs",
               "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
               "queriableAttributes": ["NOMEVIA"],
               "sortBy": "ID",
@@ -729,7 +746,7 @@
               "options": {
                 "staticFilter": " AND COD_STRADA = '${properties.COD_STRADA}'",
                 "sortBy": "NUMERO",
-                "url": "/geoserver-test/wfs",
+                "url": "/geoserver/wfs",
                 "typeName": "SITGEO:CIVICI_COD_TOPON",
                 "queriableAttributes": ["TESTO"],
                 "srsName": "EPSG:4326",
@@ -996,7 +1013,7 @@
         "name": "DashboardEditor",
         "cfg": {
           "catalog": {
-            "url": "/geoserver-test/csw",
+            "url": "/geoserver/csw",
             "type": "csw",
             "title": "Demo CSW Service",
             "autoload": true
@@ -1050,7 +1067,7 @@
                   "displayName": "${properties.NOMEVIA}",
                   "subTitle": " (seleziona per cercare numero civico)",
                   "options": {
-                    "url": "/geoserver-test/wfs",
+                    "url": "/geoserver/wfs",
                     "typeName": "SITGEO:V_ASTE_STRADALI_TOPONIMO_SUB",
                     "queriableAttributes": [
                       "NOMEVIA"
@@ -1074,7 +1091,7 @@
                       "searchTextTemplate": "${properties.TESTO}",
                       "options": {
                         "staticFilter": " AND COD_STRADA = '${properties.COD_STRADA}'",
-                        "url": "/geoserver-test/wfs",
+                        "url": "/geoserver/wfs",
                         "typeName": "SITGEO:CIVICI_COD_TOPON",
                         "queriableAttributes": [
                           "TESTO"

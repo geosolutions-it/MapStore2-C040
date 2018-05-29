@@ -40,7 +40,7 @@
 				"name": "BASE_CARTOGRAFICA",
 				"title": "BASE_CARTOGRAFICA",
 				"type": "wms",
-				"url": "/geoserver-test/wms",
+				"url": "/geoserver/wms",
 				"bbox": {
 					"crs": "EPSG:4326",
 					"bounds": {
