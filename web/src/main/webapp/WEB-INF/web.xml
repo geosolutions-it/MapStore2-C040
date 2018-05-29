@@ -77,9 +77,9 @@
     <context-param>
         <param-name>people.sirac.error.returnURL</param-name>
         <!-- Production -->
-        <!-- <param-value>http://mappe.comune.genova.it/MapStore2</param-value> -->
+        <param-value>http://mappe.comune.genova.it/MapStore2</param-value>
         <!-- Test -->
-        <param-value>http://vm-linuxgeofetest.comune.genova.it/MapStore2</param-value>
+        <!--  <param-value>http://vm-linuxgeofetest.comune.genova.it/MapStore2</param-value> -->
     </context-param>
 
     <context-param>
@@ -123,9 +123,9 @@
     <context-param>
         <param-name>externalHostURL</param-name>
         <!-- Test -->
-        <param-value>http://vm-linuxgeofetest.comune.genova.it</param-value>
+        <!-- <param-value>http://vm-linuxgeofetest.comune.genova.it</param-value> -->
         <!-- Production -->
-        <!-- <param-value>http://mappe.comune.genova.it</param-value> -->
+        <param-value>http://mappe.comune.genova.it</param-value>
     </context-param>
 
     <filter>
@@ -143,16 +143,16 @@
         <init-param>
             <param-name>SIRACGatewayRedirectURL</param-name>
             <!-- Test -->
-            <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gistest3</param-value>
+            <!-- <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gistest3</param-value> -->
             <!-- Production -->
-            <!-- <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gis2</param-value> -->
+            <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AuthGatewayWAYFService/gis2</param-value>
         </init-param>
         <init-param>
             <param-name>assertionConsumerURL</param-name>
             <!-- Test -->
-            <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/AssertionConsumerService</param-value>
+            <!-- <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/AssertionConsumerService</param-value> -->
             <!-- Production -->
-            <!-- <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AssertionConsumerService</param-value> -->
+            <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/AssertionConsumerService</param-value>
         </init-param>
         <init-param>
             <param-name>postAuthRequestPage</param-name>
@@ -218,9 +218,9 @@
             <param-name>globalLogoutURL</param-name>
             <!-- URL assoluta -->
             <!-- Test -->
-            <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value>
+            <!-- <param-value>https://vm-siracssotest.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value> -->
             <!-- Production -->
-            <!-- <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value> -->
+            <param-value>https://vm-siracsso.comune.genova.it/sirac-sso/SSOGlobalLogoutService</param-value>
         </init-param>
         <init-param>
             <param-name>globalLogoutReturnURL</param-name>
