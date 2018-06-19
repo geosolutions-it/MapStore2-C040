@@ -35,6 +35,7 @@ module.exports = {
         MetadataExplorerPlugin: require('../MapStore2/web/client/plugins/MetadataExplorer'),
         LoginPlugin: require('./plugins/Login'),
         OmniBarPlugin: require('../MapStore2/web/client/plugins/OmniBar'),
+        CookiePlugin: require('../MapStore2/web/client/plugins/Cookie'),
         BurgerMenuPlugin: require('../MapStore2/web/client/plugins/BurgerMenu'),
         UndoPlugin: require('../MapStore2/web/client/plugins/History'),
         RedoPlugin: require('../MapStore2/web/client/plugins/History'),
@@ -65,6 +66,7 @@ module.exports = {
         HeaderPlugin: require('./plugins/Header'),
         FooterPlugin: require('./plugins/Footer'),
         AttributionPlugin: require('./plugins/Attribution'),
+        PrivacyNote: require('./plugins/PrivacyNote'),
         FeatureLoader: require('./plugins/FeatureLoader'),
         NotificationsPlugin: require('../MapStore2/web/client/plugins/Notifications'),
         FeatureEditorPlugin: require('../MapStore2/web/client/plugins/FeatureEditor'),
@@ -80,7 +82,6 @@ module.exports = {
         FloatingLegend: require('../MapStore2/web/client/plugins/FloatingLegend'),
         Dashboards: require('../MapStore2/web/client/plugins/Dashboards'),
         ContentTabs: require('../MapStore2/web/client/plugins/ContentTabs')
-
     },
     requires: {
         ReactSwipe: require('react-swipeable-views').default,

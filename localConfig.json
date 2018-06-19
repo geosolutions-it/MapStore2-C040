@@ -525,7 +525,7 @@
             }
           }
         }
-      }, "MapFooter", {
+      }, "MapFooter", "PrivacyNote", {
         "name": "Search",
         "cfg": {
           "searchOptions": {
@@ -618,7 +618,14 @@
         }
       },
       "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen",
-      "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",  "Widgets", "WidgetsBuilder"
+      "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",  "Widgets", "WidgetsBuilder",
+      {
+        "name": "Cookie",
+        "cfg": {
+          "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
+          "declineUrl": "http://www.google.com"
+        }
+      }
     ],
     "embedded": [{
         "name": "Map",
@@ -931,6 +938,12 @@
           },
           "fluid": true
         }
+      },{
+        "name": "Cookie",
+        "cfg": {
+          "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
+          "declineUrl": "http://www.google.com"
+        }
       },
       "Footer"
     ],
@@ -1003,7 +1016,13 @@
         "name": "Header",
         "hide": true
       },
-      "Notifications", "Home"
+      "Notifications", "Home", {
+        "name": "Cookie",
+        "cfg": {
+          "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
+          "declineUrl": "http://www.google.com"
+        }
+      }
     ],
     "cantieri": [{
       "name": "Map",
