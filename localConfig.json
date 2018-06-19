@@ -625,7 +625,8 @@
           "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
           "declineUrl": "http://www.google.com"
         }
-      }
+      },
+      "GeoNetworkLink"
     ],
     "embedded": [{
         "name": "Map",

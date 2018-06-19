@@ -81,7 +81,8 @@ module.exports = {
         NavMenu: require('../MapStore2/web/client/product/plugins/NavMenu'),
         FloatingLegend: require('../MapStore2/web/client/plugins/FloatingLegend'),
         Dashboards: require('../MapStore2/web/client/plugins/Dashboards'),
-        ContentTabs: require('../MapStore2/web/client/plugins/ContentTabs')
+        ContentTabs: require('../MapStore2/web/client/plugins/ContentTabs'),
+        GeoNetworkLinkPlugin: require('./plugins/GeoNetworkLink')
     },
     requires: {
         ReactSwipe: require('react-swipeable-views').default,

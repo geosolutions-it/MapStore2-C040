@@ -84,6 +84,7 @@
         },
         "layerProperties": {
             "legenderror": "Legenda non disponibile alla scala attuale"
-        }
+        },
+        "geoNetworkLink": "GeoNetwork"
     }
 }
