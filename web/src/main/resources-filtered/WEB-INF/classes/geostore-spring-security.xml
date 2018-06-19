@@ -21,6 +21,7 @@
     <security:global-method-security secured-annotations="enabled" />
 
     <security:http auto-config="true" create-session="never" >
+    	<security:session-management session-fixation-protection="none"/>
         <security:http-basic entry-point-ref="restAuthenticationEntryPoint"/>
         <security:custom-filter ref="authenticationTokenProcessingFilter" before="FORM_LOGIN_FILTER"/>
         <security:custom-filter ref="sessionTokenProcessingFilter" after="FORM_LOGIN_FILTER"/>
