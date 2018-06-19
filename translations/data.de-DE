@@ -40,6 +40,12 @@
                     "closeButtonText": "schließen"
                 }
             }
+        },
+        "shapefile": {
+            "placeholder": "Ziehen Sie Dateien hierher oder klicken Sie, um Vektordateien auszuwählen, die importiert werden sollen. (Unterstützte Dateien: SHAPEFILES in Zip-Archiven, KML / KMZ und GPX, Referenzsysteme Epsg: 3003, Epsg: 4326)"
+        },
+        "layerProperties": {
+            "legenderror": "Die Legende ist im aktuellen Maßstab nicht verfügbar"
         }
     }
 }
