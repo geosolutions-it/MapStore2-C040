@@ -24,6 +24,15 @@ const GeoNetworkLinkMenuItem = ({
     </MenuItem>
 );
 
+/**
+ * GeoNetworkLink link to GeoNetwork page
+ * @prop {string} cfg.href target url
+ * @prop {string} cfg.target href target
+ * @prop {string} cfg.glyph if glyph is defined it will render instead of GeoNetwork icon
+ * @prop {object} cfg.iconStyle style for GeoNetwork icon
+ * @memberof plugins
+ * @class GeoNetworkLink
+ */
 module.exports = {
     GeoNetworkLinkPlugin: assign(class extends React.Component {
         render() {
