@@ -10,14 +10,17 @@ const React = require('react');
 const assign = require('object-assign');
 const {Glyphicon, MenuItem} = require('react-bootstrap');
 const Message = require('../../MapStore2/web/client/components/I18N/Message');
+const geonetwork = require('../../assets/img/geonetwork.svg');
 
 const GeoNetworkLinkMenuItem = ({
     href = 'http://mappe.comune.genova.it/geonetwork/srv/eng/main.home',
     target = '_blank',
-    glyph = 'link'
+    glyph = '',
+    iconStyle = {}
 }) => (
     <MenuItem href={href} target={target}>
-        <Glyphicon glyph={glyph}/><Message msgId="geoNetworkLink"/>
+        {glyph ? <Glyphicon glyph={glyph}/> : <img style={{...iconStyle, width: 'auto', height: 16, marginRight: 15}} src={geonetwork}/>}
+        <Message msgId="geoNetworkLink"/>
     </MenuItem>
 );
 
