@@ -509,7 +509,10 @@
         "name": "MetadataExplorer",
         "cfg": {
           "zoomToLayer": false,
-          "wrap": true
+          "wrap": true,
+          "hideThumbnail": true,
+          "hideIdentifier": true,
+          "hideExpand": false
         }
       }, {
         "name": "MousePosition",
