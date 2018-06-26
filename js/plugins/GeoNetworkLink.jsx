@@ -13,7 +13,7 @@ const Message = require('../../MapStore2/web/client/components/I18N/Message');
 const geonetwork = require('../../assets/img/geonetwork.svg');
 
 const GeoNetworkLinkMenuItem = ({
-    href = 'http://mappe.comune.genova.it/geonetwork/srv/eng/main.home',
+    href = '/geonetwork/srv/ita/main.home',
     target = '_blank',
     glyph = '',
     iconStyle = {}
