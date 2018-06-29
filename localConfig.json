@@ -5,7 +5,7 @@
     "url": "/geoserver-test/",
     "id": 5
   },
-  "printUrl": "/geoserver-test/pdf/info.json",
+  "printUrl": "pdf/info.json",
   "wmsURL": "/geoserver-test/wms",
   "proxyUrl": {
     "url": "/MapStore2/proxy/?url=",
