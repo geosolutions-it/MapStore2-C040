@@ -438,7 +438,7 @@
             }
           }
         }
-      }, "TOCItemsSettings",
+      }, "TOCItemsSettings", "ThematicLayer",
       {
         "name": "Tutorial",
         "cfg": {
