@@ -7,6 +7,9 @@
     "url": "/geoserver/",
     "id": 5
   },
+
+  "printUrl": "pdf/info.json",
+  "wmsURL": "/geoserver/wms",
   "proxyUrl": {
     "url": "/MapStore2/proxy/?url=",
     "useCORS": ["https://nominatim.openstreetmap.org", "https://mappe.comune.genova.it", "http://vm-linuxgeofetest.comune.genova.it", "http://www.realvista.it/", "http://192.168.153.1:8080", "http://192.168.153.11:8080", "https://appaltige.comune.genova.it"]
@@ -455,7 +458,7 @@
             }
           }
         }
-      }, "TOCItemsSettings",
+      }, "TOCItemsSettings", "ThematicLayer",
       {
         "name": "Tutorial",
         "cfg": {
