@@ -10,7 +10,7 @@ const React = require('react');
 const assign = require('object-assign');
 const {Glyphicon} = require('react-bootstrap');
 const {UserDetails, PasswordReset, Login } = require('../../MapStore2/web/client/plugins/login/index');
-const {refreshTokenEpic} = require('../../MapStore2/web/client/epics/login');
+
 
 const {connect} = require('../../MapStore2/web/client/utils/PluginsUtils');
 const {setControlProperty} = require('../../MapStore2/web/client/actions/controls');
@@ -90,7 +90,5 @@ module.exports = {
         }
     }),
     reducers: {security: require('../../MapStore2/web/client/reducers/security')},
-    epics: {
-        refreshTokenEpic
-    }
+    epics: require('../../MapStore2/web/client/epics/login')
 };
