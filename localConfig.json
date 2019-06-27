@@ -31,6 +31,14 @@
     "authkeyParamName": "ms2-authkey",
     "method": "authkey"
   }],
+  "mapConstraints": {
+    "minZoom": 10,
+    "crs": "EPSG:3857",
+    "restrictedExtent": [
+      939258.2034374997, 5479006.186718751,
+      1017529.7203906253, 5557277.703671876
+    ]
+  },
   "defaultMapOptions": {
     "cesium": {
       "navigationTools": true,
@@ -241,13 +249,6 @@
                 "altShiftDragRotate": false,
                 "pinchRotate": false
               },
-              "view": {
-                "minZoom": 10,
-                "extent": [
-                  939258.2034374997, 5479006.186718751,
-                  1017529.7203906253, 5557277.703671876
-                ]
-              },
               "attribution": {
                 "container": "#mapstore-map-footer-container"
               }
@@ -285,6 +286,7 @@
       {
         "name": "Identify",
         "cfg": {
+          "enabledCoordEditorButton": false,
           "viewerOptions": {
             "container": "{context.ReactSwipe}"
           }
@@ -427,7 +429,8 @@
         "cfg": {
           "activateQueryTool": true,
           "activateMetedataTool": false,
-          "activateAddLayerButton": false,
+          "activateAddLayerButton": true,
+          "activateAddGroupButton": true,
           "showFullTitleOnExpand": true,
           "spatialMethodOptions": [
             {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
@@ -629,6 +632,7 @@
           }
         }
       },
+      "FeedbackMask",
       "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen",
       "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",
       "Widgets", "WidgetsBuilder",  "WidgetsTray",
@@ -681,6 +685,7 @@
       }, {
         "name": "Identify",
         "cfg": {
+          "enabledCoordEditorButton": false,
           "showFullscreen": true,
                     "position": "bottom",
                     "size": 0.5,

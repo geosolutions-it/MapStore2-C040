@@ -17,22 +17,27 @@ const urlQuery = url.parse(window.location.href, true).query;
 
 const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
 const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
+const MapViewerCmp = require('../../MapStore2/web/client/product/components/viewer/MapViewerCmp');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
+const {initMap} = require('../../MapStore2/web/client/actions/map');
 
-const MapViewer = require('../../MapStore2/web/client/containers/MapViewer');
+const MapViewerContainer = require('../../MapStore2/web/client/containers/MapViewer');
 let oldLocation;
 class MapViewerPage extends React.Component {
     static propTypes = {
         mode: PropTypes.string,
         match: PropTypes.object,
         loadMapConfig: PropTypes.func,
+        onInit: PropTypes.func,
         reset: PropTypes.func,
         plugins: PropTypes.object,
+        wrappedContainer: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
         location: PropTypes.object
     };
     static defaultProps = {
         match: {},
-        mode: 'desktop'
+        mode: 'desktop',
+        wrappedContainer: MapViewerContainer
     };
     componentWillMount() {
         if (this.props.match.params.mapId && oldLocation !== this.props.location) {
@@ -63,9 +68,10 @@ class MapViewerPage extends React.Component {
         }
     }
     render() {
-        return (<MapViewer
+        return (<MapViewerCmp
             plugins={this.props.plugins}
             params={this.props.match.params}
+            {...this.props}
             />);
     }
 }
@@ -75,6 +81,7 @@ module.exports = connect((state) => ({
 }),
 {
     loadMapConfig,
+    onInit: initMap,
     reset: resetControls
 }, (state, dispatch, own) => {
     return {

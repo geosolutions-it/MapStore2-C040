@@ -35,13 +35,21 @@ const config = require('./MapStore2/build/buildConfig')(
             target: "http://vm-linuxgeofetest.comune.genova.it"
         },
         '/geoserver/': {
-            target: "http://mappe.comune.genova.it"
+            target: "https://mappe.comune.genova.it",
+            secure: false,
+            headers: {
+                host: "mappe.comune.genova.it"
+            }
         },
         '/geoserver-test/': {
             target: "http://vm-linuxgeofetest.comune.genova.it"
         },
         '/geonetwork': {
-            target: "http://mappe.comune.genova.it"
+            target: "https://mappe.comune.genova.it",
+            secure: false,
+            headers: {
+                host: "mappe.comune.genova.it"
+            }
         },
         '/geofence': {
             target: "http://vm-linuxgeofetest.comune.genova.it"
