@@ -12,4 +12,5 @@ backend/.classpath
 backend/.project
 backend/.settings
 js/libs/Cesium/
+libs/Cesium/
 web/src/main/webapp/WEB-INF/classes/geostore-spring-security.xml

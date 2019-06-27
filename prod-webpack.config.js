@@ -1,50 +1,56 @@
-const webpackConfig = require('./webpack.config.js');
 const path = require("path");
-const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
-const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
-const DefinePlugin = require("webpack/lib/DefinePlugin");
-const NormalModuleReplacementPlugin = require("webpack/lib/NormalModuleReplacementPlugin");
-const NoEmitOnErrorsPlugin = require("webpack/lib/NoEmitOnErrorsPlugin");
-const extractThemesPlugin = require('./MapStore2/themes.js').extractThemesPlugin;
 
-webpackConfig.plugins = [
-    new LoaderOptionsPlugin({
-        debug: false,
-        options: {
-           postcss: {
-               plugins: [
-                   require('postcss-prefix-selector')({prefix: '.ms2', exclude: ['.ms2', '[data-ms2-container]']})
-               ]
-           },
-           context: __dirname
-       }
-    }),
-    new DefinePlugin({
-        "__DEVTOOLS__": false
-    }),
-    new DefinePlugin({
-      'process.env': {
-        'NODE_ENV': '"production"'
-      }
-    }),
-    new NormalModuleReplacementPlugin(/leaflet$/, path.join(__dirname, "MapStore2", "web", "client", "libs", "leaflet")),
-    new NormalModuleReplacementPlugin(/openlayers$/, path.join(__dirname, "MapStore2", "web", "client", "libs", "openlayers")),
-    new NormalModuleReplacementPlugin(/cesium$/, path.join(__dirname, "MapStore2", "web", "client", "libs", "cesium")),
-    new NormalModuleReplacementPlugin(/proj4$/, path.join(__dirname, "MapStore2", "web", "client", "libs", "proj4")),
-     new ParallelUglifyPlugin({
-        uglifyJS: {
-            sourceMap: false,
-            compress: {warnings: false},
-            mangle: true
-        }
-    }),
-    new NoEmitOnErrorsPlugin(),
-    extractThemesPlugin
-];
-webpackConfig.devtool = undefined;
+const themeEntries = require('./MapStore2/build/themes.js').themeEntries;
+const extractThemesPlugin = require('./MapStore2/build/themes.js').extractThemesPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// this is a workaround for this issue https://github.com/webpack/file-loader/issues/3
-// use `__webpack_public_path__` in the index.html when fixed
-webpackConfig.output.publicPath = "/MapStore2/dist/";
+const paths = {
+    base: __dirname,
+    dist: path.join(__dirname, "dist"),
+    framework: path.join(__dirname, "MapStore2", "web", "client"),
+    code: [path.join(__dirname, "js"), path.join(__dirname, "MapStore2", "web", "client")]
+};
 
-module.exports = webpackConfig;
+const config = require('./MapStore2/build/buildConfig')(
+    {
+        'MapStore2-C040': path.join(__dirname, "js", "app"),
+        "embedded": path.join(__dirname, "js", "embedded"),
+        "ms2-api": path.join(__dirname, "js", "api"),
+        "llpp": path.join(__dirname, "js", "llpp"),
+        "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
+    },
+    themeEntries,
+    paths,
+    extractThemesPlugin,
+    true,
+    "/MapStore2/dist/", // the old value was "dist/"   ?
+    null,
+    [
+        new HtmlWebpackPlugin({
+            template: path.join(paths.base, 'indexTemplate.html'),
+            chunks: ['MapStore2-C040'],
+            inject: true,
+            hash: true
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(paths.base, 'embeddedTemplate.html'),
+            chunks: ['embedded'],
+            inject: true,
+            hash: true,
+            filename: 'embedded.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(paths.base, 'apiTemplate.html'),
+            chunks: ['ms2-api'],
+            inject: 'head',
+            hash: true,
+            filename: 'api.html'
+        })
+    ],
+    {
+        '@mapstore': path.resolve(__dirname, 'MapStore2/web/client'),
+        '@js': path.resolve(__dirname, 'js')
+    }
+);
+
+module.exports = config;
