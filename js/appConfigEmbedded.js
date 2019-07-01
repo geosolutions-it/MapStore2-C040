@@ -4,9 +4,12 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- */
+*/
+const {startLoading, updateFeatureLoader} = require('./epics/featureloader');
+const {addCustomViewer} = require('./epics/initCustomEditors');
 
 module.exports = {
+    mode: 'embedded',
     printingEnabled: false,
     pages: [{
         name: "embedviewer",
@@ -74,6 +77,20 @@ module.exports = {
                 "supportedFormats": [{"name": "wms", "label": "WMS"}, {"name": "csw", "label": "CSW"}]
             }
         }
+    },
+    themeCfg: {
+        theme: "comge"
+    },
+    baseReducers: {
+        mode: (state = 'embedded') => state,
+        maps: require('../MapStore2/web/client/reducers/maps'),
+        security: require('../MapStore2/web/client/reducers/security'),
+        searchconfig: require('../MapStore2/web/client/reducers/searchconfig')
+    },
+    baseEpics: {
+        "FEATUREVIEWER:startLoading": startLoading,
+        "FEATUREVIEWER:updateFeatureLoader": updateFeatureLoader,
+        addCustomViewer
     },
     storeOpts: {
         persist: {
