@@ -41,6 +41,9 @@
                 }
             }
         },
+        "user": {
+            "spidLogin": "SPID Login"
+        },
         "shapefile": {
             "placeholder": "Ziehen Sie Dateien hierher oder klicken Sie, um Vektordateien auszuwählen, die importiert werden sollen. (Unterstützte Dateien: SHAPEFILES in Zip-Archiven, KML / KMZ und GPX, Referenzsysteme Epsg: 3003, Epsg: 4326)"
         },

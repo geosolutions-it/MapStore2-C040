@@ -15,6 +15,7 @@ module.exports = {
         GeoNetworkLinkPlugin: require('./plugins/GeoNetworkLink'),
         HeaderPlugin: require('./plugins/Header'),
         LoginPlugin: require('./plugins/Login'),
+        LoginModalPlugin: require('./plugins/LoginModal'),
         PrivacyNote: require('./plugins/PrivacyNote'),
         // product plugins
         NavMenu: require('../MapStore2/web/client/product/plugins/NavMenu'),

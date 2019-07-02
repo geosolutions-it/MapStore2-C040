@@ -79,6 +79,9 @@
                 "text": "Fai un breve tour delle funzionalità della mappa 3D cliccando su Avanti. Spunta la checkbox sotto per evitare di visualizzare questo messaggio tutte le volte che apri una mappa."
             }
         },
+        "user": {
+            "spidLogin": "SPID Login"
+        },
         "shapefile": {
             "placeholder": "Trascina qui i file o fai click per selezionare i file vettoriali da importare.(file supportati: SHAPEFILES contenuti in archivi zip, KML/KMZ e GPX, sistemi di riferimento Epsg:3003, Epsg:4326)"
         },

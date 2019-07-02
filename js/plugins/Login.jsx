@@ -9,14 +9,15 @@
 const React = require('react');
 const assign = require('object-assign');
 const {Glyphicon} = require('react-bootstrap');
-const {UserDetails, PasswordReset, Login } = require('../../MapStore2/web/client/plugins/login/index');
+const {UserDetails, PasswordReset } = require('@mapstore/plugins/login/index');
+const Login = require('./LoginModal').default;
 
 
-const {connect} = require('../../MapStore2/web/client/utils/PluginsUtils');
-const {setControlProperty} = require('../../MapStore2/web/client/actions/controls');
-const {logoutWithReload} = require('../../MapStore2/web/client/actions/security');
+const {connect} = require('@mapstore/utils/PluginsUtils');
+const {setControlProperty} = require('@mapstore/actions/controls');
+const {logoutWithReload} = require('@mapstore/actions/security');
 
-require('../../MapStore2/web/client/plugins/login/login.css');
+require('@mapstore/plugins/login/login.css');
 /**
   * Login Plugin. Allow to login/logout or show user info and reset password tools
   * @class Login
@@ -89,6 +90,6 @@ module.exports = {
             priority: 1
         }
     }),
-    reducers: {security: require('../../MapStore2/web/client/reducers/security')},
-    epics: require('../../MapStore2/web/client/epics/login')
+    reducers: {security: require('@mapstore/reducers/security')},
+    epics: require('@mapstore/epics/login')
 };
