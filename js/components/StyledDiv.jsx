@@ -1,6 +1,5 @@
 
 const React = require('react');
-const Spinner = require('react-spinkit');
 const assign = require('object-assign');
 const Message = require('../../MapStore2/web/client/components/I18N/Message');
 const PropTypes = require('prop-types');
@@ -34,8 +33,7 @@ class StyledDiv extends React.Component {
         return (
             <div id="cantieri-panel" style={style}>
                 {this .props.saving || this.props.loading ? (<div id="maskSpinner" style={{width: "100%", position: "absolute", "zIndex": 1000, height: "100%", backgroundColor: "rgba(255, 255, 255, 0.56)", fontSize: "xx-large"}}>
-                    <Spinner spinnerName="circle" overrideSpinnerClassName="spinner" fadeIn="quarter"/>
-                    <p><Message msgId="loading"/></p>
+                    <div className="maskSpinner-body"><Message msgId="loading"/></div>
                 </div>) : null}
                 <div className="dockpanel-wrapped-component" style={{height: "calc(100% - " + this.props.toolbarHeight + "px)"}}>
                     {this.props.wrappedComponent !== null ? (<WrappedComponent

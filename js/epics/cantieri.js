@@ -77,6 +77,12 @@ const getRestUrl = (url, type, idCantiere) => {
     }));
 };
 
+const areaStyle = {
+    color: "blue",
+    weight: 3,
+    fillColor: "#000000",
+    fillOpacity: 0
+};
 var areaCount = 0;
 const getSpatialFilter = (geometry, options, operation = "INTERSECTS") => {
     return {
@@ -95,21 +101,12 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
     let actions = [];
     const cantieriState = store.getState().cantieri;
     let areaOptions = {
-        features: areasFeatures,
+        features: areasFeatures.map(f => ({...f, style: areaStyle })),
         group: "Cantiere",
         title: "Aree",
         id: AREAS_LAYER,
         name: cantieriState && cantieriState.areasLayerName,
-        style: {
-            type: "MultiPolygon",
-            stroke: {
-                color: 'blue',
-                width: 3
-            },
-            fill: {
-                color: [0, 0, 0, 0]
-            }
-        },
+        style: null,
         projection: store.getState().map.present.projection
     };
     let elementiOptions = {
@@ -118,16 +115,7 @@ const createAndAddLayers = (areasFeatures, store, checkedElementsFeatures) => {
         title: "Elementi Selezionati",
         id: ELEMENTS_LAYER,
         name: "cantiere_elements",
-        style: {
-            "type": "MultiPolygon",
-            "stroke": {
-                color: 'red',
-                width: 1
-            },
-            "fill": {
-                color: [100, 100, 100, 0.1]
-            }
-        },
+        style: null,
         projection: store.getState().map.present.projection
     };
     actions.push(addLayer(getLayer(elementiOptions)));

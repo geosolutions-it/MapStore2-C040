@@ -31,6 +31,7 @@ class CantieriAreaGrid extends React.Component {
         return (
             <ResizableGrid
                 {...this.props}
+                rowsCount={this.props.rows && this.props.rows.length}
                 rowGetter={this.rowGetter}
             />
         );
@@ -38,6 +39,13 @@ class CantieriAreaGrid extends React.Component {
     rowGetter = (i) => {
         let elementsGridTooltip = (<Tooltip key="elementsGridTooltip" id="elementsGridTooltip">
             <Message msgId={"cantieriGrid.toolbar.deleteRow"}/></Tooltip>);
+        /*
+         * updating react-data-grid to 5.0.4 cause a problem with rowIdx
+         * it was arriving row indexes outside the rows array like -1 or some old index of an old row
+        */
+        if (i < 0 || !this.props.rows[i]) {
+            return null;
+        }
         if (this.props.rows[i].delete === "X") {
             return assign({}, {...this.props.rows[i], "delete": (<ToggleButton id={"delRow" + i} glyphicon="remove"
                 onClick={() => this.props.onDeleteRow(this.props.rows[i].name)}

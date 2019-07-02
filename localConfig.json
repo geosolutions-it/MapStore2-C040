@@ -22,6 +22,7 @@
   "translationsPath": ["MapStore2/web/client/translations", "translations"],
   "mapquestApiKey": "__API_KEY_MAPQUEST__",
   "initialMapFilter": "",
+  "loadAfterTheme": true,
   "useAuthenticationRules": true,
   "authenticationRules": [{
     "urlPattern": ".*geostore.*",
@@ -1065,9 +1066,10 @@
         }
       }
     ],
-    "cantieri": [{
+    "cantieri": ["FeedbackMask", {
       "name": "Map",
       "cfg" :{
+        "shouldLoadFont": false,
         "mapOptions": {
           "openlayers": {
             "interactions": {
@@ -1082,8 +1084,8 @@
     }, "Notifications", "LavoriPubblici",
         {
       "name": "Search",
-      "showCoordinatesSearchOption": false,
       "cfg": {
+        "showOptions": false,
         "searchOptions": {
           "services": [
                 {

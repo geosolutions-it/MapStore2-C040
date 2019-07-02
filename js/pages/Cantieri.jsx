@@ -4,17 +4,18 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- */
-const React = require('react');
+*/
+const assign = require('object-assign');
 const PropTypes = require('prop-types');
+const React = require('react');
 const {connect} = require('react-redux');
+
 const Page = require('../../MapStore2/web/client/containers/Page');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
-const {initPlugin} = require('../actions/cantieri');
 const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
 const axios = require('../../MapStore2/web/client/libs/ajax');
-const assign = require('object-assign');
 
+const {initPlugin} = require('../actions/cantieri');
 require('../../assets/css/custom.css');
 
 class Cantieri extends React.Component {
@@ -67,6 +68,7 @@ class Cantieri extends React.Component {
 
         return (<Page
             id="cantieri"
+            includeCommon={false}
             pluginsConfig={pluginsConfig}
             plugins={this.props.plugins}
             params={this.props.match.params}

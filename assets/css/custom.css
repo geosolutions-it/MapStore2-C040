@@ -50,3 +50,11 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+
+
+#cantieri-panel .maskSpinner-body {
+    text-align: center;
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+}

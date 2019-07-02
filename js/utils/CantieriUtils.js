@@ -10,27 +10,26 @@ const {
 const {changeLayerProperties} = require('../../MapStore2/web/client/actions/layers');
 const {info, error} = require('../../MapStore2/web/client/actions/notifications');
 
-
+const areaStyle = {
+    color: "blue",
+    weight: 3,
+    fillColor: "#000000",
+    fillOpacity: 0
+};
 const checkedStyle = {
     type: "MultiPolygon",
-    stroke: {
-        color: 'black',
-        lineDash: [2],
-        width: 1
-    },
-    fill: {
-        color: [255, 255, 0, 1]
-    }
+    color: 'black',
+    dashArray: [2],
+    weight: 1,
+    fillColor: "#FFFF00",
+    fillOpacity: 1
 };
 const unCheckedStyle = {
     type: "MultiPolygon",
-    stroke: {
-        color: 'red',
-        width: 1
-    },
-    fill: {
-        color: [200, 0, 0, 0.3]
-    }
+    color: 'red',
+    weight: 1,
+    fillColor: "#C80000",
+    fillOpacity: 0.3
 };
 const requestBuilder = require('../../MapStore2/web/client/utils/ogc/WFS/RequestBuilder');
 const {filter, and, or, getFeature, property, query} = requestBuilder({wfsVersion: "1.1.0"});
@@ -72,15 +71,11 @@ module.exports = {
         style: f.checked ?
             {
                 ...checkedStyle,
-                stroke: {
-                    color: "red",
-                    width: 3
-                }
-        } : {
-            stroke: {
                 color: "red",
-                width: 3
-            }
+                weight: 3
+        } : {
+            color: "red",
+            weight: 3
         }
     }),
     getCheckedElementsFromLayer: (layer) => {
@@ -131,6 +126,7 @@ module.exports = {
         let newLayerProps = {};
         feature.index = newIdx;
         feature.id = "area_" + newIdx;
+        feature.style = areaStyle;
         newLayerProps.features = layer.features.concat(feature);
         return Rx.Observable.from([
             changeDrawingStatus("cleanAndContinueDrawing", "", "LavoriPubblici", [], {}),
