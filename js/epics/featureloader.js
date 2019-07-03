@@ -51,15 +51,14 @@ module.exports = {
                                                     name: "highlight",
                                                     hideLoading: true,
                                                     queryable: false,
-                                                    style: {
+                                                    style: null,
+                                                    features: res.data.features.map(f => ({...f, style: {
                                                       weight: 3,
-                                                      radius: 10,
+                                                      color: "#0000FF",
                                                       opacity: 1,
-                                                      fillOpacity: 0.1,
-                                                      color: 'rgb(0, 0, 255)',
-                                                      fillColor: 'rgb(0, 0, 255)'
-                                                    },
-                                                    features: res.data.features
+                                                      fillColor: "#0000FF",
+                                                      fillOpacity: 1
+                                                    }}))
                                                 }),
                                                 zoomToExtent(bbox(res.data), "EPSG:4326", 19)]).filter(a => !( action.isWmsViewer && a.type === 'ADD_LAYER'))
                                         )
