@@ -44,6 +44,11 @@
         "user": {
             "spidLogin": "SPID Login"
         },
+        "mapImport": {
+            "dropZone": {
+                "infoSupported": "<p> <small> Unterstützte Konfigurationsdateien: MapStore2 Legacy-Format. Unterstützte Vektor-Layer-Dateien: Shapefiles müssen in Zip-Archiven, KML / KMZ, GPX oder GeoJSON </small> </p> enthalten sein, Referenzsysteme Epsg: 3003, Epsg: 4326</small></p>"
+            }
+        },
         "shapefile": {
             "placeholder": "Ziehen Sie Dateien hierher oder klicken Sie, um Vektordateien auszuwählen, die importiert werden sollen. (Unterstützte Dateien: SHAPEFILES in Zip-Archiven, KML / KMZ und GPX, Referenzsysteme Epsg: 3003, Epsg: 4326)"
         },
