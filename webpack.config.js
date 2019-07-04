@@ -1,5 +1,4 @@
 const path = require("path");
-const themeEntries = require('./MapStore2/build/themes.js').themeEntries;
 const extractThemesPlugin = require('./MapStore2/build/themes.js').extractThemesPlugin;
 
 const config = require('./MapStore2/build/buildConfig')(
@@ -7,10 +6,11 @@ const config = require('./MapStore2/build/buildConfig')(
         'MapStore2-C040': path.join(__dirname, "js", "app"),
         "embedded": path.join(__dirname, "js", "embedded"),
         "ms2-api": path.join(__dirname, "js", "api"),
-        "llpp": path.join(__dirname, "js", "llpp"),
+        "llpp": path.join(__dirname, "js", "llpp")
+    },
+    {
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
     },
-    themeEntries,
     {
         base: __dirname,
         dist: path.join(__dirname, "dist"),

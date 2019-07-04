@@ -1,1 +1,1 @@
-MapStore2-C040-1.0.0
+${mapstore2.version}
