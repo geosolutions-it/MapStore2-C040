@@ -130,13 +130,14 @@
         "name": "Identify",
         "showIn": ["Settings"],
         "cfg": {
-          	"showFullscreen": true,
-		"position": "bottom",
-		"size": 0.5,
-		"fluid": true,
-		"viewerOptions": {
-			"container": "{context.ReactSwipe}"
-		}
+          "enabledCoordEditorButton": false,
+          "showFullscreen": true,
+      		"position": "bottom",
+      		"size": 0.5,
+      		"fluid": true,
+      		"viewerOptions": {
+      			"container": "{context.ReactSwipe}"
+      		}
         }
       }, {
         "name": "Locate",
@@ -166,8 +167,8 @@
       },
        {
         "name": "Search",
-        "showOptions": false,
         "cfg": {
+          "showOptions": false,
           "withToggle": ["max-width: 768px", "min-width: 768px"],
           "searchOptions": {
             "services": [{
@@ -844,6 +845,7 @@
       }, {
           "name": "Identify",
           "cfg": {
+              "enabledCoordEditorButton": false,
               "panelClassName": "mapstore-right-panel modal-content",
               "glyph": "info-sign",
               "draggable": false,
