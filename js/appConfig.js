@@ -116,10 +116,10 @@ module.exports = {
      themeCfg: {
          theme: "comge"
      },
-     baseReducers: {
+     appReducers: {
          security: require('../MapStore2/web/client/reducers/security')
      },
-     baseEpics: {
+     appEpics: {
          "FEATUREVIEWER:startLoading": startLoading,
          "FEATUREVIEWER:updateFeatureLoader": updateFeatureLoader,
          addCustomEditors,
