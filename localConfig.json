@@ -86,11 +86,18 @@
           }
         }
       },
-        "wfsdownload": {
-          "downloadOptions":{
-            "singlePage": false
-          }
+      "wfsdownload": {
+        "downloadOptions":{
+          "singlePage": false
         }
+      },
+      "mapInfo": {
+        "enabled": true,
+        "disabledAlwaysOn": false,
+        "configuration": {
+          "infoFormat": "text/html"
+        }
+      }
     }
   },
    "monitorState": [
@@ -699,12 +706,12 @@
         "cfg": {
           "enabledCoordEditorButton": false,
           "showFullscreen": true,
-                    "position": "bottom",
-                    "size": 0.5,
-                    "fluid": true,
-                    "viewerOptions": {
-                        "container": "{context.ReactSwipe}"
-                    },
+            "position": "bottom",
+            "size": 0.5,
+            "fluid": true,
+            "viewerOptions": {
+                "container": "{context.ReactSwipe}"
+            },
           "glyph": "info-sign"
         }
       }, {
