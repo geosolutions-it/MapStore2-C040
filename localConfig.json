@@ -515,6 +515,9 @@
            "mapPreviewOptions": {
              "enableScalebox": true,
              "enableRefresh": false
+           },
+           "overrideOptions": {
+             "geodetic": true
            }
          }
       }, {
