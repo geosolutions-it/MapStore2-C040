@@ -492,7 +492,7 @@
               },
               {
                 "translation": "identifyButton",
-                "selector": "#navigationBar-container glyphicon.glyphicon-option-horizontal",
+                "selector": "#navigationBar-container .glyphicon.glyphicon-option-horizontal",
                 "position": "top"
               }
             ]
