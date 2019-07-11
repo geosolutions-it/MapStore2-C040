@@ -87,6 +87,7 @@ module.exports = {
         security: require('../MapStore2/web/client/reducers/security'),
         searchconfig: require('../MapStore2/web/client/reducers/searchconfig')
     },
+    initialActions: [],
     baseEpics: {
         "FEATUREVIEWER:startLoading": startLoading,
         "FEATUREVIEWER:updateFeatureLoader": updateFeatureLoader,
