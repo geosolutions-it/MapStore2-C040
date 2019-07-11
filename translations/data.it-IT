@@ -1,6 +1,8 @@
 {
     "locale": "it-IT",
     "messages": {
+        "collapse": "Nascondi descrizione completa",
+        "expand": "Mostra descrizione completa",
         "search": {
             "s_priority_info": "Usato per ordinare i risultati, i valori più alti vengono visualizzati per primi. I servizi di default (ricerca strade/indirizzi e nominatim) hanno rispettivamente priorità 6 e 5"
         },

@@ -1,6 +1,8 @@
 {
     "locale": "de-DE",
     "messages": {
+        "collapse": "Vollständige Beschreibung ausblenden",
+        "expand": "Vollständige Beschreibung anzeigen",
         "search": {
             "s_priority_info": "Wird verwendet, um Suchergebnisse zu sortieren, höhere Werte zuerst. Die Standarddienste haben Vorrang 5 und 6"
         },
