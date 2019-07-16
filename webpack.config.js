@@ -34,6 +34,12 @@ const config = require('./MapStore2/build/buildConfig')(
         '/MapStore2/proxy': {
             target: "http://vm-linuxgeofetest.comune.genova.it"
         },
+        '/pdf': {
+            target: "http://vm-linuxgeofetest.comune.genova.it/MapStore2"
+        },
+        '/MapStore2/pdf': {
+            target: "http://vm-linuxgeofetest.comune.genova.it"
+        },
         '/geoserver/': {
             target: "https://mappe.comune.genova.it",
             secure: false,
