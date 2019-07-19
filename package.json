@@ -143,6 +143,7 @@
     "proj4": "https://github.com/geosolutions-it/proj4js/tarball/mapstore2_fixes",
     "prop-types": "15.6.0",
     "qrcode.react": "0.6.1",
+    "quill-image-resize-module": "3.0.0",
     "react": "15.6.2",
     "react-addons-css-transition-group": "15.6.2",
     "react-addons-shallow-compare": "15.6.2",
