@@ -14,19 +14,12 @@
         "visibility": true
       },
       {
-        "type": "google",
-        "title": "Google Satellite",
-        "name": "SATELLITE",
-        "source": "google",
-        "group": "background",
-        "visibility": false
-      },
-      {
         "name":"BASE_CARTOGRAFICA",
-        "title":"BASE_CARTOGRAFICA",
+        "title":"Base Cartografica Comunale",
         "group": "background",
         "type":"wms",
         "url":"/geoserver-test/wms",
+        "thumbURL": "/geoserver-test/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&TRANSPARENT=true&STYLES&LAYERS=BASE_CARTOGRAFICA&SRS=EPSG:3003&WIDTH=600&HEIGHT=301&BBOX=1497725.7662845084,4915082.348986519,1498441.5612306271,4915440.246459578",
         "bbox":
           {
           "crs":"EPSG:4326",
