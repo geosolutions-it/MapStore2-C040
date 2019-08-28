@@ -49,7 +49,8 @@ const config = require('./MapStore2/build/buildConfig')(
     ],
     {
         '@mapstore': path.resolve(__dirname, 'MapStore2/web/client'),
-        '@js': path.resolve(__dirname, 'js')
+        '@js': path.resolve(__dirname, 'js'),
+        react: path.resolve(__dirname, 'node_modules', 'react')
     }
 );
 

@@ -1,6 +1,6 @@
 {
   "name": "MapStore2",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "GeoPortale - Comune di Genova",
   "repository": "git@github.com:geosolutions-it/MapStore2-C040.git",
   "main": "index.js",
