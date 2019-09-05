@@ -1,6 +1,10 @@
 {
     "locale": "en-US",
     "messages": {
+        "login": {
+            "mapstore-credential": "Or login with MapStore credentials",
+            "spid-title": "Login with SPID"
+        },
         "collapse": "Hide full description",
         "expand": "Show full decription",
         "search": {

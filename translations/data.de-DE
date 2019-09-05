@@ -1,6 +1,10 @@
 {
     "locale": "de-DE",
     "messages": {
+        "login": {
+            "mapstore-credential": "Oder melden Sie sich mit Mapstore-Anmeldeinformationen an",
+            "spid-title": "Einloggen mit"
+        },
         "collapse": "Vollständige Beschreibung ausblenden",
         "expand": "Vollständige Beschreibung anzeigen",
         "search": {

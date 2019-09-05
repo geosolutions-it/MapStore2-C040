@@ -47,24 +47,7 @@ class MapViewerPage extends React.Component {
                     require('../../MapStore2/web/client/product/assets/css/mobile.css');
                 }
             }
-
-            // VMap = require('../components/viewer/Map')(this.props.params.mapType);
-            let mapId = (this.props.match.params.mapId === '0') ? null : this.props.match.params.mapId;
-            let config = urlQuery && urlQuery.config || null;
-            // if mapId is a string, is the name of the config to load
-            try {
-                let mapIdNumber = parseInt(mapId, 10);
-                if (isNaN(mapIdNumber)) {
-                    config = mapId;
-                    mapId = null;
-                }
-            } catch(e) {
-                config = mapId;
-                mapId = null;
-            }
-            const {configUrl} = ConfigUtils.getConfigurationOptions({mapId, config});
             this.props.reset();
-            this.props.loadMapConfig(configUrl, mapId);
         }
     }
     render() {
