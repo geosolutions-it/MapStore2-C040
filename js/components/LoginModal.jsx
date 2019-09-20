@@ -8,8 +8,9 @@
 
 const PropTypes = require('prop-types');
 const React = require('react');
+const {Button, Row} = require('react-bootstrap');
+
 const LoginForm = require('@mapstore/components/security/forms/LoginForm');
-const {Button} = require('react-bootstrap');
 const Modal = require('@mapstore/components/misc/Modal');
 const Message = require('@mapstore/components/I18N/Message');
 const LocaleUtils = require('@mapstore/utils/LocaleUtils');
@@ -78,21 +79,6 @@ class LoginModal extends React.Component {
                 onClick={this.loginSubmit}
                 key="submit">{LocaleUtils.getMessageById(this.context.messages, "user.signIn")}
             </Button>
-            <Button
-                ref="submitSpid"
-                value={LocaleUtils.getMessageById(this.context.messages, "user.spidLogin")}
-                bsStyle="primary"
-                bsSize={this.props.buttonSize}
-                className="pull-left"
-                onClick={() => window.location.replace('login')}
-                key="submitSpid">
-                {LocaleUtils.getMessageById(this.context.messages, "user.spidLogin")}
-            </Button>
-            {this.props.includeCloseButton ? <Button
-              key="closeButton"
-              ref="closeButton"
-              bsSize={this.props.buttonSize}
-              onClick={this.props.onClose}><Message msgId="close"/></Button> : <span/>}
         </span>);
     };
 
@@ -102,10 +88,37 @@ class LoginModal extends React.Component {
               <Modal.Title><Message msgId="user.login"/></Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Row className="centered">
+                    <h3>
+                        <Message msgId="login.spid-title"/>
+                    </h3>
+                </Row>
+                <Row className="centered">
+                    <Button
+                        ref="submitSpid"
+                        value={LocaleUtils.getMessageById(this.context.messages, "user.spidLogin")}
+                        bsStyle="primary"
+                        bsSize={this.props.buttonSize}
+                        className="pull-left"
+                        onClick={() => window.location.replace('login')}
+                        key="submitSpid">
+                        {LocaleUtils.getMessageById(this.context.messages, "user.spidLogin")}
+                    </Button>
+                </Row>
+                <Row className="centered">
+                    <div className="login-label-ms">
+                        <h4>
+                            <Message msgId="login.mapstore-credential"/>
+                        </h4>
+                    </div>
+                </Row>
+                <br/>
                 {this.getForm()}
             </Modal.Body>
             <Modal.Footer>
-                {this.getFooter()}
+                <Row className="centered">
+                    {this.getFooter()}
+                </Row>
             </Modal.Footer>
         </Modal>);
     }

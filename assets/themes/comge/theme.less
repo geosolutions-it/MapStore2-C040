@@ -18,3 +18,40 @@
         position: absolute;
     }
 }
+.centered {
+    text-align: center;
+    padding-bottom: 10px;
+    button {
+        text-align: center;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.login-label-ms {
+    position: relative;
+    h4 {
+        &:after, &:before{
+            content: "";
+            display: block;
+            width: 90px;
+            height: 1px;
+            background: #000;
+            margin-left: 15px;
+            margin-right: 15px;
+            top: 50%;
+            position: absolute;
+        }
+        span  {
+            background: #fff;
+        }
+        &:after {
+            right: 0;
+        }
+        &:before {
+            left: 0;
+        }
+}
+
+}

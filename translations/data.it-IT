@@ -1,6 +1,10 @@
 {
     "locale": "it-IT",
     "messages": {
+        "login": {
+            "mapstore-credential": "Oppure accendi con le credenziali MapStore",
+            "spid-title": "Accedi con SPID"
+        },
         "collapse": "Nascondi descrizione completa",
         "expand": "Mostra descrizione completa",
         "search": {
