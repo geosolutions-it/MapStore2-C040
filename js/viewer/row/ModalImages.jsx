@@ -5,48 +5,52 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React, { PropTypes } from 'react';
-const Modal = require('../../../MapStore2/web/client/components/misc/Modal');
-const {Button} = require('react-bootstrap');
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Button} from 'react-bootstrap';
+import Modal from '../../../MapStore2/web/client/components/misc/Modal';
 
-const ModalImages = (props) => {
-    return (
-        <div>
-            <Modal
-                {...props.modalOptions}
-                id="geocollect-images-modal"
-                onHide={() => props.onClickThumbnail(false, "")}
-                show={props.showModal}
-                bsSize="large"
-                style={{overflowY: "auto"}}
-                container={document.getElementById("body")}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{props.title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body >
-                    <div style={{textAlign: "center"}}>
-                        <a target="_blank" href={props.imgSrc}> <img src={props.imgSrc} style={{width: "90%"}}/></a>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button bsSize="small" style={{"float": "right"}} bsStyle="primary" onClick={() => props.onClickThumbnail(false, "")}>{props.closeButtonText}</Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
-    );
-};
+class ModalImages extends React.Component {
+    static propTypes = {
+        title: PropTypes.string.isRequired,
+        modalOptions: PropTypes.object.isRequired,
+        showModal: PropTypes.bool.isRequired,
+        onClickThumbnail: PropTypes.func.isRequired,
+        imgSrc: PropTypes.string.isRequired,
+        closeButtonText: PropTypes.object.isRequired
+    };
 
-ModalImages.propTypes = {
-    title: PropTypes.string.isRequired,
-    modalOptions: PropTypes.object.isRequired,
-    showModal: PropTypes.bool.isRequired,
-    onClickThumbnail: PropTypes.func.isRequired,
-    imgSrc: PropTypes.string.isRequired,
-    closeButtonText: PropTypes.object.isRequired
-};
+    static defaultProps = {
+        modalOptions: {}
+    };
 
-ModalImages.defaultProps = {
-    modalOptions: {}
-};
+    render() {
+        return (
+            <div>
+                <Modal
+                    {...this.props.modalOptions}
+                    id="geocollect-images-modal"
+                    onHide={() => this.props.onClickThumbnail(false, "")}
+                    show={this.props.showModal}
+                    bsSize="large"
+                    style={{overflowY: "auto"}}
+                    container={document.getElementById("body")}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{this.props.title}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body >
+                        <div style={{textAlign: "center"}}>
+                            <a target="_blank" href={this.props.imgSrc}> <img src={this.props.imgSrc} style={{width: "90%"}}/></a>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button bsSize="small" style={{"float": "right"}} bsStyle="primary" onClick={() => this.props.onClickThumbnail(false, "")}>{this.props.closeButtonText}</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        );
+    }
+}
 
-module.exports = ModalImages;
+
+export default ModalImages;

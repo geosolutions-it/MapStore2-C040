@@ -95,11 +95,12 @@ const dataStreamFactory = ($props) =>
                 if (id.split('.')[0] === 'cens_muri_sop') {
                     return oneCall(response, viewerConfig);
                 }
+                return null;
             });
 
 module.exports = compose(
-   withProps( () => ({
-       dataStreamFactory
-   })),
-   propsStreamFactory
+    withProps( () => ({
+        dataStreamFactory
+    })),
+    propsStreamFactory
 );

@@ -6,13 +6,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 var React = require('react');
-const src = require('../../assets/img/logo.jpg');
+const PropTypes = require('prop-types');
 var assign = require('object-assign');
-var Header = React.createClass({
-    propTypes: {
-        style: React.PropTypes.object,
-        className: React.PropTypes.object
-    },
+
+const src = require('../../assets/img/logo.jpg');
+
+class Header extends React.Component {
+    static propTypes = {
+        style: PropTypes.object,
+        className: PropTypes.object
+    }
     render() {
         return (
             <div style={this.props.style} className="mapstore-header">
@@ -20,7 +23,7 @@ var Header = React.createClass({
             </div>
         );
     }
-});
+}
 
 module.exports = {
     HeaderPlugin: assign(Header, {

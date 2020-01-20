@@ -29,64 +29,64 @@ function cantieri(state = {
     areasGrid: {
         rowKey: "name",
         columns: [{
-        key: 'delete',
-        name: 'Elimina',
-        resizable: true
-    }, {
-        key: 'name',
-        name: 'nome area',
-        resizable: true
-    }]},
+            key: 'delete',
+            name: 'Elimina',
+            resizable: true
+        }, {
+            key: 'name',
+            name: 'nome area',
+            resizable: true
+        }]},
     activeGrid: "elementsGrid"
 }, action) {
     switch (action.type) {
-        case INIT_CANTIERI_PLUGIN: {
-            return assign({}, state, action.options );
+    case INIT_CANTIERI_PLUGIN: {
+        return assign({}, state, action.options );
+    }
+    case SET_ACTIVE_GRID: {
+        const activeGrid = action.activeGrid;
+        const otherGrid = activeGrid === "elementsGrid" ? "areasGrid" : "elementsGrid";
+        const newActiveTools = state.toolbar.activeTools.concat(activeGrid).filter(i => i !== otherGrid);
+        const newInactiveTools = state.toolbar.inactiveTools.concat(otherGrid).filter(i => i !== activeGrid);
+        return assign({}, state, { activeGrid: action.activeGrid }, {
+            toolbar: {
+                activeTools: newActiveTools,
+                inactiveTools: newInactiveTools
+            }});
+    }
+    case UPDATE_CHECKED_ELEMENTS: {
+        return assign({}, state, { checkedElements: action.elements});
+    }
+    case SET_ACTIVE_DRAW_TOOL: {
+        const activeDrawTool = action.activeDrawTool;
+        const otherDrawTool = activeDrawTool === "pointSelection" ? "polygonSelection" : "pointSelection";
+        // if a tool is already active disable it
+        let newActiveTools;
+        let newInactiveTools;
+        if (indexOf(state.toolbar.activeTools, activeDrawTool) !== -1) {
+            newActiveTools = state.toolbar.activeTools.filter(i => i !== activeDrawTool);
+            newInactiveTools = state.toolbar.inactiveTools.concat(activeDrawTool);
+        } else {
+            newActiveTools = state.toolbar.activeTools.concat(activeDrawTool).filter(i => i !== otherDrawTool);
+            newInactiveTools = state.toolbar.inactiveTools.concat(otherDrawTool).filter(i => i !== activeDrawTool);
         }
-        case SET_ACTIVE_GRID: {
-            const activeGrid = action.activeGrid;
-            const otherGrid = activeGrid === "elementsGrid" ? "areasGrid" : "elementsGrid";
-            const newActiveTools = state.toolbar.activeTools.concat(activeGrid).filter(i => i !== otherGrid);
-            const newInactiveTools = state.toolbar.inactiveTools.concat(otherGrid).filter(i => i !== activeGrid);
-            return assign({}, state, { activeGrid: action.activeGrid }, {
-                toolbar: {
-                        activeTools: newActiveTools,
-                        inactiveTools: newInactiveTools
-                    }});
-        }
-        case UPDATE_CHECKED_ELEMENTS: {
-            return assign({}, state, { checkedElements: action.elements});
-        }
-        case SET_ACTIVE_DRAW_TOOL: {
-            const activeDrawTool = action.activeDrawTool;
-            const otherDrawTool = activeDrawTool === "pointSelection" ? "polygonSelection" : "pointSelection";
-            // if a tool is already active disable it
-            let newActiveTools;
-            let newInactiveTools;
-            if (indexOf(state.toolbar.activeTools, activeDrawTool) !== -1) {
-                newActiveTools = state.toolbar.activeTools.filter(i => i !== activeDrawTool);
-                newInactiveTools = state.toolbar.inactiveTools.concat(activeDrawTool);
-            } else {
-                newActiveTools = state.toolbar.activeTools.concat(activeDrawTool).filter(i => i !== otherDrawTool);
-                newInactiveTools = state.toolbar.inactiveTools.concat(otherDrawTool).filter(i => i !== activeDrawTool);
-            }
-            return assign({}, state, {
-                toolbar: {
-                        activeTools: newActiveTools,
-                        inactiveTools: newInactiveTools
-                    }});
-        }
-        case MAX_FEATURES_EXCEEDED: {
-            return assign({}, state, {maxFeaturesExceeded: action.status});
-        }
-        case SAVING_DATA: {
-            return assign({}, state, {saving: action.status});
-        }
-        case LOADING_DATA: {
-            return assign({}, state, {loading: action.status});
-        }
-        default:
-            return state;
+        return assign({}, state, {
+            toolbar: {
+                activeTools: newActiveTools,
+                inactiveTools: newInactiveTools
+            }});
+    }
+    case MAX_FEATURES_EXCEEDED: {
+        return assign({}, state, {maxFeaturesExceeded: action.status});
+    }
+    case SAVING_DATA: {
+        return assign({}, state, {saving: action.status});
+    }
+    case LOADING_DATA: {
+        return assign({}, state, {loading: action.status});
+    }
+    default:
+        return state;
     }
 }
 

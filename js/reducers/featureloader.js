@@ -11,16 +11,16 @@ var assign = require('object-assign');
 
 function browser(state = null, action) {
     switch (action.type) {
-        case STARTLOADING: {
-            return assign({}, state,
-                {
-                    layer: action.layer,
-                    cql_filter: action.cql_filter
-                }
-                );
-        }
-        default:
-            return state;
+    case STARTLOADING: {
+        return assign({}, state,
+            {
+                layer: action.layer,
+                cql_filter: action.cql_filter
+            }
+        );
+    }
+    default:
+        return state;
     }
 }
 

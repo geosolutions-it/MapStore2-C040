@@ -8,12 +8,12 @@
 const React = require('react');
 const src = require("../../assets/img/logo.jpg");
 
-const Footer = React.createClass({
+class Footer extends React.Component {
     render() {
         return (
             <div className="ms-footer col-md-12">
-            <div><a target="_blank" href="http://www.comune.genova.it/"> <img src={src} width="140" title="Comune di Genova" alt="Comune di Genova" /></a>
-                <br/><br/></div>
+                <div><a target="_blank" href="http://www.comune.genova.it/"> <img src={src} width="140" title="Comune di Genova" alt="Comune di Genova" /></a>
+                    <br/><br/></div>
                 <a target="_blank" href="http://www.comune.genova.it/content/note-legali-e-privacy">Privacy</a>
                 <br />
                 Comune di Genova  - Palazzo Tursi  -  Via Garibaldi 9  -  16124 Genova  | Centralino 010.557111 <br/>
@@ -21,7 +21,7 @@ const Footer = React.createClass({
             </div>
         );
     }
-});
+}
 
 module.exports = {
     FooterPlugin: Footer

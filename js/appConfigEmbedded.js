@@ -19,7 +19,7 @@ module.exports = {
         name: "viewer",
         path: "/featureviewer/:mapType/:layer/:cql_filter",
         component: require('./pages/FeatureViewer')
-     }, {
+    }, {
         name: "mapviewer",
         path: "/viewer/:mapType/:mapId",
         component: require('./pages/MapViewer')
@@ -27,7 +27,7 @@ module.exports = {
         name: "wmsviewer",
         path: "/wmsfeatureviewer/:mapType/:layer/:cql_filter",
         component: require('./pages/FeatureViewer')
-     }],
+    }],
     pluginsDef: require('./apiPlugins'),
     translations: ["MapStore2/web/client/translations", "translations"],
     initialState: {
@@ -55,17 +55,17 @@ module.exports = {
                     allowedRoles: ["ADMIN"]
                 },
                 RefreshLayers: {
-                   enabled: false,
-                   options: {
-                       bbox: true,
-                       search: true,
-                       title: false,
-                       dimensions: false
-                   }
-               }
+                    enabled: false,
+                    options: {
+                        bbox: true,
+                        search: true,
+                        title: false,
+                        dimensions: false
+                    }
+                }
             },
             "maptype": {
-               "mapType": "openlayers"
+                "mapType": "openlayers"
             },
             mapInfo: {enabled: true, infoFormat: 'text/html' }
         },

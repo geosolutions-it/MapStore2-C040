@@ -8,10 +8,11 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const {Panel, Thumbnail} = require('react-bootstrap');
-const ModalImages = require('./ModalImages');
-const Message = require('../../../MapStore2/web/client/components/I18N/Message');
 const {isObject} = require('lodash');
 const moment = require('moment');
+
+const ModalImages = require('./ModalImages').default;
+const Message = require('../../../MapStore2/web/client/components/I18N/Message');
 
 const defaultThumb = require('./img/default.jpg');
 
@@ -38,19 +39,15 @@ class RecordItem extends React.Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         document.addEventListener('click', this.handleClick, false);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('click', this.handleClick, false);
     }
 
     onClickThumbnail(showModal, thumbSrc) {
         this.setState({
-          modalOptions: {},
-          showModal: showModal,
-          imgSrc: thumbSrc
+            modalOptions: {},
+            showModal: showModal,
+            imgSrc: thumbSrc
         });
     }
 
@@ -94,6 +91,11 @@ class RecordItem extends React.Component {
             </Panel>
         );
     }
+
+    UNSAFE_componentWillUnmount() {
+        document.removeEventListener('click', this.handleClick, false);
+    }
+
 }
 
 module.exports = RecordItem;

@@ -30,14 +30,14 @@ class MapViewer extends React.Component {
         mode: 'featureviewer',
         loadMapConfig: () => {}
     };
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.props.loadMapConfig();
     }
     render() {
         return (<PluginsContainer mode="featureviewer" key="featureviewer" id="featureviewer" className="viewer"
             plugins={this.props.plugins}
             params={this.props.params}
-            />);
+        />);
     }
 }
 

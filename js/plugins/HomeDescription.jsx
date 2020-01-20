@@ -7,14 +7,15 @@
  */
 const React = require('react');
 const HTML = require('../../components/I18N/HTML');
+const PropTypes = require('prop-types');
 
 require('./homedescription/homedescription.css');
+class HomeDescription extends React.Component {
 
-const HomeDescription = React.createClass({
-    propTypes: {
-        style: React.PropTypes.object,
-        className: React.PropTypes.object
-    },
+    static propTypes = {
+        style: PropTypes.object,
+        className: PropTypes.object
+    }
     render() {
         return (
             <div style={this.props.style} className="mapstore-home-description">
@@ -22,7 +23,7 @@ const HomeDescription = React.createClass({
             </div>
         );
     }
-});
+}
 
 module.exports = {
     HomeDescriptionPlugin: HomeDescription

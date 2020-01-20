@@ -177,6 +177,7 @@
         "cfg": {
           "showOptions": false,
           "withToggle": ["max-width: 768px", "min-width: 768px"],
+          "maxResults": 20,
           "searchOptions": {
             "services": [{
               "type": "wfs",
@@ -564,6 +565,7 @@
         "name": "Search",
         "cfg": {
           "showCoordinatesSearchOption": false,
+          "maxResults": 20,
           "searchOptions": {
             "services": [{
               "type": "wfs",
@@ -746,6 +748,7 @@
         "showCoordinatesSearchOption": false,
         "cfg": {
           "withToggle": ["max-width: 768px", "min-width: 768px"],
+          "maxResults": 20,
           "searchOptions": {
           "services": [{
             "type": "wfs",
@@ -1102,6 +1105,7 @@
       "name": "Search",
       "cfg": {
         "showOptions": false,
+        "maxResults": 20,
         "searchOptions": {
           "services": [
                 {

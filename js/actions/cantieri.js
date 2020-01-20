@@ -185,10 +185,10 @@ function maxFeaturesExceeded(status) {
  * @return {action} of type `FETCH_CANTIERI_FEATURES`
  */
 function loadCantieriAreaFeatures() {
-     return {
-         type: FETCH_CANTIERI_FEATURES
-     };
- }
+    return {
+        type: FETCH_CANTIERI_FEATURES
+    };
+}
 
 function dataSaved(checkedElements, idCantiere, typology) {
     return {

@@ -16,7 +16,7 @@ module.exports = {
         CreateNewMapPlugin: require('../MapStore2/web/client/plugins/CreateNewMap'),
         DrawerMenuPlugin: require('../MapStore2/web/client/plugins/DrawerMenu'),
         ExpanderPlugin: require('../MapStore2/web/client/plugins/Expander'),
-        FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid'),
+        // FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid'),
         HelpPlugin: require('../MapStore2/web/client/plugins/Help'),
         HomePlugin: require('../MapStore2/web/client/plugins/Home'),
         IdentifyPlugin: require('../MapStore2/web/client/plugins/Identify'),

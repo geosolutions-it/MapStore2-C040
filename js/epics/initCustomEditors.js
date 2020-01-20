@@ -29,20 +29,20 @@ const editors = {
 module.exports = {
     addCustomEditors: (action$) =>
         action$.ofType(MAP_CONFIG_LOADED)
-        .switchMap(() => {
-            clean();
-            Object.keys(editors).forEach(ed => {
-                register({
-                    name: ed,
-                    editors: editors[ed]
+            .switchMap(() => {
+                clean();
+                Object.keys(editors).forEach(ed => {
+                    register({
+                        name: ed,
+                        editors: editors[ed]
+                    });
                 });
-            });
-            return Rx.Observable.empty();
-        }),
+                return Rx.Observable.empty();
+            }),
     addCustomViewer: (action$) =>
         action$.ofType(MAP_CONFIG_LOADED)
-        .switchMap(() => {
-            MapInfoUtils.setViewer("Geocollect", geocollectViewerEnhancer(GeocollectViewer));
-            return Rx.Observable.empty();
-        })
+            .switchMap(() => {
+                MapInfoUtils.setViewer("Geocollect", geocollectViewerEnhancer(GeocollectViewer));
+                return Rx.Observable.empty();
+            })
 };
