@@ -83,6 +83,50 @@
               "title": "GeoPortale Comune di Genova",
               "autoload": true
             }
+          },
+          "staticServices": {
+            "default_map_backgrounds": {
+              "type": "backgrounds",
+              "title": "defaultMapBackgroundsServiceTitle",
+              "autoload": true,
+              "backgrounds": [{
+                  "type": "osm",
+                  "title": "Open Street Map",
+                  "name": "mapnik",
+                  "source": "osm",
+                  "group": "background"
+              }, {
+                  "type": "tileprovider",
+                  "title": "NASAGIBS Night 2012",
+                  "provider": "NASAGIBS.ViirsEarthAtNight2012",
+                  "name": "Night2012",
+                  "source": "nasagibs",
+                  "group": "background"
+              }, {
+                  "type": "tileprovider",
+                  "title": "OpenTopoMap",
+                  "provider": "OpenTopoMap",
+                  "name": "OpenTopoMap",
+                  "source": "OpenTopoMap",
+                  "group": "background"
+              }, {
+                  "format": "image/jpeg",
+                  "group": "background",
+                  "name": "s2cloudless:s2cloudless",
+                  "opacity": 1,
+                  "title": "Sentinel 2 Cloudless",
+                  "type": "wms",
+                  "url": "https://1maps.geo-solutions.it/geoserver/wms",
+                  "source": "s2cloudless",
+                  "singleTile": false
+              }, {
+                  "source": "ol",
+                  "group": "background",
+                  "title": "Empty Background",
+                  "fixed": true,
+                  "type": "empty"
+              }]
+            }
           }
         }
       },
@@ -101,7 +145,7 @@
     }
   },
    "monitorState": [
-      {"name": "routing", "path": "routing.location.pathname"},
+      {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
       {"name": "featuregridmode", "path": "featuregrid.mode"}],
   "plugins": {
@@ -971,6 +1015,7 @@
       {
         "name": "Maps",
         "cfg": {
+          "showCreateButton": false,
           "mapsOptions": {
             "start": 0,
             "limit": 12
@@ -981,6 +1026,7 @@
       {
         "name": "Dashboards",
         "cfg": {
+          "showCreateButton": false,
           "mapsOptions": {
             "start": 0,
             "limit": 12
@@ -1039,7 +1085,7 @@
           "className": "navbar shadow navbar-home"
         }
       },
-      "ManagerMenu",
+      "BurgerMenu",
       "Login",
       {
         "name": "DashboardEditor",
@@ -1064,6 +1110,8 @@
         }
       },
       "Dashboard",
+      "DashboardSave",
+      "DashboardSaveAs",
       "NavMenu",
       {
         "name": "Tutorial",
