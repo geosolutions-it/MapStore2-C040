@@ -1110,7 +1110,13 @@
           "containerPosition": "columns"
         }
       },
-      "Dashboard",
+      {
+        "name": "Dashboard",
+        "cfg": {
+          "cols": { "lg": 12, "md": 12, "sm": 8, "xs": 4, "xxs": 2 },
+          "rowHeight": 104
+        }
+      },
       "DashboardSave",
       "DashboardSaveAs",
       "NavMenu",
@@ -1211,6 +1217,11 @@
             }
           }
         },
-         "BackgroundSelector"]
+        {
+          "name": "BackgroundSelector",
+          "cfg": {
+            "mapIsEditable": false
+          }
+        }]
   }
 }
