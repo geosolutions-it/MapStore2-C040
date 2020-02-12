@@ -225,7 +225,7 @@
           "searchOptions": {
             "services": [{
               "type": "wfs",
-              "priority": 6,
+              "priority": 3,
               "displayName": "${properties.NOMEVIA}",
               "subTitle": " (seleziona per cercare numero civico)",
               "options": {
@@ -613,7 +613,7 @@
           "searchOptions": {
             "services": [{
               "type": "wfs",
-              "priority": 6,
+              "priority": 3,
               "displayName": "${properties.NOMEVIA}",
               "subTitle": " (seleziona per cercare numero civico)",
               "options": {
@@ -796,7 +796,7 @@
           "searchOptions": {
           "services": [{
             "type": "wfs",
-            "priority": 6,
+            "priority": 3,
             "displayName": "${properties.NOMEVIA}",
             "subTitle": " (seleziona per cercare numero civico)",
             "options": {
@@ -1165,7 +1165,7 @@
           "services": [
                 {
                   "type": "wfs",
-                  "priority": 6,
+                  "priority": 3,
                   "displayName": "${properties.NOMEVIA}",
                   "subTitle": " (seleziona per cercare numero civico)",
                   "options": {
