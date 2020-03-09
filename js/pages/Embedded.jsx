@@ -23,7 +23,7 @@ class MapViewerPage extends React.Component {
         return (<MapViewer
             {...this.props}
             mode="embedded"
-            />);
+        />);
     }
 }
 

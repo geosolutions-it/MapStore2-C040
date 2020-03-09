@@ -84,6 +84,50 @@
               "title": "GeoPortale Comune di Genova",
               "autoload": true
             }
+          },
+          "staticServices": {
+            "default_map_backgrounds": {
+              "type": "backgrounds",
+              "title": "defaultMapBackgroundsServiceTitle",
+              "autoload": true,
+              "backgrounds": [{
+                  "type": "osm",
+                  "title": "Open Street Map",
+                  "name": "mapnik",
+                  "source": "osm",
+                  "group": "background"
+              }, {
+                  "type": "tileprovider",
+                  "title": "NASAGIBS Night 2012",
+                  "provider": "NASAGIBS.ViirsEarthAtNight2012",
+                  "name": "Night2012",
+                  "source": "nasagibs",
+                  "group": "background"
+              }, {
+                  "type": "tileprovider",
+                  "title": "OpenTopoMap",
+                  "provider": "OpenTopoMap",
+                  "name": "OpenTopoMap",
+                  "source": "OpenTopoMap",
+                  "group": "background"
+              }, {
+                  "format": "image/jpeg",
+                  "group": "background",
+                  "name": "s2cloudless:s2cloudless",
+                  "opacity": 1,
+                  "title": "Sentinel 2 Cloudless",
+                  "type": "wms",
+                  "url": "https://1maps.geo-solutions.it/geoserver/wms",
+                  "source": "s2cloudless",
+                  "singleTile": false
+              }, {
+                  "source": "ol",
+                  "group": "background",
+                  "title": "Empty Background",
+                  "fixed": true,
+                  "type": "empty"
+              }]
+            }
           }
         }
       },
@@ -102,7 +146,7 @@
     }
   },
    "monitorState": [
-      {"name": "routing", "path": "routing.location.pathname"},
+      {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
       {"name": "featuregridmode", "path": "featuregrid.mode"}],
   "plugins": {
@@ -178,10 +222,11 @@
         "cfg": {
           "showOptions": false,
           "withToggle": ["max-width: 768px", "min-width: 768px"],
+          "maxResults": 20,
           "searchOptions": {
             "services": [{
               "type": "wfs",
-              "priority": 6,
+              "priority": 3,
               "displayName": "${properties.NOMEVIA}",
               "subTitle": " (seleziona per cercare numero civico)",
               "options": {
@@ -582,10 +627,11 @@
         "name": "Search",
         "cfg": {
           "showCoordinatesSearchOption": false,
+          "maxResults": 20,
           "searchOptions": {
             "services": [{
               "type": "wfs",
-              "priority": 6,
+              "priority": 3,
               "displayName": "${properties.NOMEVIA}",
               "subTitle": " (seleziona per cercare numero civico)",
               "options": {
@@ -764,6 +810,7 @@
         "showCoordinatesSearchOption": false,
         "cfg": {
           "withToggle": ["max-width: 768px", "min-width: 768px"],
+          "maxResults": 20,
           "searchOptions": {
             "services": [{
               "type": "wfs",
@@ -977,6 +1024,7 @@
       {
         "name": "CreateNewMap",
         "cfg": {
+          "showNewGeostory": false,
           "allowedRoles": ["ADMIN"]
         }
       },
@@ -986,6 +1034,7 @@
       {
         "name": "Maps",
         "cfg": {
+          "showCreateButton": false,
           "mapsOptions": {
             "start": 0,
             "limit": 12
@@ -996,6 +1045,7 @@
       {
         "name": "Dashboards",
         "cfg": {
+          "showCreateButton": false,
           "mapsOptions": {
             "start": 0,
             "limit": 12
@@ -1054,7 +1104,7 @@
           "className": "navbar shadow navbar-home"
         }
       },
-      "ManagerMenu",
+      "BurgerMenu",
       "Login",
       {
         "name": "DashboardEditor",
@@ -1078,7 +1128,15 @@
           "containerPosition": "columns"
         }
       },
-      "Dashboard",
+      {
+        "name": "Dashboard",
+        "cfg": {
+          "cols": { "lg": 12, "md": 12, "sm": 8, "xs": 4, "xxs": 2 },
+          "rowHeight": 104
+        }
+      },
+      "DashboardSave",
+      "DashboardSaveAs",
       "NavMenu",
       {
         "name": "Tutorial",
@@ -1120,11 +1178,12 @@
       "name": "Search",
       "cfg": {
         "showOptions": false,
+        "maxResults": 20,
         "searchOptions": {
           "services": [
                 {
                   "type": "wfs",
-                  "priority": 6,
+                  "priority": 3,
                   "displayName": "${properties.NOMEVIA}",
                   "subTitle": " (seleziona per cercare numero civico)",
                   "options": {
@@ -1176,6 +1235,11 @@
             }
           }
         },
-         "BackgroundSelector"]
+        {
+          "name": "BackgroundSelector",
+          "cfg": {
+            "mapIsEditable": false
+          }
+        }]
   }
 }

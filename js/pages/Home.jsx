@@ -10,6 +10,8 @@ const PropTypes = require('prop-types');
 const {connect} = require('react-redux');
 const Page = require('../../MapStore2/web/client/containers/Page');
 const {resetControls} = require('../../MapStore2/web/client/actions/controls');
+const {loadMaps} = require('../../MapStore2/web/client/actions/maps');
+const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
 
 require('../../assets/css/custom.css');
 
@@ -35,33 +37,29 @@ class Home extends React.Component {
         reset: () => {},
         pluginsConfig: {}
     }
-    componentDidMount() {
+    UNSAFE_componentWillMount() {
         this.props.reset();
-        this.props.loadMaps(this.props.geoStoreUrl);
     }
-    componentWillReceiveProps(nextProps) {
-        if (this.props.geoStoreUrl !== nextProps.geoStoreUrl) {
-            this.props.loadMaps(nextProps.geoStoreUrl);
-        }
-    }
+
     render() {
         let plugins = this.props.pluginsConfig;
         let pagePlugins = {
-            "desktop": plugins.common || [],// TODO mesh page plugins with other plugins
+            "desktop": plugins.common || [], // TODO mesh page plugins with other plugins
             "mobile": plugins.common || []
         };
         let pluginsConfig = {
-            "desktop": plugins[this.props.name] || [],// TODO mesh page plugins with other plugins
+            "desktop": plugins[this.props.name] || [], // TODO mesh page plugins with other plugins
             "mobile": plugins[this.props.name] || []
         };
 
         return (<Page
             id="maps"
+            onMount={this.props.loadMaps}
             pagePluginsConfig={pagePlugins}
             pluginsConfig={pluginsConfig}
             plugins={this.props.plugins}
             params={this.props.match.params}
-            />);
+        />);
     }
 }
 
@@ -72,5 +70,9 @@ module.exports = connect((state) => {
         pluginsConfig: (state.localConfig && state.localConfig.plugins) || null
     };
 }, {
+    loadMaps: () => loadMaps(
+        ConfigUtils.getDefaults().geoStoreUrl,
+        ConfigUtils.getDefaults().initialMapFilter || "*"
+    ),
     reset: resetControls
 })(Home);

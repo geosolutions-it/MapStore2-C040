@@ -16,7 +16,7 @@ const pages = [{
     name: "viewer",
     path: "/featureviewer/:mapType/:layer/:cql_filter",
     component: require('./pages/FeatureViewer')
- }, {
+}, {
     name: "mapviewer",
     path: "/viewer/:mapType/:mapId",
     component: require('./pages/MapViewer')

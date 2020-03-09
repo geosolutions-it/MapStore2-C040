@@ -43,9 +43,9 @@ const getWFSFeature = (searchUrl, filterObj) => {
     const data = FilterUtils.getWFSFilterData(filterObj);
     return Rx.Observable.defer( () =>
         axios.post(searchUrl + '?service=WFS&outputFormat=json&request=getFeature', data, {
-          timeout: 10000,
-          headers: {'Accept': 'application/json', 'Content-Type': 'application/xml'}
-     }));
+            timeout: 10000,
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/xml'}
+        }));
 };
 
 const prepareDataToSave = (elements, id) => {
@@ -130,23 +130,23 @@ module.exports = {
     initLavoriPubbliciPlugin: ( action$, store ) =>
         action$.ofType(MAP_CONFIG_LOADED)
         // .filter(() => routingSelector(store.getState()).indexOf("llpp") !== -1)
-        .switchMap( () => {
-            const cantieriState = store.getState().cantieri;
-            return Rx.Observable.fromPromise(axios.get(getRestUrl(serviceRESTUrlSelector(store.getState()), "get", cantieriState.id), null, {
-                timeout: 60000,
-                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-            }).then(r => {
-                return r && r.data && r.data.ELEMENTS && r.data.ELEMENTS.length ? r.data.ELEMENTS : [];
-            }))
-            .switchMap((elements) => {
+            .switchMap( () => {
+                const cantieriState = store.getState().cantieri;
+                return Rx.Observable.fromPromise(axios.get(getRestUrl(serviceRESTUrlSelector(store.getState()), "get", cantieriState.id), null, {
+                    timeout: 60000,
+                    headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+                }).then(r => {
+                    return r && r.data && r.data.ELEMENTS && r.data.ELEMENTS.length ? r.data.ELEMENTS : [];
+                }))
+                    .switchMap((elements) => {
+                        return Rx.Observable.of(
+                            updateCheckedElements(elements)
+                        );
+                    });
+            }).catch( () => {
                 return Rx.Observable.of(
-                    updateCheckedElements(elements)
-                );
-            });
-        }).catch( () => {
-            return Rx.Observable.of(
-                updateCheckedElements([]), changeMousePositionState(false));
-        }),
+                    updateCheckedElements([]), changeMousePositionState(false));
+            }),
     updateCantieriByClick: ( action$, store ) =>
         action$.ofType(CLICK_ON_MAP)
             .filter(() => isActiveTool("pointSelection", store))
@@ -157,7 +157,7 @@ module.exports = {
                 };
                 const cantieriState = store.getState().cantieri;
                 return getWFSFeature(cantieriState.geoserverUrl, getSpatialFilter(geometry, {
-                "featureTypeName": cantieriState.elementsLayerName}))
+                    "featureTypeName": cantieriState.elementsLayerName}))
                     .switchMap((response) => {
                         if (response.data && response.data.features) {
                             const elementsLayer = getElementsLayer(store);
@@ -184,7 +184,7 @@ module.exports = {
                                 return replaceFeatures(elementsFeatures.concat(
                                     [featureByClick].map(checkFeature)
                                 ), elementsLayer)
-                                .concat( addFeatureToAreaLayer(areasFeatureByClick, areasLayer) );
+                                    .concat( addFeatureToAreaLayer(areasFeatureByClick, areasLayer) );
                             }
                             if (elementsLayer !== undefined && response.data.features.length === 0) {
                                 return Rx.Observable.of(infoNoFeaturesSelected());
@@ -212,85 +212,85 @@ module.exports = {
             }),
     updateCantieriAreaLayer: ( action$, store ) =>
         action$.ofType(END_DRAWING)
-        .filter((action) => action.owner === "LavoriPubblici")
-        .switchMap( (action) => {
-            let cantieriState = store.getState().cantieri;
-            let areasLayer = getAreasLayer(store);
-            let feature = {
-                type: "Feature",
-                geometry: {
-                    coordinates: [action.geometry.coordinates],
-                    type: "MultiPolygon"
-                },
-                id: "area_0",
-                geometry_name: cantieriState.geometry_name,
-                properties: {
-                    "ID_ELEMENTO": areaCount++,
-                    "ID_CANTIERE": cantieriState.id,
-                    "TIPOLOGIA": cantieriState.typology
-                },
-                index: 0
-            };
-            const options = {
-                pagination: {
-                    maxFeatures: cantieriState.maxFeatures
-                },
-                "featureTypeName": cantieriState.elementsLayerName
-            };
-            const f4326 = reprojectGeoJson(feature, store.getState().map.present.projection, "EPSG:4326");
-            const f = getSpatialFilter(f4326.geometry, options, "WITHIN");
-            if (areasLayer !== undefined) {
-                return addFeatureToAreaLayer(feature, areasLayer).concat(Rx.Observable.of(queryElements(f, true)));
-            }
+            .filter((action) => action.owner === "LavoriPubblici")
+            .switchMap( (action) => {
+                let cantieriState = store.getState().cantieri;
+                let areasLayer = getAreasLayer(store);
+                let feature = {
+                    type: "Feature",
+                    geometry: {
+                        coordinates: [action.geometry.coordinates],
+                        type: "MultiPolygon"
+                    },
+                    id: "area_0",
+                    geometry_name: cantieriState.geometry_name,
+                    properties: {
+                        "ID_ELEMENTO": areaCount++,
+                        "ID_CANTIERE": cantieriState.id,
+                        "TIPOLOGIA": cantieriState.typology
+                    },
+                    index: 0
+                };
+                const options = {
+                    pagination: {
+                        maxFeatures: cantieriState.maxFeatures
+                    },
+                    "featureTypeName": cantieriState.elementsLayerName
+                };
+                const f4326 = reprojectGeoJson(feature, store.getState().map.present.projection, "EPSG:4326");
+                const f = getSpatialFilter(f4326.geometry, options, "WITHIN");
+                if (areasLayer !== undefined) {
+                    return addFeatureToAreaLayer(feature, areasLayer).concat(Rx.Observable.of(queryElements(f, true)));
+                }
 
-            return Rx.Observable.of(errorDrawingAreas());
-        }),
+                return Rx.Observable.of(errorDrawingAreas());
+            }),
     deleteCantieriAreaFeature: ( action$, store ) =>
         action$.ofType(REMOVE_CANTIERI_AREA)
-        .switchMap( (action) => {
-            let areasLayer = getAreasLayer(store);
-            if (areasLayer !== undefined) {
-                return removeFeature(action.area, areasLayer);
-            }
-            return Rx.Observable.of(errorRemoveFeature());
-        }),
+            .switchMap( (action) => {
+                let areasLayer = getAreasLayer(store);
+                if (areasLayer !== undefined) {
+                    return removeFeature(action.area, areasLayer);
+                }
+                return Rx.Observable.of(errorRemoveFeature());
+            }),
     resetCantieriFeatures: ( action$, store ) =>
         action$.ofType(RESET_CANTIERI_FEATURES)
-        .switchMap( () => {
-            let areasLayer = getAreasLayer(store);
-            let elementsLayer = getAreasLayer(store);
-            if (areasLayer !== undefined && elementsLayer !== undefined) {
-                return clearAllFeatures();
-            }
-            return Rx.Observable.of(errorResetCantieriFeatures());
-        }),
+            .switchMap( () => {
+                let areasLayer = getAreasLayer(store);
+                let elementsLayer = getAreasLayer(store);
+                if (areasLayer !== undefined && elementsLayer !== undefined) {
+                    return clearAllFeatures();
+                }
+                return Rx.Observable.of(errorResetCantieriFeatures());
+            }),
     updateCantieriElementsFeatures: ( action$, store ) =>
         action$.ofType(QUERY_ELEMENTS_FEATURES)
-        .switchMap( (action) => {
-            let elementsLayer = getElementsLayer(store);
-            let areasLayer = getAreasLayer(store);
-            if (elementsLayer !== undefined && areasLayer !== undefined) {
-                return getWFSFeature(store.getState().cantieri.geoserverUrl, action.filter)
-                .switchMap((response) => {
-                    if (response.data && response.data.features && response.data.features.length > 0) {
-                        let newFeatures = response.data.features.map(f => {
-                            return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
-                        }).filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
-                        return addFeaturesToElementLayer(
-                            elementsLayer,
-                            areasLayer,
-                            newFeatures.map(checkFeature),
-                            response.data.totalFeatures,
-                            store.getState().cantieri.maxFeatures,
-                            action.check);
-                    }
-                    return showQueryElementsError();
-                }).catch( () => {
-                    return showTimeoutError();
-                });
-            }
-            return showQueryElementsError();
-        }),
+            .switchMap( (action) => {
+                let elementsLayer = getElementsLayer(store);
+                let areasLayer = getAreasLayer(store);
+                if (elementsLayer !== undefined && areasLayer !== undefined) {
+                    return getWFSFeature(store.getState().cantieri.geoserverUrl, action.filter)
+                        .switchMap((response) => {
+                            if (response.data && response.data.features && response.data.features.length > 0) {
+                                let newFeatures = response.data.features.map(f => {
+                                    return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
+                                }).filter(f => elementsLayer.features.findIndex(f2 => isSameFeature(f, f2)) < 0);
+                                return addFeaturesToElementLayer(
+                                    elementsLayer,
+                                    areasLayer,
+                                    newFeatures.map(checkFeature),
+                                    response.data.totalFeatures,
+                                    store.getState().cantieri.maxFeatures,
+                                    action.check);
+                            }
+                            return showQueryElementsError();
+                        }).catch( () => {
+                            return showTimeoutError();
+                        });
+                }
+                return showQueryElementsError();
+            }),
     fetchCantieriAreaFeatures: ( action$, store ) =>
         action$.ofType(UPDATE_CHECKED_ELEMENTS)
             .switchMap( () => {
@@ -313,33 +313,34 @@ module.exports = {
                             headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
                         }).then(r => r.data.features))
                 ) // forkJoin
-                .concatMap(([areas, elements]) => {
-                    if (areas.length === 0) {
-                        const checkedElements = elements.map(checkFeature).map(f => {
-                            return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
-                        });
-                        return createAndAddLayers([], store, checkedElements);
-                    }
-                    // get elements for the areas received
-                    return getWFSFeature(store.getState().cantieri.geoserverUrl,
-                    getSpatialFilter(reprojectGeoJson(getAreasGeometry(areas), store.getState().map.present.projection), {"featureTypeName": store.getState().cantieri.elementsLayerName}, "WITHIN"), false)
-                    .map((response) => {
-                        if (response.data && response.data.features) {
-                            let newFeatures = response.data.features.filter(f => elements.findIndex(f2 => isSameFeature(f, f2)) < 0 )
-                            .map( f => uncheckFeature(f))
-                            .concat(elements.map(checkFeature))
-                            .map(f => {
+                    .concatMap(([areas, elements]) => {
+                        if (areas.length === 0) {
+                            const checkedElements = elements.map(checkFeature).map(f => {
                                 return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
                             });
-                            return [areas, newFeatures];
+                            return createAndAddLayers([], store, checkedElements);
                         }
-                    }).concatMap((res) => createAndAddLayers(res[0], store, res[1]));
-                })
-                .startWith(loadingData(true))
-                .catch( () => {
-                    return createAndAddLayers([], store, []).concat(Rx.Observable.of(errorLoadCantieriAreas()));
-                })
-                .concat([loadingData(false)]);
+                        // get elements for the areas received
+                        return getWFSFeature(store.getState().cantieri.geoserverUrl,
+                            getSpatialFilter(reprojectGeoJson(getAreasGeometry(areas), store.getState().map.present.projection), {"featureTypeName": store.getState().cantieri.elementsLayerName}, "WITHIN"), false)
+                            .map((response) => {
+                                if (response.data && response.data.features) {
+                                    let newFeatures = response.data.features.filter(f => elements.findIndex(f2 => isSameFeature(f, f2)) < 0 )
+                                        .map( f => uncheckFeature(f))
+                                        .concat(elements.map(checkFeature))
+                                        .map(f => {
+                                            return reprojectGeoJson(f, "EPSG:4326", store.getState().map.present.projection);
+                                        });
+                                    return [areas, newFeatures];
+                                }
+                                return [];
+                            }).concatMap((res) => createAndAddLayers(res[0], store, res[1]));
+                    })
+                    .startWith(loadingData(true))
+                    .catch( () => {
+                        return createAndAddLayers([], store, []).concat(Rx.Observable.of(errorLoadCantieriAreas()));
+                    })
+                    .concat([loadingData(false)]);
             }),
     updateCantieriElementsStyle: ( action$, store ) =>
         action$.ofType(ROWS_SELECTED, ROWS_DESELECTED).switchMap( action => {
@@ -361,48 +362,47 @@ module.exports = {
                 return Rx.Observable.of(changeLayerProperties(layer.id, {features}));
             }
         }),
-        saveCantieriAreas: (action$, store) =>
-            action$.ofType(SAVE_CANTIERI_DATA)
+    saveCantieriAreas: (action$, store) =>
+        action$.ofType(SAVE_CANTIERI_DATA)
             .throttleTime(2000)
             .switchMap( () => {
                 const cantierState = store.getState().cantieri;
                 return Rx.Observable.defer( () => describeFeatureType(cantierState.geoserverUrl, getAreasLayer(store).name ) )
-                .switchMap(describe => {
-                    const {insert, deleteByFilter} = transactionRequestBuilder(describe);
-                    return Rx.Observable.fromPromise(transaction(cantierState.geoserverUrl,
-                        [
-                            // SOME PROBLEM ON SERVER SIDE DO NOT ALLOW TO SAVE
-                            deleteByFilter(
+                    .switchMap(describe => {
+                        const {insert, deleteByFilter} = transactionRequestBuilder(describe);
+                        return Rx.Observable.fromPromise(transaction(cantierState.geoserverUrl,
+                            [
+                                // SOME PROBLEM ON SERVER SIDE DO NOT ALLOW TO SAVE
+                                deleteByFilter(
                                     filter(and(property("ID_CANTIERE").equalTo(cantierState.id), property("TIPOLOGIA").equalTo(cantierState.typology))),
-                            ),
-                            insert(reprojectGeoJson({type: "FeatureCollection", features: getAreasLayer(store).features}, store.getState().map.present.projection, "EPSG:4326"))
-                        ],
-                        describe
-                    )).switchMap(() =>
-                        Rx.Observable.fromPromise(axios.post(getRestUrl(serviceRESTUrlSelector(store.getState()), "post", null),
-                            prepareDataToSave(getCheckedElementsFromLayer(getElementsLayer(store)), store.getState().cantieri.id), {
-                                timeout: 60000,
-                                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-                            }).then(r => {
+                                ),
+                                insert(reprojectGeoJson({type: "FeatureCollection", features: getAreasLayer(store).features}, store.getState().map.present.projection, "EPSG:4326"))
+                            ],
+                            describe
+                        )).switchMap(() =>
+                            Rx.Observable.fromPromise(axios.post(getRestUrl(serviceRESTUrlSelector(store.getState()), "post", null),
+                                prepareDataToSave(getCheckedElementsFromLayer(getElementsLayer(store)), store.getState().cantieri.id), {
+                                    timeout: 60000,
+                                    headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+                                }).then(r => {
                                 if (r.data.STATO) {
                                     return r.data;
                                 }
                                 return null;
                             }))
-                            .switchMap((data) => {
-                                if (data) {
-                                    return Rx.Observable.from([
-                                        dataSaved(getCheckedElementsFromLayer(getElementsLayer(store)), cantierState.id, cantierState.typology ),
-                                        successSavingData()]
-                                    );
+                                .switchMap((data) => {
+                                    if (data) {
+                                        return Rx.Observable.from([
+                                            dataSaved(getCheckedElementsFromLayer(getElementsLayer(store)), cantierState.id, cantierState.typology ),
+                                            successSavingData()]
+                                        );
+                                    }
+                                    return Rx.Observable.of(errorSavingElements(data && data.MESSAGGIO || "Non è stato possibile salvare gli elementi"));
                                 }
-                                return Rx.Observable.of(errorSavingElements(data && data.MESSAGGIO || "Non è stato possibile salvare gli elementi"));
-                            }
-                        ));
-                })
-                .startWith(savingData(true))
-                .catch( () => Rx.Observable.of(errorSavingData()))
-                .concat([savingData(false)]);
-            }
-        )
+                                ));
+                    })
+                    .startWith(savingData(true))
+                    .catch( () => Rx.Observable.of(errorSavingData()))
+                    .concat([savingData(false)]);
+            })
 };

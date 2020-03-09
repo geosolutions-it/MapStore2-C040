@@ -17,6 +17,11 @@
  */
 .ql-editor {
     font-family: easyreading, 'Raleway', sans-serif;
+    p {
+        line-height: 1.58;
+        // this line height was causing issue #272,
+        // it was adding a scrollbar when the font is EasyReading
+    }
 }
 /** for the whole site
 @font-family-base: easyreading, 'Raleway', sans-serif;

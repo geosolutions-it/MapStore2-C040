@@ -44,17 +44,17 @@ module.exports = {
                     allowedRoles: ["ADMIN"]
                 },
                 RefreshLayers: {
-                   enabled: false,
-                   options: {
-                       bbox: true,
-                       search: true,
-                       title: false,
-                       dimensions: false
-                   }
-               }
+                    enabled: false,
+                    options: {
+                        bbox: true,
+                        search: true,
+                        title: false,
+                        dimensions: false
+                    }
+                }
             },
             "maptype": {
-               "mapType": "openlayers"
+                "mapType": "openlayers"
             },
             mapInfo: {enabled: true, infoFormat: 'text/html' }
         },

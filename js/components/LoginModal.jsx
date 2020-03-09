@@ -65,7 +65,7 @@ class LoginModal extends React.Component {
             onLoginSuccess={this.props.onLoginSuccess}
             onSubmit={this.props.onSubmit}
             onError={this.props.onError}
-      />);
+        />);
     };
 
     getFooter = () => {
@@ -85,7 +85,7 @@ class LoginModal extends React.Component {
     render() {
         return (<Modal {...this.props.options} show={this.props.show} onHide={this.props.onClose}>
             <Modal.Header key="passwordChange" closeButton>
-              <Modal.Title><Message msgId="user.login"/></Modal.Title>
+                <Modal.Title><Message msgId="user.login"/></Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row className="centered">

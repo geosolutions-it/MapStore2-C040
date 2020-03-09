@@ -7,13 +7,13 @@
 */
 
 const rows = [{
-        rowIdx: 0,
-        row: {
-            id: 26185,
-            name: 'EDIFICI',
-            key: 'EDIFICI.26185'
-       }
+    rowIdx: 0,
+    row: {
+        id: 26185,
+        name: 'EDIFICI',
+        key: 'EDIFICI.26185'
     }
+}
 ];
 const expect = require('expect');
 const {

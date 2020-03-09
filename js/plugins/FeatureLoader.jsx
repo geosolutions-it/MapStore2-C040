@@ -7,11 +7,11 @@
  */
 const React = require('react');
 
-const FeatureLoader = React.createClass({
+class FeatureLoader extends React.Component {
     render() {
         return <noscript></noscript>;
     }
-});
+}
 
 module.exports = {
     FeatureLoaderPlugin: FeatureLoader

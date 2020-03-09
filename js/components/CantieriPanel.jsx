@@ -175,17 +175,17 @@ class CantieriPanel extends React.Component {
         </div>);
         const Container = this.props.useDock ? Dock : StyledDiv;
         return (<Container
-                    {...this.props}
-                    toolbar={toolbar}
-                    id="CantieriDockablePanel"
-                    style={ this.props.useDock ? null : this.getStyle(this.props.position)}
-                >
-                <div style="width:100%;position: absolute;z-index: 1000;height:100%;background-color: rgba(255, 255, 255, 0.56);">
-                    <Spinner spinnerName="circle" overrideSpinnerClassName="spinner"/>
-                    <Message msgId="uploader.uploadingFiles"/>
-                </div>
+            {...this.props}
+            toolbar={toolbar}
+            id="CantieriDockablePanel"
+            style={ this.props.useDock ? null : this.getStyle(this.props.position)}
+        >
+            <div style="width:100%;position: absolute;z-index: 1000;height:100%;background-color: rgba(255, 255, 255, 0.56);">
+                <Spinner spinnerName="circle" overrideSpinnerClassName="spinner"/>
+                <Message msgId="uploader.uploadingFiles"/>
+            </div>
         </Container>
-    );
+        );
     }
     isToolActive = (tool) => {
         return indexOf(this.props.toolbar.activeTools, tool) !== -1;

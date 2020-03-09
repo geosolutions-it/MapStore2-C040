@@ -16,121 +16,121 @@ const restUrl = "http://fetchUrl/rest";
 const idElementLayer = "CANTIERI::ELEMENTS_LAYER";
 const idAreaLayer = "CANTIERI::AREAS_LAYER";
 const elementLayer = {
-  group: 'Cantiere',
-  name: 'cantiere_elements',
-  id: idElementLayer,
-  title: 'Elementi Selezionati',
-  type: 'vector',
-  features: [],
-  visibility: true,
-  crs: 'EPSG:900913',
-  featuresCrs: 'EPSG:900913',
-  style: {
-    type: 'MultiPolygon',
-    stroke: {
-      color: 'red',
-      width: 1
-    },
-    fill: {
-      color: [
-        100,
-        100,
-        100,
-        0.1
-      ]
+    group: 'Cantiere',
+    name: 'cantiere_elements',
+    id: idElementLayer,
+    title: 'Elementi Selezionati',
+    type: 'vector',
+    features: [],
+    visibility: true,
+    crs: 'EPSG:900913',
+    featuresCrs: 'EPSG:900913',
+    style: {
+        type: 'MultiPolygon',
+        stroke: {
+            color: 'red',
+            width: 1
+        },
+        fill: {
+            color: [
+                100,
+                100,
+                100,
+                0.1
+            ]
+        }
     }
-  }
 };
 const state = {
     layers: {
         flat: [
             {
-              type: 'osm',
-              title: 'Open Street Map',
-              name: 'mapnik',
-              source: 'osm',
-              group: 'background',
-              visibility: false,
-              id: 'mapnik__0'
+                type: 'osm',
+                title: 'Open Street Map',
+                name: 'mapnik',
+                source: 'osm',
+                group: 'background',
+                visibility: false,
+                id: 'mapnik__0'
             },
             {
-              url: '/geoserver-test/ows',
-              type: 'wms',
-              format: 'image/png8',
-              name: 'CORSO_1:V_ELEMENTI_CANTIERI',
-              title: 'Elementi Esistenti',
-              group: 'Cantiere',
-              visibility: true,
-              id: 'CORSO_1:V_ELEMENTI_CANTIERI__1',
-              loading: false,
-              loadingError: false
+                url: '/geoserver-test/ows',
+                type: 'wms',
+                format: 'image/png8',
+                name: 'CORSO_1:V_ELEMENTI_CANTIERI',
+                title: 'Elementi Esistenti',
+                group: 'Cantiere',
+                visibility: true,
+                id: 'CORSO_1:V_ELEMENTI_CANTIERI__1',
+                loading: false,
+                loadingError: false
             },
             elementLayer,
             {
-              group: 'Cantiere',
-              name: 'CORSO_1:AREE_CANTIERE',
-              id: idAreaLayer,
-              title: 'Aree',
-              type: 'vector',
-              features: [],
-              visibility: true,
-              crs: 'EPSG:900913',
-              featuresCrs: 'EPSG:900913',
-              style: {
-                type: 'MultiPolygon',
-                stroke: {
-                  color: 'blue',
-                  width: 3
-                },
-                fill: {
-                  color: [
-                    0,
-                    0,
-                    0,
-                    0
-                  ]
+                group: 'Cantiere',
+                name: 'CORSO_1:AREE_CANTIERE',
+                id: idAreaLayer,
+                title: 'Aree',
+                type: 'vector',
+                features: [],
+                visibility: true,
+                crs: 'EPSG:900913',
+                featuresCrs: 'EPSG:900913',
+                style: {
+                    type: 'MultiPolygon',
+                    stroke: {
+                        color: 'blue',
+                        width: 3
+                    },
+                    fill: {
+                        color: [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
                 }
-              }
             }
-          ]
-        },
-      cantieri: {
+        ]
+    },
+    cantieri: {
         elementsGrid: {
-          rowKey: 'id',
-          columns: [
-            {
-              key: 'id',
-              name: 'ID',
-              resizable: true
-            },
-            {
-              key: 'name',
-              name: 'Nome Livello',
-              resizable: true
+            rowKey: 'id',
+            columns: [
+                {
+                    key: 'id',
+                    name: 'ID',
+                    resizable: true
+                },
+                {
+                    key: 'name',
+                    name: 'Nome Livello',
+                    resizable: true
+                }
+            ],
+            selectBy: {
+                isSelectedKey: 'checked'
             }
-          ],
-          selectBy: {
-            isSelectedKey: 'checked'
-          }
         },
         areasGrid: {
-          rowKey: 'name',
-          columns: [
-            {
-              key: 'delete',
-              name: 'Elimina',
-              resizable: true
-            },
-            {
-              key: 'name',
-              name: 'nome area',
-              resizable: true
-            }
-          ]
+            rowKey: 'name',
+            columns: [
+                {
+                    key: 'delete',
+                    name: 'Elimina',
+                    resizable: true
+                },
+                {
+                    key: 'name',
+                    name: 'nome area',
+                    resizable: true
+                }
+            ]
         },
         activeGrid: 'elementsGrid',
         serviceRESTUrl: restUrl
-      }
+    }
 };
 describe('Testing the cantieri selectors', () => {
 

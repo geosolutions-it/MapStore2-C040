@@ -1,4 +1,3 @@
-const PropTypes = require('prop-types');
 /**
  * Copyright 2015, GeoSolutions Sas.
  * All rights reserved.
@@ -8,6 +7,7 @@ const PropTypes = require('prop-types');
  */
 
 const React = require('react');
+const PropTypes = require('prop-types');
 const PropertiesViewer = require('./row/PropertiesViewer');
 const RecordGrid = require('./row/RecordGrid');
 const {Tabs, Tab, Accordion, Panel} = require('react-bootstrap');
@@ -34,9 +34,9 @@ class GeocollectViewer extends React.Component {
             return (
                 <Tab eventKey={3} key={2} title="Immagini">
                     <div className="catalog-results">
-                            <RecordGrid key="records"
-                                records={this.props.imgsSegnResponse.data.data}
-                            />
+                        <RecordGrid key="records"
+                            records={this.props.imgsSegnResponse.data.data}
+                        />
                     </div>
                 </Tab>);
         }
@@ -60,8 +60,8 @@ class GeocollectViewer extends React.Component {
         if (wfsResponse) {
             if (wfsResponse.features.length > 0) {
                 return (
-                        <Tab eventKey={2} key={'Modifica'} title={'Modifiche'} >
-                            <Accordion defaultActiveKey={0}>
+                    <Tab eventKey={2} key={'Modifica'} title={'Modifiche'} >
+                        <Accordion defaultActiveKey={0}>
                             {
                                 (wfsResponse.features || []).map((feature, i) => {
                                     return (
@@ -76,8 +76,8 @@ class GeocollectViewer extends React.Component {
                                     );
                                 })
                             }
-                            </Accordion>
-                        </Tab>
+                        </Accordion>
+                    </Tab>
                 );
             }
             return null;
@@ -99,6 +99,7 @@ class GeocollectViewer extends React.Component {
                 </Tab>
             );
         }
+        return null;
     }
     render() {
         const RowViewer = (this.props.layer && this.props.layer.rowViewer) || this.props.rowViewer || PropertiesViewer;

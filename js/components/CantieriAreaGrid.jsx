@@ -23,9 +23,9 @@ class CantieriAreaGrid extends React.Component {
         messages: PropTypes.object
     };
     static defaultProps = {
-            rowGetter: () => {},
-            onDeleteRow: () => {},
-            rows: []
+        rowGetter: () => {},
+        onDeleteRow: () => {},
+        rows: []
     };
     render() {
         return (

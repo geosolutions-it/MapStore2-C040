@@ -37,10 +37,10 @@ class StyledDiv extends React.Component {
                 </div>) : null}
                 <div className="dockpanel-wrapped-component" style={{height: "calc(100% - " + this.props.toolbarHeight + "px)"}}>
                     {this.props.wrappedComponent !== null ? (<WrappedComponent
-                    size={{
-                        height: this.getHeight(this.props.position) && this.props.dockSize,
-                        width: this.getWidth(this.props.position) && this.props.dockSize
-                    }}
+                        size={{
+                            height: this.getHeight(this.props.position) && this.props.dockSize,
+                            width: this.getWidth(this.props.position) && this.props.dockSize
+                        }}
                     />) : null }
                 </div>
                 {this.props.toolbar}

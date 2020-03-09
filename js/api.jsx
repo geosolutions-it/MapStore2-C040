@@ -11,13 +11,13 @@ const getScriptPath = () => {
 };
 
 const MapStore2 = require('../MapStore2/web/client/jsapi/MapStore2')
-  .withPlugins(require('./apiPlugins'), {
-      theme: {
-          theme: 'comge',
-          path: getScriptPath() + '/themes'
-      },
-      noLocalConfig: true,
-      initialState: require('./appConfigEmbedded').initialState,
-      translations: require('./appConfigEmbedded').translations
-  });
+    .withPlugins(require('./apiPlugins'), {
+        theme: {
+            theme: 'comge',
+            path: getScriptPath() + '/themes'
+        },
+        noLocalConfig: true,
+        initialState: require('./appConfigEmbedded').initialState,
+        translations: require('./appConfigEmbedded').translations
+    });
 window.MapStore2 = MapStore2;

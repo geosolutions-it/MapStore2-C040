@@ -15,7 +15,7 @@ module.exports = {
         BackgroundSelectorPlugin: require('../MapStore2/web/client/plugins/BackgroundSelector'),
         BurgerMenuPlugin: require('../MapStore2/web/client/plugins/BurgerMenu'),
         DrawerMenuPlugin: require('../MapStore2/web/client/plugins/DrawerMenu'),
-        FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid'),
+        // FeatureGridPlugin: require('../MapStore2/web/client/plugins/FeatureGrid'),
         FeedbackMaskPlugin: require('../MapStore2/web/client/plugins/FeedbackMask'),
         HelpPlugin: require('../MapStore2/web/client/plugins/Help'),
         LanguagePlugin: require('../MapStore2/web/client/plugins/Language'),

@@ -47,7 +47,7 @@ const Api = {
      * @param  {object} [options]         Options for the request
      * @return {Promise}                the request promise
      */
-    describeFeatureType: (baseUrl, featureTypeName, params={}, options) => {
+    describeFeatureType: (baseUrl, featureTypeName, params = {}, options) => {
         const parsed = urlUtil.parse(baseUrl, true);
         const url = urlUtil.format(assign({}, parsed, {
             query: assign({

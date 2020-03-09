@@ -18,7 +18,7 @@ const {startFeatureLoader, updateFeatureLoader} = require('../actions/featureloa
 const MapViewer = require('../containers/FeatureViewer');
 const isWmsViewer = path => path.indexOf("/wmsfeatureviewer") !== -1;
 
-class MapViewerPage extends React.Component{
+class MapViewerPage extends React.Component {
     static propTypes = {
         mode: PropTypes.string,
         match: PropTypes.object,
@@ -34,7 +34,7 @@ class MapViewerPage extends React.Component{
         onUpdate: () => {}
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.props.onMount(ConfigUtils.getConfigProp("wmsURL"), this.props.match.params, "config.json", isWmsViewer(this.props.match.path));
         if (!ConfigUtils.getDefaults().ignoreMobileCss) {
             if (this.props.mode === 'mobile') {
@@ -51,7 +51,7 @@ class MapViewerPage extends React.Component{
         return (<MapViewer
             mode={this.props.mode}
             plugins={this.props.plugins}
-            />);
+        />);
     }
 }
 

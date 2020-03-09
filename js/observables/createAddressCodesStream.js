@@ -6,13 +6,12 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const Rx = require('rxjs');
-const {API} = require('../../MapStore2/web/client/api/searchText');
-const assign = require('object-assign');
-const {isNil} = require('lodash');
-const {generateTemplateString} = require('../../MapStore2/web/client/utils/TemplateUtils');
-var url = require('url');
-const {endsWith} = require('lodash');
+import Rx from 'rxjs';
+import {API} from '../../MapStore2/web/client/api/searchText';
+import assign from 'object-assign';
+import {isNil, endsWith} from 'lodash';
+import {generateTemplateString} from '../../MapStore2/web/client/utils/TemplateUtils';
+import url from 'url';
 
 /**
  * creates a stream for fetching data via WPS with a customized CQL filter
@@ -20,7 +19,7 @@ const {endsWith} = require('lodash');
  * @return {external:Observable} the stream used for fetching data for the Addresses editor
 */
 
-const fromTextToFilter = ({searchText = "", queriableAttributes = [], predicate = "ILIKE", staticFilter = "", blacklist = [], item = {}} ) => {
+export const fromTextToFilter = ({searchText = "", queriableAttributes = [], predicate = "ILIKE", staticFilter = "", blacklist = [], item = {}} ) => {
     const staticFilterParsed = generateTemplateString(staticFilter || "")(item);
     const regCivic = /(\d{1,4}[a-zA-Z]{0,2})/g;
     const regCCode = /([a-zA-Z]?\d){0,10}/g;
@@ -61,7 +60,7 @@ const fromTextToFilter = ({searchText = "", queriableAttributes = [], predicate 
     return filter;
 };
 
-const createAddresses = (props$) => props$
+export const createAddresses = (props$) => props$
     .throttle(props => Rx.Observable.timer(props.delayDebounce || 0))
     .merge(props$.debounce(props => Rx.Observable.timer(props.delayDebounce || 0)))
     .switchMap((p) => {
@@ -97,14 +96,16 @@ const createAddresses = (props$) => props$
                 .then( data => {
                     return {fetchedData: { values: data.features.map(f => f.properties), size: data.totalFeatures}, busy: false};
                 }))).catch(() => {
-                    return Rx.Observable.of({fetchedData: {values: [], size: 0}, busy: false});
-                }).startWith({busy: true});
+                return Rx.Observable.of({fetchedData: {values: [], size: 0}, busy: false});
+            }).startWith({busy: true});
         }
         return Rx.Observable.of({fetchedData: {values: [], size: 0}, busy: false});
     }).startWith({});
 
 
-module.exports = {
+const defaults = {
     createAddresses,
     fromTextToFilter
 };
+
+export default defaults;

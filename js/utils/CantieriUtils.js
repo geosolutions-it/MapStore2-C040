@@ -62,9 +62,9 @@ module.exports = {
             style: checkedStyle
         }),
     uncheckFeature: f => ({
-            ...f,
-            style: unCheckedStyle,
-            checked: false
+        ...f,
+        style: unCheckedStyle,
+        checked: false
     }),
     hoverFeature: f => ({
         ...f,
@@ -73,10 +73,10 @@ module.exports = {
                 ...checkedStyle,
                 color: "red",
                 weight: 3
-        } : {
-            color: "red",
-            weight: 3
-        }
+            } : {
+                color: "red",
+                weight: 3
+            }
     }),
     getCheckedElementsFromLayer: (layer) => {
         // Returns array of array

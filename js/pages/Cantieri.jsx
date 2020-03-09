@@ -41,7 +41,7 @@ class Cantieri extends React.Component {
         reset: () => {},
         pluginsConfig: {}
     }
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         var id = this.props.match.params.idCantiere || 0;
         var typology = this.props.match.params.typology || "cantiere";
 
@@ -72,7 +72,7 @@ class Cantieri extends React.Component {
             pluginsConfig={pluginsConfig}
             plugins={this.props.plugins}
             params={this.props.match.params}
-            />);
+        />);
     }
 }
 

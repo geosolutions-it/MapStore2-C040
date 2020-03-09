@@ -39,7 +39,7 @@ class MapViewerPage extends React.Component {
         mode: 'desktop',
         wrappedContainer: MapViewerContainer
     };
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if (this.props.match.params.mapId && oldLocation !== this.props.location) {
             oldLocation = this.props.location;
             if (!ConfigUtils.getDefaults().ignoreMobileCss) {
@@ -55,7 +55,7 @@ class MapViewerPage extends React.Component {
             plugins={this.props.plugins}
             params={this.props.match.params}
             {...this.props}
-            />);
+        />);
     }
 }
 
