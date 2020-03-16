@@ -718,10 +718,11 @@
         }
       },
       "WidgetsBuilder", "Widgets", "WidgetsTray",
+      "Timeline",
+      "Playback",
       "FeedbackMask",
       "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen",
       "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",
-
       {
         "name": "Cookie",
         "cfg": {

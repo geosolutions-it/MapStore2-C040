@@ -67,7 +67,7 @@ module.exports = {
         MousePositionPlugin: require('../MapStore2/web/client/plugins/MousePosition'),
         NotificationsPlugin: require('../MapStore2/web/client/plugins/Notifications'),
         OmniBarPlugin: require('../MapStore2/web/client/plugins/OmniBar'),
-        // PlaybackPlugin: require('../MapStore2/web/client/plugins/Playback'), NOT NEEDED
+        PlaybackPlugin: require('../MapStore2/web/client/plugins/Playback'),
         PrintPlugin: require('../MapStore2/web/client/plugins/Print'),
         QueryPanelPlugin: require('../MapStore2/web/client/plugins/QueryPanel'),
         RedirectPlugin: require('../MapStore2/web/client/plugins/Redirect'),
@@ -89,7 +89,7 @@ module.exports = {
         TOCPlugin: require('../MapStore2/web/client/plugins/TOC'),
         ThematicLayerPlugin: require('../MapStore2/web/client/plugins/ThematicLayer'),
         // ThemeSwitcherPlugin: require('../plugins/ThemeSwitcher'), NOT_NEEDED
-        // TimelinePlugin: require('../MapStore2/web/client/plugins/Timeline'), NOT_NEEDED
+        TimelinePlugin: require('../MapStore2/web/client/plugins/Timeline'),
         ToolbarPlugin: require('../MapStore2/web/client/plugins/Toolbar'),
         TutorialPlugin: require('../MapStore2/web/client/plugins/Tutorial'),
         UndoPlugin: require('../MapStore2/web/client/plugins/History'),
