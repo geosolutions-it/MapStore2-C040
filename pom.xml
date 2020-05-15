@@ -18,7 +18,7 @@
         <servlet-api.version>2.5</servlet-api.version>
         <jstl.version>1.2</jstl.version>
         <jackson.version>1.9.10</jackson.version>
-        <jackson.databind-version>2.2.3</jackson.databind-version>
+        <jackson.databind-version>2.9.10.4</jackson.databind-version>
         <jackson.annotations-version>2.5.3</jackson.annotations-version>
         <!-- Testing -->
         <junit.version>4.8.1</junit.version>
