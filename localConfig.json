@@ -147,7 +147,8 @@
    "monitorState": [
       {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
-      {"name": "featuregridmode", "path": "featuregrid.mode"}],
+      {"name": "featuregridmode", "path": "featuregrid.mode"},
+      {"name": "geostorymode", "path": "geostory.mode"}],
   "plugins": {
     "mobile": [{
         "name": "Map",
@@ -1044,6 +1045,7 @@
       },
       "Footer"
     ],
+    "context-creator": ["Tutorial"],
     "manager": ["Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
     "rulesmanager": [
       "Redirect",
