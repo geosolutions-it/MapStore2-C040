@@ -32,7 +32,7 @@ module.exports = {
                 position: 0,
                 className: "logo-full",
                 label: props.label || 'Comune di Genova',
-                href: props.href || 'https://www.comune.genova.it/',
+                href: props.href || 'https://smart.comune.genova.it',
                 style: {padding: '0 15px'},
                 img: props.src && <img className="logo" src={props.src} /> || <img className="customer-logo" src={src} height="30" />,
                 logo: true
