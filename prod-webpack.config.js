@@ -18,7 +18,8 @@ const config = require('./MapStore2/build/buildConfig')(
         "llpp": path.join(__dirname, "js", "llpp")
     },
     {
-        "themes/default": path.join(__dirname, "assets", "themes", "comge", "theme.less")
+        "themes/default": path.join(__dirname, "assets", "themes", "comge", "theme.less"),
+        "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
     },
     paths,
     extractThemesPlugin,
