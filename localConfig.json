@@ -27,10 +27,6 @@
   "authenticationRules": [{
     "urlPattern": ".*geostore.*",
     "method": "bearer"
-  }, {
-    "urlPattern": "\\/geoserver\\-test.*",
-    "authkeyParamName": "ms2-authkey",
-    "method": "authkey"
   }],
   "mapConstraints": {
     "minZoom": 10,
@@ -1045,7 +1041,6 @@
       },
       "Footer"
     ],
-    "context-creator": ["Tutorial"],
     "manager": ["Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
     "rulesmanager": [
       "Redirect",
@@ -1225,6 +1220,96 @@
           "cfg": {
             "mapIsEditable": false
           }
-        }]
-  }
+        }
+      ],
+      "geostory": [
+        {
+          "name": "OmniBar",
+          "cfg": {
+            "containerPosition": "header",
+            "className": "navbar shadow navbar-home"
+          }
+        },
+        {
+          "name": "Tutorial",
+          "cfg": {
+            "allowClicksThruHole": false,
+            "containerPosition": "header",
+            "preset": "geostory_view_tutorial"
+          }
+        },
+        "Login",
+        "BurgerMenu",
+        "Language",
+        "NavMenu",
+        "Attribution",
+        "Home",
+        "GeoStory",
+        "GeoStorySave",
+        "GeoStorySaveAs",
+        "MapEditor",
+        "MediaEditor",
+        {
+          "name": "GeoStoryEditor",
+          "cfg": {
+            "disablePluginIf": "{!!(state('browser') && state('browser').mobile)}",
+            "containerPosition": "columns"
+          }
+        },
+        {
+          "name": "GeoStoryNavigation",
+          "cfg": {
+            "containerPosition": "header"
+          }
+        },
+        "Notifications",
+        {
+          "name": "FeedbackMask",
+          "cfg": {
+            "containerPosition": "header"
+          }
+        },
+        {
+          "name": "Share",
+          "cfg": {
+            "embedPanel": false,
+            "advancedSettings": {
+              "homeButton": true
+            }
+          }
+        }
+      ],
+      "context-creator": [
+        {
+          "name": "OmniBar",
+          "cfg": {
+            "containerPosition": "header",
+            "className": "navbar shadow navbar-home"
+          }
+        },
+        "Redirect",
+        "Login",
+        "Language",
+        "NavMenu",
+        "Attribution",
+        "Tutorial",
+        {
+            "name": "ContextCreator",
+            "cfg": {
+                "documentationBaseURL": "https://mapstore.geo-solutions.it/mapstore/docs/api/plugins",
+                "backToPageDestRoute": "/context-manager",
+                "backToPageConfirmationMessage": "contextCreator.undo"
+            }
+        },
+        "Notifications",
+        {
+          "name": "FeedbackMask",
+          "cfg": {
+            "containerPosition": "header"
+          }
+        }
+      ],
+      "manager": ["Header", "Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
+      "context-manager": ["Header", "Redirect", "Home", "ContextManager", "Footer"]
+  }        
 }
