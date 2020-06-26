@@ -22,7 +22,7 @@ module.exports = {
     }, {
         name: "mapviewer",
         path: "/viewer/:mapType/:mapId",
-        component: require('./pages/MapViewer')
+        component: require('../MapStore2/web/client/product/pages/MapViewer')
     }, {
         name: "wmsviewer",
         path: "/wmsfeatureviewer/:mapType/:layer/:cql_filter",

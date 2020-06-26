@@ -7,7 +7,7 @@
  */
 const React = require('react');
 const PropTypes = require('prop-types');
-const MapViewer = require('./MapViewer');
+const MapViewer = require('../../MapStore2/web/client/product/pages/MapViewer');
 
 
 class MapViewerPage extends React.Component {

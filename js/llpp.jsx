@@ -22,7 +22,7 @@ const startApp = () => {
         },
         pages
     }));
-    const StandardRouter = connect(routerSelector)(require('../MapStore2/web/client/components/app/StandardRouter'));
+    const StandardRouter = connect(routerSelector)(require('../MapStore2/web/client/components/app/StandardRouter').default);
     const appStore = require('../MapStore2/web/client/stores/StandardStore').bind(null, initialState, {
         mode: (state = 'embedded') => state,
         maps: require('../MapStore2/web/client/reducers/maps'),
