@@ -59,7 +59,7 @@ module.exports = {
         GoFull: require('../MapStore2/web/client/plugins/GoFull'),
         // GridContainerPlugin: require('../MapStore2/web/client/plugins/GridContainer'), NOT NEEDED (bound to theme ThemeSwitcherPlugin and MapTypePlugin)
         GroupManagerPlugin: require('../MapStore2/web/client/plugins/manager/GroupManager'),
-        HelpLinkPlugin: require('../MapStore2/web/client/plugins/HelpLink'),
+        HelpLinkPlugin: require('../MapStore2/web/client/plugins/HelpLink').default,
         HelpPlugin: require('../MapStore2/web/client/plugins/Help'),
         HomePlugin: require('../MapStore2/web/client/plugins/Home'),
         IdentifyPlugin: require('../MapStore2/web/client/plugins/Identify'),
