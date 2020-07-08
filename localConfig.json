@@ -64,6 +64,14 @@
         }],
   "initialState": {
     "defaultState": {
+      "annotations": {
+        "config": {
+          "multiGeometry": true,
+          "validationErrors": {}
+        },
+        "format": "decimal",
+        "defaultTextAnnotation": "New"
+      },
       "maptype": {
         "mapType": "{context.mode === 'embedded' ? 'leaflet' : 'openlayers'}"
       },
@@ -343,12 +351,19 @@
         }
       },
       {
+        "name": "Annotations",
+        "cfg": {
+          "symbolsPath": "assets/symbols/"
+        }
+      },
+      {
         "name": "Identify",
         "cfg": {
-          "enabledCoordEditorButton": false,
+          "showHighlightFeatureButton": true,
           "viewerOptions": {
             "container": "{context.ReactSwipe}"
-          }
+          },
+          "showEdit": true
         },
         "override": {
           "Toolbar": {
@@ -566,7 +581,7 @@
         "name":"Measure",
         "cfg": {
           "defaultOptions": {
-            "showCoordinateEditor": false
+            "showAddAsAnnotation": true
           }
         }
       },
@@ -763,17 +778,15 @@
       }, {
         "name": "Identify",
         "cfg": {
-          "enabledCoordEditorButton": false,
-          "showFullscreen": true,
+            "showFullscreen": true,
             "position": "bottom",
             "size": 0.5,
             "fluid": true,
             "viewerOptions": {
                 "container": "{context.ReactSwipe}"
-            },
-          "glyph": "info-sign"
+            }
         }
-      }, {
+    }, {
         "name": "ZoomAll",
         "override": {
           "Toolbar": {
