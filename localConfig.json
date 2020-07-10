@@ -1053,7 +1053,6 @@
       {
         "name": "CreateNewMap",
         "cfg": {
-          "showNewGeostory": false,
           "allowedRoles": ["ADMIN"]
         }
       },
