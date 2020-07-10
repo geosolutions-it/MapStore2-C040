@@ -1,12 +1,12 @@
 {
   "geoStoreUrl": "rest/geostore/",
-  "printUrl": "pdf/info.json",
-  "wmsURL": "/geoserver/wms",
   "geoFenceUrl": "/",
   "geoFenceGeoServerInstance": {
     "url": "/geoserver/",
     "id": 5
   },
+  "printUrl": "pdf/info.json",
+  "wmsURL": "/geoserver/wms",
   "proxyUrl": {
     "url": "/MapStore2/proxy/?url=",
     "useCORS": [
@@ -88,7 +88,7 @@
           "selectedService": "GeoPortale Comune di Genova",
           "services": {
             "GeoPortale Comune di Genova": {
-              "url": "/geoserver/ows",
+              "url": "/geoserver/csw",
               "type": "csw",
               "title": "GeoPortale Comune di Genova",
               "autoload": true
@@ -877,8 +877,8 @@
                 "polygon_geojson": 1,
                 "limit": 3
               }
-            }
-          ]}
+            }]
+          }
         }
       }, {
         "name": "Toolbar",
