@@ -1,0 +1,36 @@
+{
+  "type": "cascade",
+  "resources": [],
+  "settings": {
+    "theme": {
+      "general": {
+        "color": "#333333",
+        "backgroundColor": "#ffffff",
+        "borderColor": "#e6e6e6"
+      }
+    }
+  },
+  "sections": [
+    {
+      "type": "title",
+      "id": "title_section_id1",
+      "title": "Abstract",
+      "cover": true,
+      "contents": [
+        {
+          "id": "title_content_id1",
+          "type": "text",
+          "size": "large",
+          "align": "center",
+          "theme": "bright",
+          "html": "",
+          "background": {
+            "fit": "cover",
+            "size": "full",
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ]
+}

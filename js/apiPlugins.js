@@ -13,7 +13,7 @@ module.exports = {
         // framework plugins
         BackgroundSwitcherPlugin: require('../MapStore2/web/client/plugins/BackgroundSwitcher'),
         BurgerMenuPlugin: require('../MapStore2/web/client/plugins/BurgerMenu'),
-        CreateNewMapPlugin: require('../MapStore2/web/client/plugins/CreateNewMap'),
+        CreateNewMapPlugin: require('../MapStore2/web/client/plugins/CreateNewMap').default,
         DrawerMenuPlugin: require('../MapStore2/web/client/plugins/DrawerMenu'),
         ExpanderPlugin: require('../MapStore2/web/client/plugins/Expander'),
         HelpPlugin: require('../MapStore2/web/client/plugins/Help'),

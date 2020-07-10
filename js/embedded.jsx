@@ -19,7 +19,7 @@ const pages = [{
 }, {
     name: "mapviewer",
     path: "/viewer/:mapType/:mapId",
-    component: require('./pages/MapViewer')
+    component: require('../MapStore2/web/client/product/pages/MapViewer')
 }, {
     name: "wmsviewer",
     path: "/wmsfeatureviewer/:mapType/:layer/:cql_filter",
@@ -33,7 +33,7 @@ const routerSelector = createSelector(state => state.locale, (locale) => ({
     },
     pages
 }));
-const StandardRouter = connect(routerSelector)(require('../MapStore2/web/client/components/app/StandardRouter'));
+const StandardRouter = connect(routerSelector)(require('../MapStore2/web/client/components/app/StandardRouter').default);
 
 require('../MapStore2/web/client/product/main')(
     require('./appConfigEmbedded'),

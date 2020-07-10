@@ -53,7 +53,8 @@
         "url": "https://assets.agi.com/stk-terrain/world",
         "requestVertexNormals": true
       }
-    }
+    },
+    "floatingIdentifyDelay": 1000
   },
   "projectionDefs": [
         {
@@ -64,6 +65,14 @@
         }],
   "initialState": {
     "defaultState": {
+      "annotations": {
+        "config": {
+          "multiGeometry": true,
+          "validationErrors": {}
+        },
+        "format": "decimal",
+        "defaultTextAnnotation": "New"
+      },
       "maptype": {
         "mapType": "{context.mode === 'embedded' ? 'leaflet' : 'openlayers'}"
       },
@@ -148,7 +157,10 @@
    "monitorState": [
       {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
-      {"name": "featuregridmode", "path": "featuregrid.mode"}],
+      {"name": "geostorymode", "path": "geostory.mode"},
+      {"name": "featuregridmode", "path": "featuregrid.mode"},
+      {"name": "printEnabled", "path": "print.capabilities"}
+  ],
   "plugins": {
     "mobile": [{
         "name": "Map",
@@ -340,12 +352,19 @@
         }
       },
       {
+        "name": "Annotations",
+        "cfg": {
+          "symbolsPath": "assets/symbols/"
+        }
+      },
+      {
         "name": "Identify",
         "cfg": {
-          "enabledCoordEditorButton": false,
+          "showHighlightFeatureButton": true,
           "viewerOptions": {
             "container": "{context.ReactSwipe}"
-          }
+          },
+          "showEdit": true
         },
         "override": {
           "Toolbar": {
@@ -505,6 +524,7 @@
           "activateAddLayerButton": true,
           "activateAddGroupButton": true,
           "showFullTitleOnExpand": true,
+          "activateLayerFilterTool": true,
           "spatialMethodOptions": [
             {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
             {"id": "Circle", "name": "queryform.spatialfilter.methods.circle"},
@@ -521,7 +541,11 @@
             }
           }
         }
-      }, "AddGroup", "TOCItemsSettings", "ThematicLayer",
+      },
+      "FilterLayer",
+      "AddGroup",
+      "TOCItemsSettings",
+      "ThematicLayer",
       {
         "name": "Tutorial",
         "cfg": {
@@ -575,7 +599,7 @@
         "name":"Measure",
         "cfg": {
           "defaultOptions": {
-            "showCoordinateEditor": false
+            "showAddAsAnnotation": true
           }
         }
       },
@@ -772,17 +796,15 @@
       }, {
         "name": "Identify",
         "cfg": {
-          "enabledCoordEditorButton": false,
-          "showFullscreen": true,
+            "showFullscreen": true,
             "position": "bottom",
             "size": 0.5,
             "fluid": true,
             "viewerOptions": {
                 "container": "{context.ReactSwipe}"
-            },
-          "glyph": "info-sign"
+            }
         }
-      }, {
+    }, {
         "name": "ZoomAll",
         "override": {
           "Toolbar": {
@@ -810,6 +832,7 @@
         "name": "Search",
         "showCoordinatesSearchOption": false,
         "cfg": {
+          "showOptions": false,
           "withToggle": ["max-width: 768px", "min-width: 768px"],
           "maxResults": 20,
           "searchOptions": {
@@ -1014,7 +1037,12 @@
       "cfg": {
         "className": "navbar shadow navbar-home"
       }
-    }, "ManagerMenu", "Login"],
+    }, {
+      "name": "ManagerMenu",
+      "cfg": {
+          "enableContextManager": true
+      }
+  }, "Login"],
     "maps": [{
         "name": "Header",
         "hide": true
@@ -1053,6 +1081,26 @@
           },
           "fluid": true
         }
+      },
+      {
+        "name": "GeoStories",
+        "cfg": {
+          "mapsOptions": {
+            "start": 0,
+            "limit": 12
+          },
+          "fluid": true
+        }
+      },
+      {
+        "name": "Contexts",
+        "cfg": {
+          "mapsOptions": {
+            "start": 0,
+            "limit": 12
+          },
+          "fluid": true
+        }
       },{
         "name": "Cookie",
         "cfg": {
@@ -1062,7 +1110,7 @@
       },
       "Footer"
     ],
-    "manager": ["Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
+
     "rulesmanager": [
       "Redirect",
       {
@@ -1080,8 +1128,12 @@
             "priority": 1
           }
         }
-      },
-      "ManagerMenu",
+      }, {
+        "name": "ManagerMenu",
+        "cfg": {
+            "enableContextManager": true
+        }
+    },
       "Login",
       "NavMenu",
       {
@@ -1241,6 +1293,102 @@
           "cfg": {
             "mapIsEditable": false
           }
-        }]
+        }
+      ],
+      "geostory": [
+        {
+          "name": "OmniBar",
+          "cfg": {
+            "containerPosition": "header",
+            "className": "navbar shadow navbar-home"
+          }
+        },
+        {
+          "name": "Tutorial",
+          "cfg": {
+            "allowClicksThruHole": false,
+            "containerPosition": "header",
+            "preset": "geostory_view_tutorial"
+          }
+        },
+        "Login",
+        "BurgerMenu",
+        "NavMenu",
+        "Attribution",
+        "Home",
+        "GeoStory",
+        "GeoStorySave",
+        "GeoStorySaveAs",
+        "MapEditor",
+        "MediaEditor",
+        {
+          "name": "GeoStoryEditor",
+          "cfg": {
+            "disablePluginIf": "{!!(state('browser') && state('browser').mobile)}",
+            "containerPosition": "columns"
+          }
+        },
+        {
+          "name": "GeoStoryNavigation",
+          "cfg": {
+            "containerPosition": "header"
+          }
+        },
+        "Notifications",
+        {
+          "name": "FeedbackMask",
+          "cfg": {
+            "containerPosition": "header"
+          }
+        },
+        {
+          "name": "Share",
+          "cfg": {
+            "embedPanel": false,
+            "advancedSettings": {
+              "homeButton": true
+            }
+          }
+        }
+      ],
+      "context-creator": [
+        {
+          "name": "OmniBar",
+          "cfg": {
+            "containerPosition": "header",
+            "className": "navbar shadow navbar-home"
+          }
+        },
+        "Redirect",
+        "Login",
+        "Header",
+        "NavMenu",
+        "Tutorial",
+        {
+            "name": "ContextCreator",
+            "cfg": {
+                "documentationBaseURL": "https://mapstore.geo-solutions.it/mapstore/docs/api/plugins",
+                "backToPageDestRoute": "/context-manager",
+                "backToPageConfirmationMessage": "contextCreator.undo"
+            }
+        },
+        "Notifications",
+        {
+          "name": "FeedbackMask",
+          "cfg": {
+            "containerPosition": "header"
+          }
+        }
+      ],
+      "manager": [ "Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
+      "context-manager": [
+        "Header",
+        "NavMenu",
+        "Redirect",
+        "Home",
+        "ContextManager",
+        "Notifications",
+        "Footer"
+      ]
   }
 }

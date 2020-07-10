@@ -12,7 +12,7 @@ class Footer extends React.Component {
     render() {
         return (
             <div className="ms-footer col-md-12">
-                <div><a target="_blank" href="http://www.comune.genova.it/"> <img src={src} width="140" title="Comune di Genova" alt="Comune di Genova" /></a>
+                <div><a target="_blank" href="http://smart.comune.genova.it/"> <img src={src} width="140" title="Comune di Genova" alt="Comune di Genova" /></a>
                     <br/><br/></div>
                 <a target="_blank" href="http://www.comune.genova.it/content/note-legali-e-privacy">Privacy</a>
                 <br />
