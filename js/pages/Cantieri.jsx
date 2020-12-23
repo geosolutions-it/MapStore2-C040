@@ -5,18 +5,18 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
 */
-const assign = require('object-assign');
-const PropTypes = require('prop-types');
-const React = require('react');
-const {connect} = require('react-redux');
+import assign  from 'object-assign';
+import PropTypes  from 'prop-types';
+import React  from 'react';
+import {connect}  from 'react-redux';
 
-const Page = require('../../MapStore2/web/client/containers/Page');
-const {resetControls} = require('../../MapStore2/web/client/actions/controls');
-const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
-const axios = require('../../MapStore2/web/client/libs/ajax');
+import Page  from '../../MapStore2/web/client/containers/Page';
+import {resetControls}  from '../../MapStore2/web/client/actions/controls';
+import {loadMapConfig}  from '../../MapStore2/web/client/actions/config';
+import axios  from '../../MapStore2/web/client/libs/ajax';
 
-const {initPlugin} = require('../actions/cantieri');
-require('../../assets/css/custom.css');
+import {initPlugin}  from '../actions/cantieri';
+import '../../assets/css/custom.css';
 
 class Cantieri extends React.Component {
     static propTypes = {
@@ -76,7 +76,7 @@ class Cantieri extends React.Component {
     }
 }
 
-module.exports = connect((state) => {
+export default connect((state) => {
     return {
         mode: 'desktop',
         geoStoreUrl: (state.localConfig && state.localConfig.geoStoreUrl) || null,

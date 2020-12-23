@@ -28,7 +28,7 @@
     "urlPattern": ".*geostore.*",
     "method": "bearer"
     }, {
-      "urlPattern": "\\/geoserver\\-test.*",
+      "urlPattern": "(\\:443|\\:80)?\\/geoserver\\-test.*",
       "authkeyParamName": "ms2-authkey",
       "method": "authkey"
   }],
@@ -69,7 +69,6 @@
           "multiGeometry": true,
           "validationErrors": {}
         },
-        "format": "decimal",
         "defaultTextAnnotation": "New"
       },
       "maptype": {
@@ -157,6 +156,7 @@
       {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
       {"name": "geostorymode", "path": "geostory.mode"},
+      {"name": "userrole", "path": "security.user.role"},
       {"name": "featuregridmode", "path": "featuregrid.mode"},
       {"name": "printEnabled", "path": "print.capabilities"}
   ],
@@ -344,7 +344,15 @@
             }
           ]
         }
-      }, "Share", "Details", "DrawerMenu", "Version", {
+      }, {
+        "name": "Share",
+        "cfg": {
+          "advancedSettings": {
+            "bbox": true,
+            "centerAndZoom": true
+          }
+        }
+      }, "Details", "DrawerMenu", "Version", "Swipe", {
         "name": "BackgroundSelector",
         "cfg": {
           "bottom": "30px"
@@ -353,7 +361,9 @@
       {
         "name": "Annotations",
         "cfg": {
-          "symbolsPath": "assets/symbols/"
+          "symbolsPath": "assets/symbols/",
+          "allowEdit": true,
+          "measurementAnnotationEdit": false
         }
       },
       {
@@ -464,8 +474,9 @@
 
       },
       "Notifications",
+      "ExportDataResults",
       {
-        "name": "WFSDownload",
+        "name": "LayerDownload",
         "cfg": {
           "formats": [{
               "name": "csv",
@@ -581,7 +592,8 @@
         "name":"Measure",
         "cfg": {
           "defaultOptions": {
-            "showAddAsAnnotation": true
+            "showAddAsAnnotation": true,
+            "geodesic": true
           }
         }
       },
@@ -728,7 +740,7 @@
       "Playback",
       "FeedbackMask",
       "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen",
-      "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",
+      "GlobeViewSwitcher", "SearchServicesConfig", "SearchByBookmark", "AutoMapUpdate",
       {
         "name": "Cookie",
         "cfg": {
@@ -884,6 +896,7 @@
           }
         }
       },
+      "Details",
       "FeedbackMask"
     ],
     "featureviewer": [{
@@ -968,7 +981,7 @@
             "spatialMethodOptions": [
                 {"id": "Viewport", "name": "queryform.spatialfilter.methods.viewport"},
                 {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
-                {"id": "Circle", "name": "queryform.spatialfilter.methods.circle"},
+                {"id": "Circle", "name": "queryform.spatialfilter.methods.circle",                 "geodesic": true},
                 {"id": "Polygon", "name": "queryform.spatialfilter.methods.poly"}
             ]
         }
@@ -1327,7 +1340,8 @@
           "cfg": {
             "embedPanel": false,
             "advancedSettings": {
-              "homeButton": true
+              "homeButton": true,
+              "sectionId": true
             }
           }
         }

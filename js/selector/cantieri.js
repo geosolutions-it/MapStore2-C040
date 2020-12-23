@@ -1,13 +1,20 @@
-const {
+import {
     ELEMENTS_LAYER,
     AREAS_LAYER
-} = require('../actions/cantieri');
+}  from '../actions/cantieri';
 
-const {get} = require('lodash');
-module.exports = {
-    stateSelector: state => state,
-    elementsLayerSelector: (state) => get(state, "layers.flat").filter(l => l.id === ELEMENTS_LAYER)[0],
-    areasLayerSelector: (state) => get(state, "layers.flat").filter(l => l.id === AREAS_LAYER)[0],
-    serviceRESTUrlSelector: (state) => get(state, "cantieri.serviceRESTUrl"),
-    routingSelector: state => get(state, "routing.location.pathname")
+import get from 'lodash/get';
+
+export const stateSelector = state => state;
+export const elementsLayerSelector = (state) => get(state, "layers.flat").filter(l => l.id === ELEMENTS_LAYER)[0];
+export const areasLayerSelector = (state) => get(state, "layers.flat").filter(l => l.id === AREAS_LAYER)[0];
+export const serviceRESTUrlSelector = (state) => get(state, "cantieri.serviceRESTUrl");
+export const routingSelector = state => get(state, "routing.location.pathname");
+
+export default {
+    stateSelector,
+    elementsLayerSelector,
+    areasLayerSelector,
+    serviceRESTUrlSelector,
+    routingSelector
 };

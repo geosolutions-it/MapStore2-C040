@@ -6,12 +6,12 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const expect = require('expect');
-const {
+import expect from 'expect';
+import {
     serviceRESTUrlSelector,
     areasLayerSelector,
     elementsLayerSelector
-} = require('../cantieri');
+} from '../cantieri';
 const restUrl = "http://fetchUrl/rest";
 const idElementLayer = "CANTIERI::ELEMENTS_LAYER";
 const idAreaLayer = "CANTIERI::AREAS_LAYER";

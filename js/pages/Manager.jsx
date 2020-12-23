@@ -5,12 +5,12 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const PropTypes = require('prop-types');
-const {connect} = require('react-redux');
-const Page = require('../../MapStore2/web/client/containers/Page');
-const {resetControls} = require('../../MapStore2/web/client/actions/controls');
-const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
+import React  from 'react';
+import PropTypes  from 'prop-types';
+import {connect}  from 'react-redux';
+import Page  from '../../MapStore2/web/client/containers/Page';
+import {resetControls}  from '../../MapStore2/web/client/actions/controls';
+import ConfigUtils  from '../../MapStore2/web/client/utils/ConfigUtils';
 
 class Home extends React.Component {
     static propTypes = {
@@ -58,7 +58,7 @@ class Home extends React.Component {
     }
 }
 
-module.exports = connect((state) => {
+export default connect((state) => {
     return {
         mode: 'desktop',
         pluginsConfig: (state.localConfig && state.localConfig.plugins) || ConfigUtils.getConfigProp('plugins') || null

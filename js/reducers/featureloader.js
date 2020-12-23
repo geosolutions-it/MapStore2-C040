@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-var { STARTLOADING } = require('../actions/featureloader');
-var assign = require('object-assign');
+import { STARTLOADING } from '../actions/featureloader';
+import assign  from 'object-assign';
 
 function browser(state = null, action) {
     switch (action.type) {
@@ -24,4 +24,4 @@ function browser(state = null, action) {
     }
 }
 
-module.exports = browser;
+export default browser;

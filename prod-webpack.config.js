@@ -12,10 +12,10 @@ const paths = {
 
 const config = require('./MapStore2/build/buildConfig')(
     {
-        'MapStore2-C040': path.join(__dirname, "js", "app"),
-        "embedded": path.join(__dirname, "js", "embedded"),
-        "ms2-api": path.join(__dirname, "js", "api"),
-        "llpp": path.join(__dirname, "js", "llpp")
+        'MapStore2-C040': path.join(__dirname, "js", "apps", "mapstore"),
+        "embedded": path.join(__dirname, "js", "apps", "embedded"),
+        "ms2-api": path.join(__dirname, "js", "apps", "api"),
+        "llpp": path.join(__dirname, "js", "apps", "llpp")
     },
     {
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
@@ -23,7 +23,7 @@ const config = require('./MapStore2/build/buildConfig')(
     paths,
     extractThemesPlugin,
     true,
-    "/MapStore2/dist/", // the old value was "dist/"   ?
+    "dist/", // the old value was "dist/"   ?
     null,
     [
         new HtmlWebpackPlugin({

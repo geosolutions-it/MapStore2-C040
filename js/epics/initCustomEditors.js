@@ -5,14 +5,14 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const Rx = require('rxjs');
-const React = require('react');
-const { MAP_CONFIG_LOADED } = require('../../MapStore2/web/client/actions/config');
-const { register, clean } = require('../../MapStore2/web/client/utils/featuregrid/EditorRegistry');
-const AddressesEditor = require('../components/AddressesEditor');
-const MapInfoUtils = require('../../MapStore2/web/client/utils/MapInfoUtils');
-const geocollectViewerEnhancer = require('../enhancers/geocollectViewerEnhancer');
-const GeocollectViewer = require('../viewer/GeocollectViewer');
+import Rx  from 'rxjs';
+import React  from 'react';
+import { MAP_CONFIG_LOADED }  from '@mapstore/actions/config';
+import { register, clean }  from '@mapstore/utils/featuregrid/EditorRegistry';
+import AddressesEditor  from '../components/AddressesEditor';
+import * as MapInfoUtils  from '@mapstore/utils/MapInfoUtils';
+import geocollectViewerEnhancer  from '../enhancers/geocollectViewerEnhancer';
+import GeocollectViewer  from '../viewer/GeocollectViewer';
 
 const editors = {
     "AddressesEditor": {
@@ -26,23 +26,28 @@ const editors = {
 * it extends the list of custom editors used in the feature grid editing
 * and fetched by some regex rule placed in the localconfig - FeatureEditor
 */
-module.exports = {
-    addCustomEditors: (action$) =>
-        action$.ofType(MAP_CONFIG_LOADED)
-            .switchMap(() => {
-                clean();
-                Object.keys(editors).forEach(ed => {
-                    register({
-                        name: ed,
-                        editors: editors[ed]
-                    });
+
+export const addCustomEditors = (action$) =>
+    action$.ofType(MAP_CONFIG_LOADED)
+        .switchMap(() => {
+            clean();
+            Object.keys(editors).forEach(ed => {
+                register({
+                    name: ed,
+                    editors: editors[ed]
                 });
-                return Rx.Observable.empty();
-            }),
-    addCustomViewer: (action$) =>
-        action$.ofType(MAP_CONFIG_LOADED)
-            .switchMap(() => {
-                MapInfoUtils.setViewer("Geocollect", geocollectViewerEnhancer(GeocollectViewer));
-                return Rx.Observable.empty();
-            })
+            });
+            return Rx.Observable.empty();
+        });
+export const addCustomViewer = (action$) =>
+    action$.ofType(MAP_CONFIG_LOADED)
+        .switchMap(() => {
+            MapInfoUtils.setViewer("Geocollect", geocollectViewerEnhancer(GeocollectViewer));
+            return Rx.Observable.empty();
+        });
+
+
+export default {
+    addCustomEditors,
+    addCustomViewer
 };

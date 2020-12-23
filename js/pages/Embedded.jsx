@@ -5,9 +5,9 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const PropTypes = require('prop-types');
-const MapViewer = require('../../MapStore2/web/client/product/pages/MapViewer');
+import React  from 'react';
+import PropTypes  from 'prop-types';
+import MapViewer  from '../../MapStore2/web/client/product/pages/MapViewer';
 
 
 class MapViewerPage extends React.Component {
@@ -27,4 +27,4 @@ class MapViewerPage extends React.Component {
     }
 }
 
-module.exports = MapViewerPage;
+export default MapViewerPage;

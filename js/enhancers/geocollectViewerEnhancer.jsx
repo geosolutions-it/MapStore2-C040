@@ -5,11 +5,11 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const Rx = require('rxjs');
-const {compose, withProps} = require('recompose');
-const propsStreamFactory = require('../../MapStore2/web/client/components/misc/enhancers/propsStreamFactory');
-const axios = require('../../MapStore2/web/client/libs/ajax');
-const WFSApi = require('../../MapStore2/web/client/api/WFS');
+import Rx  from 'rxjs';
+import {compose, withProps}  from 'recompose';
+import propsStreamFactory  from '../../MapStore2/web/client/components/misc/enhancers/propsStreamFactory';
+import axios  from '../../MapStore2/web/client/libs/ajax';
+import * as WFSApi  from '../../MapStore2/web/client/api/WFS';
 
 const oneCall = (response, viewerConfig) => {
     return Rx.Observable.defer(function() {
@@ -98,7 +98,7 @@ const dataStreamFactory = ($props) =>
                 return null;
             });
 
-module.exports = compose(
+export default compose(
     withProps( () => ({
         dataStreamFactory
     })),

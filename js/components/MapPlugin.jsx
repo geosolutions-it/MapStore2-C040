@@ -6,18 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
-const {connect} = require('react-redux');
-const {bindActionCreators} = require('redux');
+import React  from  'react';
+import {connect}  from  'react-redux';
+import {bindActionCreators}  from  'redux';
 
-const assign = require('object-assign');
+import assign  from  'object-assign';
 
-const {changeMapView} = require('../../MapStore2/web/client/actions/map');
+import {changeMapView}  from  '../../MapStore2/web/client/actions/map';
 
 
 const mapType = "openlayers";
-const WMap = require('../../MapStore2/web/client/components/map/' + mapType + '/Map');
-const Layer = require('../../MapStore2/web/client/components/map/' + mapType + '/Layer');
+const WMap = require('../../MapStore2/web/client/components/map/' + mapType + '/Map').default;
+const Layer = require('../../MapStore2/web/client/components/map/' + mapType + '/Layer').default;
 require('../../MapStore2/web/client/components/map/' + mapType + '/plugins/index');
 
 const MapPlugin = (props) => {
@@ -32,7 +32,7 @@ const MapPlugin = (props) => {
         ) : <span/>;
 };
 
-module.exports = connect((state) => {
+export default connect((state) => {
     return {
         map: (state.map && state.map) || (state.config && state.config.map),
         layers: state.config && state.config.layers || []
