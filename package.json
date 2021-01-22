@@ -1,6 +1,6 @@
 {
   "name": "MapStore2",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "GeoPortale - Comune di Genova",
   "repository": "git@github.com:geosolutions-it/MapStore2-C040.git",
   "main": "index.js",
@@ -95,7 +95,7 @@
     "vusion-webfonts-generator": "0.4.1",
     "webpack": "5.9.0",
     "webpack-bundle-size-analyzer": "2.0.2",
-    "webpack-cli": "4.2.0",
+    "webpack-cli": "4.3.1",
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {

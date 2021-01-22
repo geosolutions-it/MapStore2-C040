@@ -44,7 +44,6 @@ import DashboardsPlugin from '@mapstore/plugins/Dashboards';
 import DetailsPlugin from '@mapstore/plugins/Details';
 import DrawerMenuPlugin from '@mapstore/plugins/DrawerMenu';
 import ExpanderPlugin from '@mapstore/plugins/Expander';
-import ExportDataResultsPlugin from '@mapstore/plugins/ExportDataResults';
 import FeatureEditorPlugin from '@mapstore/plugins/FeatureEditor';
 import FeaturedMaps from '@mapstore/plugins/FeaturedMaps';
 import FeedbackMaskPlugin from '@mapstore/plugins/FeedbackMask';
@@ -166,7 +165,6 @@ export default {
         DetailsPlugin,
         DrawerMenuPlugin,
         ExpanderPlugin,
-        ExportDataResultsPlugin,
         FeatureEditorPlugin,
         FeaturedMaps,
         FeedbackMaskPlugin,

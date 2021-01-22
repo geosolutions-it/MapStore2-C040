@@ -474,7 +474,6 @@
 
       },
       "Notifications",
-      "ExportDataResults",
       {
         "name": "LayerDownload",
         "cfg": {
