@@ -28,7 +28,7 @@
     "urlPattern": ".*geostore.*",
     "method": "bearer"
     }, {
-      "urlPattern": "(\\:443|\\:80)?\\/geoserver\\-test.*",
+      "urlPattern": "\\/geoserver\\-test.*",
       "authkeyParamName": "ms2-authkey",
       "method": "authkey"
   }],

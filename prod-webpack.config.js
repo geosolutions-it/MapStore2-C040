@@ -9,6 +9,7 @@ const paths = {
     framework: path.join(__dirname, "MapStore2", "web", "client"),
     code: [path.join(__dirname, "js"), path.join(__dirname, "MapStore2", "web", "client")]
 };
+const ModuleFederationPlugin = require('./MapStore2/build/moduleFederation').plugin;
 
 const config = require('./MapStore2/build/buildConfig')(
     {
@@ -21,7 +22,7 @@ const config = require('./MapStore2/build/buildConfig')(
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
     },
     paths,
-    extractThemesPlugin,
+    [extractThemesPlugin, ModuleFederationPlugin],
     true,
     "dist/", // the old value was "dist/"   ?
     null,
