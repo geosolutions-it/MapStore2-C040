@@ -37,7 +37,7 @@ import CreateNewMapPlugin from '@mapstore/plugins/CreateNewMap';
 import Dashboard from '@mapstore/plugins/Dashboard';
 import DashboardEditor from '@mapstore/plugins/DashboardEditor';
 import {
-    DashboardSaveAs as DashboardSavePlugin,
+    DashboardSave as DashboardSavePlugin,
     DashboardSaveAs as DashboardSaveAsPlugin
 } from '@mapstore/plugins/DashboardSave';
 import DashboardsPlugin from '@mapstore/plugins/Dashboards';
