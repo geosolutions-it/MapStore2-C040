@@ -7,7 +7,9 @@ const config = require('./MapStore2/build/buildConfig')(
         'MapStore2-C040': path.join(__dirname, "js", "apps", "mapstore"),
         "embedded": path.join(__dirname, "js", "apps", "embedded"),
         "ms2-api": path.join(__dirname, "js", "apps", "api"),
-        "llpp": path.join(__dirname, "js", "apps", "llpp")
+        "llpp": path.join(__dirname, "js", "apps", "llpp"),
+        "geostory-embedded": path.join(__dirname, "js", "geostoryEmbedded"),
+        "dashboard-embedded": path.join(__dirname, "js", "dashboardEmbedded")
     },
     {
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
