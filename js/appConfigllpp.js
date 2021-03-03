@@ -6,19 +6,23 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-module.exports = {
+import Embedded from '@js/pages/Embedded';
+import Cantieri from '@js/pages/Cantieri';
+import pluginsDef from '@js/llppPlugins';
+
+export default {
     printingEnabled: false,
     pages: [{
         name: "embedviewer",
         path: "/:mapId",
-        component: require('./pages/Embedded')
+        component: Embedded
     }, {
         name: "llpp",
         path: "/:typology/:idCantiere",
-        component: require('./pages/Cantieri')
+        component: Cantieri
     }],
-    pluginsDef: require('./llppPlugins'),
     translations: ["MapStore2/web/client/translations", "translations"],
+    pluginsDef,
     initialState: {
         defaultState: {
             mousePosition: {enabled: false},

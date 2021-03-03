@@ -1,12 +1,13 @@
 const path = require("path");
 const extractThemesPlugin = require('./MapStore2/build/themes.js').extractThemesPlugin;
+const ModuleFederationPlugin = require('./MapStore2/build/moduleFederation.js').plugin;
 
 const config = require('./MapStore2/build/buildConfig')(
     {
-        'MapStore2-C040': path.join(__dirname, "js", "app"),
-        "embedded": path.join(__dirname, "js", "embedded"),
-        "ms2-api": path.join(__dirname, "js", "api"),
-        "llpp": path.join(__dirname, "js", "llpp")
+        'MapStore2-C040': path.join(__dirname, "js", "apps", "mapstore"),
+        "embedded": path.join(__dirname, "js", "apps", "embedded"),
+        "ms2-api": path.join(__dirname, "js", "apps", "api"),
+        "llpp": path.join(__dirname, "js", "apps", "llpp")
     },
     {
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
@@ -17,9 +18,9 @@ const config = require('./MapStore2/build/buildConfig')(
         framework: path.join(__dirname, "MapStore2", "web", "client"),
         code: [path.join(__dirname, "js"), path.join(__dirname, "MapStore2", "web", "client")]
     },
-    extractThemesPlugin,
+    [extractThemesPlugin, ModuleFederationPlugin],
     false,
-    "/dist/",
+    "dist/",
     null,
     null,
     {

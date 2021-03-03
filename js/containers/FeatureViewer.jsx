@@ -5,20 +5,20 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
+import React  from 'react';
 
-const {connect} = require('react-redux');
+import {connect}  from 'react-redux';
 
-const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
-const PluginsUtils = require('../../MapStore2/web/client/utils/PluginsUtils');
-const PropTypes = require('prop-types');
+import ConfigUtils  from '@mapstore/utils/ConfigUtils';
+import PluginsUtils  from '@mapstore/utils/PluginsUtils';
+import PropTypes  from 'prop-types';
 
 const PluginsContainer = connect((state) => ({
     pluginsConfig: state.plugins || ConfigUtils.getConfigProp('plugins') || null,
     mode: "featureviewer",
     pluginsState: state && state.controls || {},
     monitoredState: PluginsUtils.filterState(state, ConfigUtils.getConfigProp('monitorState') || [])
-}))(require('../../MapStore2/web/client/components/plugins/PluginsContainer'));
+}))(require('@mapstore/components/plugins/PluginsContainer').default);
 
 class MapViewer extends React.Component {
     static propTypes = {
@@ -41,4 +41,4 @@ class MapViewer extends React.Component {
     }
 }
 
-module.exports = MapViewer;
+export default MapViewer;

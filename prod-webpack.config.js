@@ -9,21 +9,22 @@ const paths = {
     framework: path.join(__dirname, "MapStore2", "web", "client"),
     code: [path.join(__dirname, "js"), path.join(__dirname, "MapStore2", "web", "client")]
 };
+const ModuleFederationPlugin = require('./MapStore2/build/moduleFederation').plugin;
 
 const config = require('./MapStore2/build/buildConfig')(
     {
-        'MapStore2-C040': path.join(__dirname, "js", "app"),
-        "embedded": path.join(__dirname, "js", "embedded"),
-        "ms2-api": path.join(__dirname, "js", "api"),
-        "llpp": path.join(__dirname, "js", "llpp")
+        'MapStore2-C040': path.join(__dirname, "js", "apps", "mapstore"),
+        "embedded": path.join(__dirname, "js", "apps", "embedded"),
+        "ms2-api": path.join(__dirname, "js", "apps", "api"),
+        "llpp": path.join(__dirname, "js", "apps", "llpp")
     },
     {
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
     },
     paths,
-    extractThemesPlugin,
+    [extractThemesPlugin, ModuleFederationPlugin],
     true,
-    "/MapStore2/dist/", // the old value was "dist/"   ?
+    "dist/", // the old value was "dist/"   ?
     null,
     [
         new HtmlWebpackPlugin({

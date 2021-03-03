@@ -1,9 +1,9 @@
-const {isArray} = require('lodash');
-const {mapPropsStreamWithConfig, compose, withStateHandlers} = require('recompose');
-const rxjsConfig = require('recompose/rxjsObservableConfig').default;
+import isArray from 'lodash/isArray';
+import {mapPropsStreamWithConfig, compose, withStateHandlers} from 'recompose';
+import rxjsConfig from 'recompose/rxjsObservableConfig';
 const mapPropsStream = mapPropsStreamWithConfig(rxjsConfig);
 
-const streamEnhancer = mapPropsStream(props$ => {
+export const streamEnhancer = mapPropsStream(props$ => {
     let fetcherStream = props$.take(1).switchMap(p => {
         return p.autocompleteStreamFactory(props$);
     });
@@ -28,7 +28,7 @@ const streamEnhancer = mapPropsStream(props$ => {
     }));
 });
 
-const addStateHandlers = compose(
+export const addStateHandlers = compose(
     withStateHandlers((props) => ({
         delayDebounce: 0,
         performFetch: false,
@@ -108,7 +108,7 @@ const addStateHandlers = compose(
 );
 
 
-module.exports = {
+export default {
     streamEnhancer,
     addStateHandlers
 };

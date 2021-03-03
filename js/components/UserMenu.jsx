@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
-const {DropdownButton, MenuItem, NavDropdown, Glyphicon} = require('react-bootstrap');
-const Message = require('../../MapStore2/web/client/components/I18N/Message');
-const url = require('url');
-const PropTypes = require('prop-types');
+import React  from 'react';
+import {DropdownButton, MenuItem, NavDropdown, Glyphicon}  from 'react-bootstrap';
+import Message  from '../../MapStore2/web/client/components/I18N/Message';
+import url  from 'url';
+import PropTypes  from 'prop-types';
 /**
    * A DropDown menu for user details:
    */
@@ -115,4 +115,4 @@ class UserMenu extends React.Component {
     }
 }
 
-module.exports = UserMenu;
+export default UserMenu;

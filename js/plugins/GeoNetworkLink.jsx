@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
-const assign = require('object-assign');
-const {Glyphicon, MenuItem} = require('react-bootstrap');
-const Message = require('../../MapStore2/web/client/components/I18N/Message');
-const geonetwork = require('../../assets/img/geonetwork.svg');
+import React  from 'react';
+import {Glyphicon, MenuItem}  from 'react-bootstrap';
+import Message  from '@mapstore/components/I18N/Message';
+import geonetwork  from '../../assets/img/geonetwork.svg';
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 
 const GeoNetworkLinkMenuItem = ({
     href = '/geonetwork/srv/ita/main.home',
@@ -33,12 +33,13 @@ const GeoNetworkLinkMenuItem = ({
  * @memberof plugins
  * @class GeoNetworkLink
  */
-module.exports = {
-    GeoNetworkLinkPlugin: assign(class extends React.Component {
+export default createPlugin('GeoNetworkLink', {
+    component: class extends React.Component {
         render() {
             return null;
         }
-    }, {
+    },
+    containers: {
         BurgerMenu: {
             name: 'geonetwork-link',
             position: 2000,
@@ -47,6 +48,6 @@ module.exports = {
             priority: 2,
             doNotHide: true
         }
-    }),
+    },
     reducers: {}
-};
+});

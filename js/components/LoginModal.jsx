@@ -6,16 +6,16 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const PropTypes = require('prop-types');
-const React = require('react');
-const {Button, Row} = require('react-bootstrap');
+import PropTypes  from 'prop-types';
+import React  from 'react';
+import {Button, Row}  from 'react-bootstrap';
 
-const LoginForm = require('@mapstore/components/security/forms/LoginForm');
-const Modal = require('@mapstore/components/misc/Modal');
-const Message = require('@mapstore/components/I18N/Message');
-const LocaleUtils = require('@mapstore/utils/LocaleUtils');
+import LoginForm  from '@mapstore/components/security/forms/LoginForm';
+import Modal  from '@mapstore/components/misc/Modal';
+import Message  from '@mapstore/components/I18N/Message';
+import {getMessageById}  from '@mapstore/utils/LocaleUtils';
 
-require('@mapstore/components/security/css/security.css');
+import '@mapstore/components/security/css/security.css';
 
 /**
  * A Modal window to show password reset form
@@ -72,12 +72,12 @@ class LoginModal extends React.Component {
         return (<span role="footer">
             <Button
                 ref="submit"
-                value={LocaleUtils.getMessageById(this.context.messages, "user.signIn")}
+                value={getMessageById(this.context.messages, "user.signIn")}
                 bsStyle="primary"
                 bsSize={this.props.buttonSize}
                 className="pull-left"
                 onClick={this.loginSubmit}
-                key="submit">{LocaleUtils.getMessageById(this.context.messages, "user.signIn")}
+                key="submit">{getMessageById(this.context.messages, "user.signIn")}
             </Button>
         </span>);
     };
@@ -96,13 +96,13 @@ class LoginModal extends React.Component {
                 <Row className="centered">
                     <Button
                         ref="submitSpid"
-                        value={LocaleUtils.getMessageById(this.context.messages, "user.spidLogin")}
+                        value={getMessageById(this.context.messages, "user.spidLogin")}
                         bsStyle="primary"
                         bsSize={this.props.buttonSize}
                         className="pull-left"
                         onClick={() => window.location.replace('login')}
                         key="submitSpid">
-                        {LocaleUtils.getMessageById(this.context.messages, "user.spidLogin")}
+                        {getMessageById(this.context.messages, "user.spidLogin")}
                     </Button>
                 </Row>
                 <Row className="centered">
@@ -128,4 +128,4 @@ class LoginModal extends React.Component {
     };
 }
 
-module.exports = LoginModal;
+export default LoginModal;

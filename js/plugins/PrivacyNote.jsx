@@ -5,11 +5,11 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const PropTypes = require('prop-types');
-const assign = require('object-assign');
+import React from 'react';
+import PropTypes  from 'prop-types';
 
-const { Button } = require('react-bootstrap');
+import { Button } from 'react-bootstrap';
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 class PrivacyNote extends React.Component {
     static propTypes = {
         options: PropTypes.object,
@@ -25,13 +25,14 @@ class PrivacyNote extends React.Component {
     }
 }
 
-module.exports = {
-    PrivacyNotePlugin: assign(PrivacyNote, {
+export default createPlugin('PrivacyNote', {
+    component: PrivacyNote,
+    containers: {
         MapFooter: {
             name: 'privacyNote',
             position: 100,
             tool: true,
             priority: 1
         }
-    })
-};
+    }
+});

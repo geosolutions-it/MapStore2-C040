@@ -5,11 +5,11 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var React = require('react');
-const PropTypes = require('prop-types');
-var assign = require('object-assign');
+import React  from 'react';
+import PropTypes  from 'prop-types';
 
-const src = require('../../assets/img/logo.jpg');
+import src  from '../../assets/img/logo.jpg';
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 
 class Header extends React.Component {
     static propTypes = {
@@ -24,8 +24,9 @@ class Header extends React.Component {
     }
 }
 
-module.exports = {
-    HeaderPlugin: assign(Header, {
+export default createPlugin('Header', {
+    component: Header,
+    containers: {
         NavMenu: {
             tool: (props) => ({
                 position: 0,
@@ -37,5 +38,6 @@ module.exports = {
                 logo: true
             })
         }
-    })
-};
+    },
+    reducers: {}
+});

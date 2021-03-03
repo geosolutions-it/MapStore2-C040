@@ -6,14 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const PropertiesViewer = require('./row/PropertiesViewer');
-const RecordGrid = require('./row/RecordGrid');
-const {Tabs, Tab, Accordion, Panel} = require('react-bootstrap');
-const moment = require('moment');
+import React from 'react';
+import PropTypes from 'prop-types';
+import PropertiesViewer from './row/PropertiesViewer';
+import RecordGrid from './row/RecordGrid';
+import {Tabs, Tab, Accordion, Panel} from 'react-bootstrap';
+import moment from 'moment';
 
-require('./GeocollectViewer.css');
+import './GeocollectViewer.css';
 
 class GeocollectViewer extends React.Component {
     static propTypes = {
@@ -113,4 +113,4 @@ class GeocollectViewer extends React.Component {
     }
 }
 
-module.exports = GeocollectViewer;
+export default GeocollectViewer;

@@ -5,17 +5,17 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const PropTypes = require('prop-types');
-require('../../MapStore2/web/client/product/assets/css/viewer.css');
+import React  from 'react';
+import PropTypes  from 'prop-types';
+import '@mapstore/product/assets/css/viewer.css';
 
-const {connect} = require('react-redux');
-const ConfigUtils = require('../../MapStore2/web/client/utils/ConfigUtils');
-const {loadMapConfig} = require('../../MapStore2/web/client/actions/config');
-const {resetControls} = require('../../MapStore2/web/client/actions/controls');
-const {startFeatureLoader, updateFeatureLoader} = require('../actions/featureloader');
+import {connect}  from 'react-redux';
+import ConfigUtils  from '@mapstore/utils/ConfigUtils';
+import {loadMapConfig}  from '@mapstore/actions/config';
+import {resetControls}  from '@mapstore/actions/controls';
+import {startFeatureLoader, updateFeatureLoader}  from '../actions/featureloader';
 
-const MapViewer = require('../containers/FeatureViewer');
+import MapViewer  from '../containers/FeatureViewer';
 const isWmsViewer = path => path.indexOf("/wmsfeatureviewer") !== -1;
 
 class MapViewerPage extends React.Component {
@@ -55,7 +55,7 @@ class MapViewerPage extends React.Component {
     }
 }
 
-module.exports = connect(() => ({
+export default connect(() => ({
 }),
 {
     loadMapConfig,

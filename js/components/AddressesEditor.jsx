@@ -5,13 +5,13 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
 */
-const React = require('react');
-const PropTypes = require('prop-types');
-const AttributeEditor = require('../../MapStore2/web/client/components/data/featuregrid/editors/AttributeEditor');
-const AddressesCombobox = require('./combobox/AddressesCombobox');
-const {createAddresses} = require('../observables/createAddressCodesStream');
-const assign = require('object-assign');
-const AddressesItem = require('./combobox/AddressesItem');
+import React  from 'react';
+import PropTypes  from 'prop-types';
+import AttributeEditor  from '@mapstore/components/data/featuregrid/editors/AttributeEditor';
+import AddressesCombobox  from './combobox/AddressesCombobox';
+import {createAddresses}  from '../observables/createAddressCodesStream';
+import assign  from 'object-assign';
+import AddressesItem  from './combobox/AddressesItem';
 
 class AddressesEditor extends AttributeEditor {
     static propTypes = {
@@ -74,4 +74,4 @@ class AddressesEditor extends AttributeEditor {
     }
 }
 
-module.exports = AddressesEditor;
+export default AddressesEditor;

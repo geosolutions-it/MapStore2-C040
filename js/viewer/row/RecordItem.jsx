@@ -5,18 +5,18 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
 */
-const React = require('react');
-const PropTypes = require('prop-types');
-const {Panel, Thumbnail} = require('react-bootstrap');
-const {isObject} = require('lodash');
-const moment = require('moment');
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Panel, Thumbnail} from 'react-bootstrap';
+import isObject from 'lodash/isObject';
+import moment from 'moment';
 
-const ModalImages = require('./ModalImages').default;
-const Message = require('../../../MapStore2/web/client/components/I18N/Message');
+import ModalImages from './ModalImages';
+import Message from '../../../MapStore2/web/client/components/I18N/Message';
 
-const defaultThumb = require('./img/default.jpg');
+import defaultThumb from './img/default.jpg';
 
-require("./RecordItem.css");
+import "./RecordItem.css";
 
 class RecordItem extends React.Component {
     static propTypes = {
@@ -98,4 +98,4 @@ class RecordItem extends React.Component {
 
 }
 
-module.exports = RecordItem;
+export default RecordItem;

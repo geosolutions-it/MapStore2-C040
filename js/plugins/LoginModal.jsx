@@ -9,6 +9,7 @@
 import {connect} from '@mapstore/utils/PluginsUtils';
 import {login, loginFail, resetError} from '@mapstore/actions/security';
 import {setControlProperty} from '@mapstore/actions/controls';
+import LoginModal from '@js/components/LoginModal';
 
 const closeLogin = () => {
     return (dispatch) => {
@@ -26,6 +27,6 @@ const Login = connect((state) => ({
     onClose: closeLogin,
     onSubmit: login,
     onError: loginFail
-})(require('@js/components/LoginModal'));
+})(LoginModal);
 
 export default Login;

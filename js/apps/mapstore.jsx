@@ -6,9 +6,8 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import main from '../MapStore2/web/client/product/main';
-
-import appConfig from './appConfig';
-import plugins from './plugins';
+import main from '@mapstore/product/main';
+import appConfig from '@js/appConfig';
+import plugins from '@js/plugins';
 
 main(appConfig, plugins);

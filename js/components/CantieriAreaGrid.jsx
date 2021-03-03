@@ -5,13 +5,13 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const {Tooltip} = require('react-bootstrap');
-const assign = require('object-assign');
-const ToggleButton = require('../../MapStore2/web/client/components/buttons/ToggleButton');
-const Message = require('../../MapStore2/web/client/components/I18N/Message');
-const ResizableGrid = require('../../MapStore2/web/client/components/misc/ResizableGrid');
-const PropTypes = require('prop-types');
+import React from 'react';
+import {Tooltip} from 'react-bootstrap';
+import assign from 'object-assign';
+import ToggleButton from '../../MapStore2/web/client/components/buttons/ToggleButton';
+import Message from '../../MapStore2/web/client/components/I18N/Message';
+import ResizableGrid from '../../MapStore2/web/client/components/misc/ResizableGrid';
+import PropTypes from 'prop-types';
 
 class CantieriAreaGrid extends React.Component {
     static propTypes = {
@@ -56,4 +56,4 @@ class CantieriAreaGrid extends React.Component {
     }
 }
 
-module.exports = CantieriAreaGrid;
+export default CantieriAreaGrid;

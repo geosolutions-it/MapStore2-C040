@@ -5,18 +5,23 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const {createSelector} = require('reselect');
-const {connect} = require('react-redux');
-const {query} = require('../../MapStore2/web/client/actions/wfsquery');
-const {changeMapView} = require('../../MapStore2/web/client/actions/map');
-const {changeDrawingStatus} = require('../../MapStore2/web/client/actions/draw');
-const {dockSizeFeatures} = require('../../MapStore2/web/client/actions/featuregrid');
-const {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, removeCantieriArea, setActiveDrawTool, resetCantieriFeatures,
-    saveCantieriData, maxFeaturesExceeded, savingData } = require('../actions/cantieri');
-const epics = require('../epics/cantieri');
-const {featureToRow} = require('../utils/CantieriUtils');
-const {toggleControl} = require('../../MapStore2/web/client/actions/controls');
-const {stateSelector, elementsLayerSelector, areasLayerSelector} = require('../selector/cantieri');
+import {createSelector}  from 'reselect';
+import {connect}  from 'react-redux';
+import {query}  from '../../MapStore2/web/client/actions/wfsquery';
+import {changeMapView}  from '../../MapStore2/web/client/actions/map';
+import {changeDrawingStatus}  from '../../MapStore2/web/client/actions/draw';
+import {dockSizeFeatures}  from '../../MapStore2/web/client/actions/featuregrid';
+import {rowsSelected, rowsDeselected, initPlugin, setActiveGrid, removeCantieriArea, setActiveDrawTool, resetCantieriFeatures,
+    saveCantieriData, maxFeaturesExceeded, savingData }  from '../actions/cantieri';
+import epics  from '../epics/cantieri';
+import {featureToRow}  from '../utils/CantieriUtils';
+import {toggleControl}  from '../../MapStore2/web/client/actions/controls';
+import {stateSelector, elementsLayerSelector, areasLayerSelector}  from '../selector/cantieri';
+import cantieri from '../reducers/cantieri';
+import CantieriPanel from '../components/CantieriPanel';
+import ResizableGrid from '../../MapStore2/web/client/components/misc/ResizableGrid';
+import CantieriAreaGrid from '../components/CantieriAreaGrid';
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 
 const ElementsGrid = connect(
     createSelector(elementsLayerSelector, stateSelector, (layer, state) => ({
@@ -31,7 +36,7 @@ const ElementsGrid = connect(
     })), {
         onRowsSelected: rowsSelected,
         onRowsDeselected: rowsDeselected
-    })(require('../../MapStore2/web/client/components/misc/ResizableGrid'));
+    })(ResizableGrid);
 
 
 const AreasGrid = connect(
@@ -47,7 +52,7 @@ const AreasGrid = connect(
         }
     })), {
         onDeleteRow: removeCantieriArea
-    })(require('../components/CantieriAreaGrid'));
+    })(CantieriAreaGrid);
 
 const Dock = connect(
     createSelector([elementsLayerSelector, stateSelector], (layer, state) => ({
@@ -75,10 +80,10 @@ const Dock = connect(
         onHideModal: maxFeaturesExceeded,
         onHideSavingModal: savingData,
         setDockSize: dockSizeFeatures
-    })(require('../components/CantieriPanel'));
+    })(CantieriPanel);
 
-module.exports = {
-    LavoriPubbliciPlugin: Dock,
-    reducers: {cantieri: require('../reducers/cantieri')},
+export default createPlugin('LavoriPubblici', {
+    component: Dock,
+    reducers: {cantieri},
     epics
-};
+});
