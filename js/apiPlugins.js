@@ -85,7 +85,7 @@ export default {
         PrintPlugin,
         QueryPanelPlugin,
         RedirectPlugin,
-        RedoPlugi: History,
+        RedoPlugin: History,
         SaveAsPlugin,
         SavePlugin,
         ScaleBoxPlugin,
