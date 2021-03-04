@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED,
+import { INIT_CANTIERI_PLUGIN, SET_ACTIVE_GRID, MAX_FEATURES_EXCEEDED,
     SET_ACTIVE_DRAW_TOOL, SAVING_DATA, LOADING_DATA, UPDATE_CHECKED_ELEMENTS
-} = require('../actions/cantieri');
-const assign = require('object-assign');
-const {indexOf} = require('lodash');
+}  from '../actions/cantieri';
+import assign  from 'object-assign';
+import indexOf  from 'lodash/indexOf';
 
 function cantieri(state = {
     elementsGrid: {
@@ -90,4 +90,4 @@ function cantieri(state = {
     }
 }
 
-module.exports = cantieri;
+export default cantieri;

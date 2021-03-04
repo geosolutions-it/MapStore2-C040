@@ -5,11 +5,12 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const HTML = require('../../components/I18N/HTML');
-const PropTypes = require('prop-types');
+import React  from 'react';
+import HTML  from '../../components/I18N/HTML';
+import PropTypes  from 'prop-types';
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 
-require('./homedescription/homedescription.css');
+import './homedescription/homedescription.css';
 class HomeDescription extends React.Component {
 
     static propTypes = {
@@ -25,6 +26,6 @@ class HomeDescription extends React.Component {
     }
 }
 
-module.exports = {
-    HomeDescriptionPlugin: HomeDescription
-};
+export default createPlugin('HomeDescription', {
+    component: HomeDescription
+});

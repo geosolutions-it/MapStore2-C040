@@ -9,21 +9,24 @@ const paths = {
     framework: path.join(__dirname, "MapStore2", "web", "client"),
     code: [path.join(__dirname, "js"), path.join(__dirname, "MapStore2", "web", "client")]
 };
+const ModuleFederationPlugin = require('./MapStore2/build/moduleFederation').plugin;
 
 const config = require('./MapStore2/build/buildConfig')(
     {
-        'MapStore2-C040': path.join(__dirname, "js", "app"),
-        "embedded": path.join(__dirname, "js", "embedded"),
-        "ms2-api": path.join(__dirname, "js", "api"),
-        "llpp": path.join(__dirname, "js", "llpp")
+        'MapStore2-C040': path.join(__dirname, "js", "apps", "mapstore"),
+        "embedded": path.join(__dirname, "js", "apps", "embedded"),
+        "ms2-api": path.join(__dirname, "js", "apps", "api"),
+        "llpp": path.join(__dirname, "js", "apps", "llpp"),
+        "geostory-embedded": path.join(__dirname, "js", "geostoryEmbedded"),
+        "dashboard-embedded": path.join(__dirname, "js", "dashboardEmbedded")
     },
     {
         "themes/comge": path.join(__dirname, "assets", "themes", "comge", "theme.less")
     },
     paths,
-    extractThemesPlugin,
+    [extractThemesPlugin, ModuleFederationPlugin],
     true,
-    "/MapStore2/dist/", // the old value was "dist/"   ?
+    "dist/", // the old value was "dist/"   ?
     null,
     [
         new HtmlWebpackPlugin({
@@ -45,6 +48,20 @@ const config = require('./MapStore2/build/buildConfig')(
             inject: 'head',
             hash: true,
             filename: 'api.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'geostory-embedded-template.html'),
+            chunks: ['geostory-embedded'],
+            inject: "body",
+            hash: true,
+            filename: 'geostory-embedded.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'dashboard-embedded-template.html'),
+            chunks: ['dashboard-embedded'],
+            inject: 'body',
+            hash: true,
+            filename: 'dashboard-embedded.html'
         })
     ],
     {

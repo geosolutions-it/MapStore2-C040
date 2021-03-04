@@ -5,9 +5,9 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const src = require("../../assets/img/logo.jpg");
-
+import React  from 'react';
+import src  from "../../assets/img/logo.jpg";
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 class Footer extends React.Component {
     render() {
         return (
@@ -23,6 +23,6 @@ class Footer extends React.Component {
     }
 }
 
-module.exports = {
-    FooterPlugin: Footer
-};
+export default createPlugin('Footer', {
+    component: Footer
+});

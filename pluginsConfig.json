@@ -58,7 +58,8 @@
         "TOCItemsSettings",
         "FeatureEditor",
         "FilterLayer",
-        "AddGroup"
+        "AddGroup",
+        "Swipe"
       ],
       "autoEnableChildren": [
         "TOCItemsSettings",
@@ -79,10 +80,10 @@
         "QueryPanel"
       ],
       "children": [
-        "WFSDownload"
+        "LayerDownload"
       ],
       "autoEnableChildren": [
-        "WFSDownload"
+        "LayerDownload"
       ],
       "defaultConfig": {}
     },
@@ -200,10 +201,10 @@
       "dependencies": ["OmniBar"]
     },
     {
-      "name": "WFSDownload",
+      "name": "LayerDownload",
       "glyph": "features-grid-download",
-      "title": "plugins.WFSDownload.title",
-      "description": "plugins.WFSDownload.description"
+      "title": "plugins.LayerDownload.title",
+      "description": "plugins.LayerDownload.description"
     },
     {
       "name": "QueryPanel",
@@ -371,6 +372,12 @@
       }
     },
     {
+      "name": "Swipe"
+    },
+    {
+      "name": "SearchByBookmark"
+    },
+    {
       "name": "Search",
       "glyph": "search",
       "title": "plugins.Search.title",
@@ -379,6 +386,7 @@
         "OmniBar",
         "SearchServicesConfig"
       ],
+      "children": ["SearchByBookmark"],
       "defaultConfig": {
         "withToggle": [
           "max-width: 768px",

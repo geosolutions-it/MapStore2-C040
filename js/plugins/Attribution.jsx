@@ -5,9 +5,10 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-const React = require('react');
-const src = require("../../assets/img/logo.jpg");
-const PropTypes = require('prop-types');
+import React  from 'react';
+import src  from "../../assets/img/logo.jpg";
+import PropTypes  from 'prop-types';
+import { createPlugin } from '@mapstore/utils/PluginsUtils';
 
 class Attribution extends React.Component {
     static propTypes = {
@@ -32,6 +33,6 @@ class Attribution extends React.Component {
     }
 }
 
-module.exports = {
-    AttributionPlugin: Attribution
-};
+export default createPlugin('Attribution', {
+    component: Attribution
+});

@@ -1,8 +1,8 @@
 
-const React = require('react');
-const assign = require('object-assign');
-const Message = require('../../MapStore2/web/client/components/I18N/Message');
-const PropTypes = require('prop-types');
+import React  from 'react';
+import assign  from 'object-assign';
+import Message  from '../../MapStore2/web/client/components/I18N/Message';
+import PropTypes  from 'prop-types';
 
 class StyledDiv extends React.Component {
     static propTypes = {
@@ -52,4 +52,4 @@ class StyledDiv extends React.Component {
     }
 }
 
-module.exports = StyledDiv;
+export default StyledDiv;

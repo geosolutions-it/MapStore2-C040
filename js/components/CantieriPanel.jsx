@@ -1,18 +1,18 @@
-const Dock = require('../../MapStore2/web/client/components/misc/DockablePanel');
-const Spinner = require('react-spinkit');
-const Message = require('../../MapStore2/web/client/components/I18N/Message');
-const StyledDiv = require('./StyledDiv');
-const ToggleButton = require('../../MapStore2/web/client/components/buttons/ToggleButton');
-const LocaleUtils = require('../../MapStore2/web/client/utils/LocaleUtils');
-const Modal = require('../../MapStore2/web/client/components/misc/Modal');
+import Dock  from '../../MapStore2/web/client/components/misc/DockablePanel';
+import Spinner  from 'react-spinkit';
+import Message  from '../../MapStore2/web/client/components/I18N/Message';
+import StyledDiv  from './StyledDiv';
+import ToggleButton  from '../../MapStore2/web/client/components/buttons/ToggleButton';
+import * as LocaleUtils  from '../../MapStore2/web/client/utils/LocaleUtils';
+import Modal  from '../../MapStore2/web/client/components/misc/Modal';
 
-const React = require('react');
-const {indexOf} = require('lodash');
-const {ButtonToolbar, Button, Tooltip, Alert} = require('react-bootstrap');
+import React  from 'react';
+import PropTypes  from 'prop-types';
+import {indexOf}  from 'lodash';
+import {ButtonToolbar, Button, Tooltip, Alert}  from 'react-bootstrap';
 
 const polygonSelection = "polygonSelection";
 const pointSelection = "pointSelection";
-const PropTypes = require('prop-types');
 
 class CantieriPanel extends React.Component {
     static propTypes = {
@@ -192,4 +192,4 @@ class CantieriPanel extends React.Component {
     }
 }
 
-module.exports = CantieriPanel;
+export default CantieriPanel;

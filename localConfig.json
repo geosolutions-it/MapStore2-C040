@@ -70,7 +70,6 @@
           "multiGeometry": true,
           "validationErrors": {}
         },
-        "format": "decimal",
         "defaultTextAnnotation": "New"
       },
       "maptype": {
@@ -158,6 +157,7 @@
       {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
       {"name": "geostorymode", "path": "geostory.mode"},
+      {"name": "userrole", "path": "security.user.role"},
       {"name": "featuregridmode", "path": "featuregrid.mode"},
       {"name": "printEnabled", "path": "print.capabilities"}
   ],
@@ -345,7 +345,15 @@
             }
           ]
         }
-      }, "Share", "Details", "DrawerMenu", "Version", {
+      }, {
+        "name": "Share",
+        "cfg": {
+          "advancedSettings": {
+            "bbox": true,
+            "centerAndZoom": true
+          }
+        }
+      }, "Details", "DrawerMenu", "Version", "Swipe", {
         "name": "BackgroundSelector",
         "cfg": {
           "bottom": "30px"
@@ -354,7 +362,9 @@
       {
         "name": "Annotations",
         "cfg": {
-          "symbolsPath": "assets/symbols/"
+          "symbolsPath": "assets/symbols/",
+          "allowEdit": true,
+          "measurementAnnotationEdit": false
         }
       },
       {
@@ -483,7 +493,7 @@
       },
       "Notifications",
       {
-        "name": "WFSDownload",
+        "name": "LayerDownload",
         "cfg": {
           "formats": [{
               "name": "csv",
@@ -599,7 +609,8 @@
         "name":"Measure",
         "cfg": {
           "defaultOptions": {
-            "showAddAsAnnotation": true
+            "showAddAsAnnotation": true,
+            "geodesic": true
           }
         }
       },
@@ -746,7 +757,7 @@
       "Playback",
       "FeedbackMask",
       "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen",
-      "GlobeViewSwitcher", "SearchServicesConfig", "AutoMapUpdate",
+      "GlobeViewSwitcher", "SearchServicesConfig", "SearchByBookmark", "AutoMapUpdate",
       {
         "name": "Cookie",
         "cfg": {
@@ -902,6 +913,7 @@
           }
         }
       },
+      "Details",
       "FeedbackMask"
     ],
     "featureviewer": [{
@@ -986,7 +998,7 @@
             "spatialMethodOptions": [
                 {"id": "Viewport", "name": "queryform.spatialfilter.methods.viewport"},
                 {"id": "BBOX", "name": "queryform.spatialfilter.methods.box"},
-                {"id": "Circle", "name": "queryform.spatialfilter.methods.circle"},
+                {"id": "Circle", "name": "queryform.spatialfilter.methods.circle",                 "geodesic": true},
                 {"id": "Polygon", "name": "queryform.spatialfilter.methods.poly"}
             ]
         }
@@ -1181,6 +1193,19 @@
         }
       },
       {
+        "name": "Share",
+        "cfg": {
+            "showAPI": false,
+            "advancedSettings": false,
+            "shareUrlRegex": "(h[^#]*)#\\/dashboard\\/([A-Za-z0-9]*)",
+            "shareUrlReplaceString": "$1dashboard-embedded.html#/$2",
+            "embedOptions": {
+                "showTOCToggle": false,
+                "showConnectionsParamToggle": true
+            }
+        }
+      },
+      {
         "name": "Dashboard",
         "cfg": {
           "cols": { "lg": 12, "md": 12, "sm": 8, "xs": 4, "xxs": 2 },
@@ -1210,6 +1235,30 @@
         }
       }
     ],
+    "geostory-embedded": [
+      "GeoStory",
+      {
+        "name": "GeoStoryNavigation",
+        "cfg": {
+          "containerPosition": "header"
+        }
+      },
+      {
+        "name": "FeedbackMask",
+        "cfg": {
+          "containerPosition": "header"
+        }
+      }
+    ],
+      "dashboard-embedded": [
+        {
+          "name": "Dashboard",
+          "cfg": {
+            "minLayoutWidth": 768
+          }
+        },
+        { "name": "FeedbackMask" }
+      ],
     "cantieri": ["FeedbackMask", {
       "name": "Map",
       "cfg" :{
@@ -1343,12 +1392,20 @@
         {
           "name": "Share",
           "cfg": {
-            "embedPanel": false,
-            "advancedSettings": {
-              "homeButton": true
-            }
+              "embedPanel": true,
+              "showAPI": false,
+              "advancedSettings": {
+                  "hideInTab": "embed",
+                  "homeButton": true,
+                  "sectionId": true
+              },
+              "shareUrlRegex": "(h[^#]*)#\\/geostory\\/([^\\/]*)\\/([A-Za-z0-9]*)",
+              "shareUrlReplaceString": "$1geostory-embedded.html#/$3",
+              "embedOptions": {
+                  "showTOCToggle": false
+              }
           }
-        }
+      }
       ],
       "context-creator": [
         {

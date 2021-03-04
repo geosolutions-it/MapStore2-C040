@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const React = require('react');
-const PagedCombobox = require('../../../MapStore2/web/client/components/misc/combobox/PagedCombobox');
-const {streamEnhancer, addStateHandlers} = require('./addressesEnhancer');
+import React from 'react';
+import PagedCombobox from '@mapstore/components/misc/combobox/PagedCombobox';
+import { streamEnhancer, addStateHandlers } from './addressesEnhancer';
 
 // component enhanced with props from stream, and local state
 const PagedComboboxEnhanced = streamEnhancer(
@@ -39,4 +39,4 @@ const PagedComboboxEnhanced = streamEnhancer(
 
 const AddressesCombobox = addStateHandlers(PagedComboboxEnhanced);
 
-module.exports = AddressesCombobox;
+export default AddressesCombobox;

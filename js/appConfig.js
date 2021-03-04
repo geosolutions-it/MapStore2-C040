@@ -5,85 +5,99 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
 */
-const {startLoading, updateFeatureLoader} = require('./epics/featureloader');
-const {addCustomEditors, addCustomViewer} = require('./epics/initCustomEditors');
+import { startLoading, updateFeatureLoader } from '@js/epics/featureloader';
+import { addCustomEditors, addCustomViewer } from '@js/epics/initCustomEditors';
+import Home from '@js/pages/Home';
+import MapViewer from '@mapstore/product/pages/MapViewer';
+import FeatureViewer from '@js/pages/FeatureViewer';
+import Context from '@mapstore/product/pages/Context';
+import ContextCreator from '@mapstore/product/pages/ContextCreator';
+import Manager from '@js/pages/Manager';
+import ContextManager from '@mapstore/product/pages/ContextManager';
+import Dashboard from '@mapstore/product/pages/Dashboard';
+import RulesManager from '@mapstore/product/pages/RulesManager';
+import GeoStory from '@mapstore/product/pages/GeoStory';
 
-module.exports = {
+import security from '@mapstore/reducers/security';
+
+import pluginsDef from '@js/plugins.js';
+
+export default {
     printingEnabled: true,
     pages: [{
         name: "home",
         path: "/",
-        component: require('./pages/Home')
+        component: Home
     }, {
         name: "viewer",
         path: "/viewer",
-        component: require('../MapStore2/web/client/product/pages/MapViewer')
+        component: MapViewer
     }, {
         name: "featureviewer",
         path: "/featureviewer/:mapType/:layer/:cql_filter",
-        component: require('./pages/FeatureViewer')
+        component: FeatureViewer
     }, {
         name: "wmsviewer",
         path: "/wmsfeatureviewer/:mapType/:layer/:cql_filter",
-        component: require('./pages/FeatureViewer')
+        component: FeatureViewer
     }, {
         name: "mapviewer",
         path: "/viewer/:mapType/:mapId",
-        component: require('../MapStore2/web/client/product/pages/MapViewer')
+        component: MapViewer
     }, {
         name: "mapviewer",
         path: "/viewer/:mapId",
-        component: require('../MapStore2/web/client/product/pages/MapViewer')
+        component: MapViewer
     }, {
         name: "mapviewer",
         path: "/viewer/:mapType/:mapId/context/:contextId", // TODO CHECK
-        component: require('../MapStore2/web/client/product/pages/MapViewer') // IF IT IS NEEDED TO USE MAPSTORE PAGE
+        component: MapViewer // IF IT IS NEEDED TO USE MAPSTORE PAGE
     }, {
         name: 'context',
         path: "/context/:contextName",
-        component: require('../MapStore2/web/client/product/pages/Context').default
+        component: Context
     }, {
         name: 'context',
         path: "/context/:contextName/:mapId",
-        component: require('../MapStore2/web/client/product/pages/Context').default
+        component: Context
     }, {
         name: 'context-creator',
         path: "/context-creator/:contextId",
-        component: require('../MapStore2/web/client/product/pages/ContextCreator').default
+        component: ContextCreator
     }, {
         name: "manager",
         path: "/manager",
-        component: require('./pages/Manager')
+        component: Manager
     }, {
         name: "manager",
         path: "/manager/:tool",
-        component: require('./pages/Manager')
+        component: Manager
     }, {
         name: "context-manager",
         path: "/context-manager",
-        component: require('../MapStore2/web/client/product/pages/ContextManager').default
+        component: ContextManager
     }, {
         name: "dashboard",
         path: "/dashboard",
-        component: require('../MapStore2/web/client/product/pages/Dashboard')
+        component: Dashboard
     }, {
         name: "dashboard",
         path: "/dashboard/:did",
-        component: require('../MapStore2/web/client/product/pages/Dashboard')
+        component: Dashboard
     }, {
         name: "rulesmanager",
         path: "/rules-manager",
-        component: require('../MapStore2/web/client/product/pages/RulesManager')
+        component: RulesManager
     }, {
         name: "geostory",
         path: "/geostory/:gid",
-        component: require('../MapStore2/web/client/product/pages/GeoStory').default
+        component: GeoStory
     }, {
         name: "geostory",
         path: "/geostory/shared/:gid",
-        component: require('../MapStore2/web/client/product/pages/GeoStory').default
+        component: GeoStory
     }],
-    pluginsDef: require('./plugins.js'),
+    pluginsDef,
     initialState: {
         defaultState: {
             mapInfo: {enabled: true, infoFormat: 'text/html'},
@@ -149,7 +163,7 @@ module.exports = {
         theme: "comge"
     },
     appReducers: {
-        security: require('../MapStore2/web/client/reducers/security')
+        security
     },
     appEpics: {
         "FEATUREVIEWER:startLoading": startLoading,

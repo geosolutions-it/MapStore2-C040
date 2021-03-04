@@ -6,31 +6,31 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const ROWS_SELECTED = "CANTIERI::ROWS_SELECTED";
-const ROWS_DESELECTED = "CANTIERI::ROWS_DESELECTED";
-const INIT_CANTIERI_PLUGIN = "INIT_CANTIERI_PLUGIN";
-const SET_ACTIVE_GRID = "SET_ACTIVE_GRID";
-const REMOVE_CANTIERI_AREA = "REMOVE_CANTIERI_AREA";
-const SET_ACTIVE_DRAW_TOOL = "SET_ACTIVE_DRAW_TOOL";
-const RESET_CANTIERI_FEATURES = "RESET_CANTIERI_FEATURES";
-const QUERY_ELEMENTS_FEATURES = "QUERY_ELEMENTS_FEATURES";
-const FETCH_CANTIERI_FEATURES = "FETCH_CANTIERI_FEATURES";
-const LOAD_CHECKED_ELEMENTS = "LOAD_CHECKED_ELEMENTS";
-const SAVE_CANTIERI_DATA = "SAVE_CANTIERI_DATA";
-const MAX_FEATURES_EXCEEDED = "MAX_FEATURES_EXCEEDED";
-const AREAS_LAYER = "CANTIERI::AREAS_LAYER";
-const ELEMENTS_LAYER = "CANTIERI::ELEMENTS_LAYER";
-const DATA_SAVED = "CANTIERI::DATA_SAVED";
-const SAVING_ERROR = "CANTIERI::SAVE_ERROR";
-const ERROR_REMOVE_CANTIERI_AREA = "ERROR_REMOVE_CANTIERI_AREA";
-const ERROR_RESET_CANTIERI_FEATURES = "ERROR_RESET_CANTIERI_FEATURES";
-const ERROR_LOAD_CANTIERI_AREAS = "ERROR_LOAD_CANTIERI_AREAS";
-const ERROR_QUERY_ELEMENTS_FEATURES = "ERROR_QUERY_ELEMENTS_FEATURES";
-const ERROR_DRAWING_AREAS = "ERROR_DRAWING_AREAS";
-const SUCCESS_SAVING = "SUCCESS_SAVING";
-const SAVING_DATA = "SAVING_DATA";
-const LOADING_DATA = "LOADING_DATA";
-const UPDATE_CHECKED_ELEMENTS = "UPDATE_CHECKED_ELEMENTS";
+export const ROWS_SELECTED = "CANTIERI::ROWS_SELECTED";
+export const ROWS_DESELECTED = "CANTIERI::ROWS_DESELECTED";
+export const INIT_CANTIERI_PLUGIN = "INIT_CANTIERI_PLUGIN";
+export const SET_ACTIVE_GRID = "SET_ACTIVE_GRID";
+export const REMOVE_CANTIERI_AREA = "REMOVE_CANTIERI_AREA";
+export const SET_ACTIVE_DRAW_TOOL = "SET_ACTIVE_DRAW_TOOL";
+export const RESET_CANTIERI_FEATURES = "RESET_CANTIERI_FEATURES";
+export const QUERY_ELEMENTS_FEATURES = "QUERY_ELEMENTS_FEATURES";
+export const FETCH_CANTIERI_FEATURES = "FETCH_CANTIERI_FEATURES";
+export const LOAD_CHECKED_ELEMENTS = "LOAD_CHECKED_ELEMENTS";
+export const SAVE_CANTIERI_DATA = "SAVE_CANTIERI_DATA";
+export const MAX_FEATURES_EXCEEDED = "MAX_FEATURES_EXCEEDED";
+export const AREAS_LAYER = "CANTIERI::AREAS_LAYER";
+export const ELEMENTS_LAYER = "CANTIERI::ELEMENTS_LAYER";
+export const DATA_SAVED = "CANTIERI::DATA_SAVED";
+export const SAVING_ERROR = "CANTIERI::SAVE_ERROR";
+export const ERROR_REMOVE_CANTIERI_AREA = "ERROR_REMOVE_CANTIERI_AREA";
+export const ERROR_RESET_CANTIERI_FEATURES = "ERROR_RESET_CANTIERI_FEATURES";
+export const ERROR_LOAD_CANTIERI_AREAS = "ERROR_LOAD_CANTIERI_AREAS";
+export const ERROR_QUERY_ELEMENTS_FEATURES = "ERROR_QUERY_ELEMENTS_FEATURES";
+export const ERROR_DRAWING_AREAS = "ERROR_DRAWING_AREAS";
+export const SUCCESS_SAVING = "SUCCESS_SAVING";
+export const SAVING_DATA = "SAVING_DATA";
+export const LOADING_DATA = "LOADING_DATA";
+export const UPDATE_CHECKED_ELEMENTS = "UPDATE_CHECKED_ELEMENTS";
 
 /**
  * updates in the state the selected rows
@@ -63,7 +63,7 @@ const UPDATE_CHECKED_ELEMENTS = "UPDATE_CHECKED_ELEMENTS";
  * }
  * ```
  */
-function rowsSelected(rows) {
+export function rowsSelected(rows) {
     return {
         type: ROWS_SELECTED,
         rows
@@ -74,7 +74,7 @@ function rowsSelected(rows) {
  * @memberof actions.cantieri
  * @return {action} of type `ROWS_DESELECTED`
  */
-function rowsDeselected(rows) {
+export function rowsDeselected(rows) {
     return {
         type: ROWS_DESELECTED,
         rows
@@ -85,7 +85,7 @@ function rowsDeselected(rows) {
  * @memberof actions.cantieri
  * @return {action} of type `INIT_CANTIERI_PLUGIN`
  */
-function initPlugin(options) {
+export function initPlugin(options) {
     return {
         type: INIT_CANTIERI_PLUGIN,
         options
@@ -96,7 +96,7 @@ function initPlugin(options) {
  * @memberof actions.cantieri
  * @return {action} of type `SET_ACTIVE_GRID`
  */
-function setActiveGrid(activeGrid) {
+export function setActiveGrid(activeGrid) {
     return {
         type: SET_ACTIVE_GRID,
         activeGrid
@@ -107,7 +107,7 @@ function setActiveGrid(activeGrid) {
  * @memberof actions.cantieri
  * @return {action} of type `REMOVE_CANTIERI_AREA`
  */
-function removeCantieriArea(area) {
+export function removeCantieriArea(area) {
     return {
         type: REMOVE_CANTIERI_AREA,
         area
@@ -118,7 +118,7 @@ function removeCantieriArea(area) {
  * @memberof actions.cantieri
  * @return {action} of type `RESET_CANTIERI_FEATURES`
  */
-function resetCantieriFeatures() {
+export function resetCantieriFeatures() {
     return {
         type: RESET_CANTIERI_FEATURES
     };
@@ -129,7 +129,7 @@ function resetCantieriFeatures() {
  * @param {object} filter the filter to use to query the layer
  * @return {action} of type `QUERY_ELEMENTS_FEATURES`
  */
-function queryElements(filter, check) {
+export function queryElements(filter, check) {
     return {
         type: QUERY_ELEMENTS_FEATURES,
         filter,
@@ -141,7 +141,7 @@ function queryElements(filter, check) {
  * @memberof actions.cantieri
  * @return {action} of type `SET_ACTIVE_DRAW_TOOL`
  */
-function setActiveDrawTool(activeDrawTool) {
+export function setActiveDrawTool(activeDrawTool) {
     return {
         type: SET_ACTIVE_DRAW_TOOL,
         activeDrawTool
@@ -152,7 +152,7 @@ function setActiveDrawTool(activeDrawTool) {
  * @memberof actions.cantieri
  * @return {action} of type `LOAD_CHECKED_ELEMENTS`
  */
-function loadCheckedElements(checkedElements) {
+export function loadCheckedElements(checkedElements) {
     return {
         type: LOAD_CHECKED_ELEMENTS,
         checkedElements
@@ -163,7 +163,7 @@ function loadCheckedElements(checkedElements) {
  * @memberof actions.cantieri
  * @return {action} of type `SAVE_CANTIERI_DATA`
  */
-function saveCantieriData() {
+export function saveCantieriData() {
     return {
         type: SAVE_CANTIERI_DATA
     };
@@ -173,7 +173,7 @@ function saveCantieriData() {
  * @memberof actions.cantieri
  * @return {action} of type `MAX_FEATURES_EXCEEDED`
  */
-function maxFeaturesExceeded(status) {
+export function maxFeaturesExceeded(status) {
     return {
         type: MAX_FEATURES_EXCEEDED,
         status
@@ -184,13 +184,13 @@ function maxFeaturesExceeded(status) {
  * @memberof actions.cantieri
  * @return {action} of type `FETCH_CANTIERI_FEATURES`
  */
-function loadCantieriAreaFeatures() {
+export function loadCantieriAreaFeatures() {
     return {
         type: FETCH_CANTIERI_FEATURES
     };
 }
 
-function dataSaved(checkedElements, idCantiere, typology) {
+export function dataSaved(checkedElements, idCantiere, typology) {
     return {
         type: DATA_SAVED,
         checkedElements,
@@ -199,34 +199,34 @@ function dataSaved(checkedElements, idCantiere, typology) {
     };
 }
 
-function savingError(error) {
+export function savingError(error) {
     return {
         type: SAVING_ERROR,
         error
     };
 }
 
-function savingData(status) {
+export function savingData(status) {
     return {
         type: SAVING_DATA,
         status
     };
 }
 
-function loadingData(status) {
+export function loadingData(status) {
     return {
         type: LOADING_DATA,
         status
     };
 }
-function updateCheckedElements(elements) {
+export function updateCheckedElements(elements) {
     return {
         type: UPDATE_CHECKED_ELEMENTS,
         elements
     };
 }
 
-module.exports = {
+export default {
     ROWS_SELECTED, rowsSelected,
     ROWS_DESELECTED, rowsDeselected,
     INIT_CANTIERI_PLUGIN, initPlugin,

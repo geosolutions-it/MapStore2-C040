@@ -6,16 +6,16 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const expect = require('expect');
-const {
+import expect from 'expect';
+import {
     initPlugin,
     setActiveGrid,
     maxFeaturesExceeded,
     savingData,
     loadingData,
     setActiveDrawTool
-} = require('../../actions/cantieri');
-const cantieri = require('../cantieri');
+} from '../../actions/cantieri';
+import cantieri from '../cantieri';
 
 describe('Testing the cantieri reducers', () => {
     it('initPlugin', () => {

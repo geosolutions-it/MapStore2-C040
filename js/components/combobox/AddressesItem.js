@@ -1,5 +1,5 @@
-const React = require('react');
-require('./item.less');
+import React from 'react';
+import './item.less';
 
 const AddressesItem = ({item}) => {
 
@@ -15,4 +15,4 @@ const AddressesItem = ({item}) => {
     );
 };
 
-module.exports = AddressesItem;
+export default AddressesItem;
