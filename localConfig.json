@@ -171,8 +171,7 @@
                 "pinchRotate": false
               }
             }
-          },
-          "tools": ["locate"]
+          }
         }
       }, "Version", "DrawerMenu",
       {
@@ -752,7 +751,6 @@
     "embedded": [{
         "name": "Map",
         "cfg": {
-          "tools": ["locate"],
           "mapOptions": {
             "openlayers": {
               "attribution": {
@@ -902,7 +900,6 @@
         "name": "Map",
         "cfg": {
           "mapType": "openlayers",
-          "tools": ["locate", "draw", "highlight"],
           "mapOptions": {
             "openlayers": {
               "interactions": {
@@ -1253,8 +1250,7 @@
             }
           }
         },
-        "mapType": "openlayers",
-        "tools": ["measurement", "locate", "draw", "highlight"]
+        "mapType": "openlayers"
       }
     }, "Notifications", "LavoriPubblici",
         {
