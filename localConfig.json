@@ -746,7 +746,8 @@
           "declineUrl": "http://www.google.com"
         }
       },
-      "GeoNetworkLink"
+      "GeoNetworkLink",
+      "StyleEditor"
     ],
     "embedded": [{
         "name": "Map",
