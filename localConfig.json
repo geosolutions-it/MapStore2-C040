@@ -398,7 +398,7 @@
               "rules": [{
                 "regex": {
                   "attribute": "COD_CONTROLLO",
-                  "typeName": "CORSO_1:V_VINC_SOPRAINT"
+                  "typeName": "SITGEO:V_VINC_SOPRAINT"
                 },
                 "editor": "AddressesEditor",
                 "editorProps": {
