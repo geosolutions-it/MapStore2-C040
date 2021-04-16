@@ -104,13 +104,13 @@
 			}, {
 				"id": "muro__6",
 				"search": {
-					"url": "http://geocollect.geo-solutions.it:80/geoserver/it.geosolutions/wfs?",
+					"url": "https://geocollect.geo-solutions.it:80/geoserver/it.geosolutions/wfs?",
 					"type": "wfs"
 				},
 				"name": "muro",
 				"title": "Muri",
 				"type": "wms",
-				"url": "http://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
+				"url": "https://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
 				"bbox": {
 					"crs": "EPSG:4326",
 					"bounds": {
@@ -135,13 +135,13 @@
 			}, {
 				"id": "cens_muri_sop__7",
 				"search": {
-					"url": "http://geocollect.geo-solutions.it:80/geoserver/it.geosolutions/wfs?",
+					"url": "https://geocollect.geo-solutions.it:80/geoserver/it.geosolutions/wfs?",
 					"type": "wfs"
 				},
 				"name": "cens_muri_sop",
 				"title": "Sopralluoghi",
 				"type": "wms",
-				"url": "http://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
+				"url": "https://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
 				"bbox": {
 					"crs": "EPSG:4326",
 					"bounds": {
@@ -166,8 +166,8 @@
 					"format": "JSON",
 					"viewer": {
 						"type": "Geocollect",
-						"wfsUrl": "http://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
-						"baseUrl": "http://geocollect.geo-solutions.it/opensdi2-manager/mvc/fileManager/extJSbrowser?action=get_filelist&folder=",
+						"wfsUrl": "https://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
+						"baseUrl": "https://geocollect.geo-solutions.it/opensdi2-manager/mvc/fileManager/extJSbrowser?action=get_filelist&folder=",
             "folder": "/media/cens_muri/",
             "featureProperty": "my_orig_id"
 					}
@@ -176,14 +176,14 @@
 			}, {
 				"id": "cens_muri__8",
 				"search": {
-					"url": "http://geocollect.geo-solutions.it:80/geoserver/it.geosolutions/wfs?",
+					"url": "https://geocollect.geo-solutions.it:80/geoserver/it.geosolutions/wfs?",
 					"type": "wfs"
 				},
 				"name": "cens_muri",
 				"opacity": 1,
 				"title": "Segnalazioni Muri",
 				"type": "wms",
-				"url": "http://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
+				"url": "https://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
 				"bbox": {
 					"crs": "EPSG:4326",
 					"bounds": {
@@ -208,8 +208,8 @@
 					"format": "JSON",
 					"viewer": {
 						"type": "Geocollect",
-						"wfsUrl": "http://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
-						"baseUrl": "http://geocollect.geo-solutions.it/opensdi2-manager/mvc/fileManager/extJSbrowser?action=get_filelist&folder=",
+						"wfsUrl": "https://geocollect.geo-solutions.it/geoserver/it.geosolutions/ows",
+						"baseUrl": "https://geocollect.geo-solutions.it/opensdi2-manager/mvc/fileManager/extJSbrowser?action=get_filelist&folder=",
             "folder": "/media/cens_muri/",
             "featureProperty": "my_orig_id"
 					}

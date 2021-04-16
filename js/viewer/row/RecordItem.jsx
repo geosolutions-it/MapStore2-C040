@@ -56,7 +56,7 @@ class RecordItem extends React.Component {
     }
 
     renderThumb(thumbURL, record) {
-        let thumbSrc = 'http://geocollect.geo-solutions.it/opensdi2-manager/mvc/fileManager/extJSbrowser?action=get_image&file=' + thumbURL || defaultThumb;
+        let thumbSrc = 'https://geocollect.geo-solutions.it/opensdi2-manager/mvc/fileManager/extJSbrowser?action=get_image&file=' + thumbURL || defaultThumb;
         return (
             <Thumbnail id="geocollect-thumb" className="gridcard thumb">
                 <a onClick={() => this.onClickThumbnail(true, thumbSrc)}>
