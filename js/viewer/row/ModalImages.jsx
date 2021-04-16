@@ -30,7 +30,10 @@ class ModalImages extends React.Component {
                 <Modal
                     {...this.props.modalOptions}
                     id="geocollect-images-modal"
-                    onHide={() => this.props.onClickThumbnail(false, "")}
+                    onHide={(e) => {
+                        e.stopPropagation();
+                        this.props.onClickThumbnail(false, "");
+                    }}
                     show={this.props.showModal}
                     bsSize="large"
                     style={{overflowY: "auto"}}
@@ -44,7 +47,12 @@ class ModalImages extends React.Component {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button bsSize="small" style={{"float": "right"}} bsStyle="primary" onClick={() => this.props.onClickThumbnail(false, "")}>{this.props.closeButtonText}</Button>
+                        <Button bsSize="small" style={{"float": "right"}} bsStyle="primary" onClick={
+                            (e) => {
+                                e.stopPropagation();
+                                this.props.onClickThumbnail(false, "");
+                            }
+                        }>{this.props.closeButtonText}</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
