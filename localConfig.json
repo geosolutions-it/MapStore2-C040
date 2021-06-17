@@ -388,6 +388,7 @@
           "name": "FeatureEditor",
           "cfg": {
             "maxZoom": 18,
+            "enableMapFilterSync": true,
             "showFilteredObject": true,
             "customEditorsOptions": {
               "rules": [{
@@ -917,7 +918,8 @@
       }, {
         "name":"FeatureEditor",
         "cfg": {
-          "maxZoom": 18
+          "maxZoom": 18,
+          "enableMapFilterSync": true
         }
       }, {
         "name": "QueryPanel",
