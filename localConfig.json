@@ -214,11 +214,6 @@
                 "width": 300
               }
             }, {
-        "name": "Tutorial",
-        "cfg": {
-          "preset": "default_mobile_tutorial"
-        }
-      }, {
         "name": "Settings",
         "cfg": {
           "wrap": true,
@@ -392,6 +387,8 @@
       "Home", {
           "name": "FeatureEditor",
           "cfg": {
+            "maxZoom": 18,
+            "enableMapFilterSync": true,
             "showFilteredObject": true,
             "customEditorsOptions": {
               "rules": [{
@@ -537,54 +534,6 @@
       "AddGroup",
       "TOCItemsSettings",
       "ThematicLayer",
-      {
-        "name": "Tutorial",
-        "cfg": {
-          "presetList": {
-            "openlayers_tutorial": [{
-                "translation": "intro",
-                "selector": "#intro-tutorial"
-              },
-              {
-                "translationHTML": "drawerMenu",
-                "selector": "#drawer-menu-button"
-              },
-              {
-                "translation": "searchBar",
-                "selector": "#map-search-bar"
-              },
-              {
-                "translation": "home",
-                "selector": "#home-button"
-              },
-              {
-                "translation": "burgerMenu",
-                "selector": "#mapstore-burger-menu"
-              },
-              {
-                "translation": "zoomInButton",
-                "selector": "#zoomin-btn",
-                "position": "top"
-              },
-              {
-                "translation": "zoomOutButton",
-                "selector": "#zoomout-btn",
-                "position": "top"
-              },
-              {
-                "translation": "fullscreen",
-                "selector": "#fullscreen-btn",
-                "position": "top"
-              },
-              {
-                "translation": "identifyButton",
-                "selector": "#navigationBar-container .glyphicon.glyphicon-option-horizontal",
-                "position": "top"
-              }
-            ]
-          }
-        }
-      },
       "MapImport", "MapExport",
       {
         "name":"Measure",
@@ -639,7 +588,9 @@
             }
           }
         }
-      }, "MapFooter", "PrivacyNote", {
+      }, "MapFooter", {"name": "PrivacyNote", "cfg": {
+        "url": "https://smart.comune.genova.it/node/8227"
+      }}, {
         "name": "Search",
         "cfg": {
           "showCoordinatesSearchOption": false,
@@ -742,7 +693,7 @@
       {
         "name": "Cookie",
         "cfg": {
-          "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
+          "externalCookieUrl": "https://smart.comune.genova.it/node/8227",
           "declineUrl": "http://www.google.com"
         }
       },
@@ -964,7 +915,13 @@
             "alwaysVisible": true
           }
         }
-      }, "FeatureEditor", {
+      }, {
+        "name":"FeatureEditor",
+        "cfg": {
+          "maxZoom": 18,
+          "enableMapFilterSync": true
+        }
+      }, {
         "name": "QueryPanel",
         "cfg": {
             "activateQueryTool": true,
@@ -1094,7 +1051,7 @@
       },{
         "name": "Cookie",
         "cfg": {
-          "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
+          "externalCookieUrl": "https://smart.comune.genova.it/node/8227",
           "declineUrl": "http://www.google.com"
         }
       },
@@ -1195,21 +1152,13 @@
       "DashboardSaveAs",
       "NavMenu",
       {
-        "name": "Tutorial",
-        "cfg": {
-          "allowClicksThruHole": false,
-          "containerPosition": "header",
-          "preset": "dashboard_tutorial"
-        }
-      },
-      {
         "name": "Header",
         "hide": true
       },
       "Notifications", "Home", {
         "name": "Cookie",
         "cfg": {
-          "externalCookieUrl": "http://www.comune.genova.it/content/note-legali-e-privacy",
+          "externalCookieUrl": "https://smart.comune.genova.it/node/8227",
           "declineUrl": "http://www.google.com"
         }
       }
@@ -1329,14 +1278,6 @@
             "className": "navbar shadow navbar-home"
           }
         },
-        {
-          "name": "Tutorial",
-          "cfg": {
-            "allowClicksThruHole": false,
-            "containerPosition": "header",
-            "preset": "geostory_view_tutorial"
-          }
-        },
         "Login",
         "BurgerMenu",
         "NavMenu",
@@ -1397,7 +1338,6 @@
         "Login",
         "Header",
         "NavMenu",
-        "Tutorial",
         {
             "name": "ContextCreator",
             "cfg": {
