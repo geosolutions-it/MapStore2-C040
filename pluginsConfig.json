@@ -396,10 +396,10 @@
     },
     {
       "name": "Cookie",
-      "mandatory": true,
-      "hidden": true,
+      "mandatory": false,
+      "hidden": false,
       "defaultConfig": {
-        "externalCookieUrl": "",
+        "externalCookieUrl": "https://smart.comune.genova.it/node/8227",
         "declineUrl": "http://www.google.com"
       }
     },
