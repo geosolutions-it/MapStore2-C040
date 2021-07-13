@@ -499,9 +499,11 @@
             }
           ],
           "srsList": [
-                      {"name": "native", "label": "Native"},
-                      {"name": "EPSG:4326", "label": "WGS84"}
-              ],
+                { "name": "native", "label": "Native" },
+                { "name": "EPSG:3003", "label": "3003" },
+                { "name": "EPSG:7791", "label": "7791" },
+                { "name": "EPSG:4326", "label": "WGS84" }
+            ],
            "defaultSrs": "EPSG:4326"
         }
       }, {
